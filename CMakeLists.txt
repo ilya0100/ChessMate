@@ -1,0 +1,12 @@
+CMAKE_MINIMUM_REQUIRED(VERSION 3.13.4)
+PROJECT(ChessMate)
+
+SET(CMAKE_CXX_STANDART 17)
+
+INCLUDE_DIRECTORIES(project/include)
+
+find_package(SFML 2.5 COMPONENTS graphics audio REQUIRED)
+
+add_executable(${PROJECT_NAME} project/src/main.cpp)
+
+target_link_libraries(ChessMate sfml-graphics sfml-audio)
