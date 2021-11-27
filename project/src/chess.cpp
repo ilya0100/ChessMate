@@ -25,7 +25,7 @@ namespace Chess {
             return texture;
         }
 
-    ChessFigure::ChessFigure(size_t new_x = 0, size_t new_y = 0) {
+    ChessFigure::ChessFigure(size_t new_x, size_t new_y) {
         x = new_x;
         y = new_y;
     }

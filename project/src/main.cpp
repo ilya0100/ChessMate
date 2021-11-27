@@ -36,10 +36,10 @@ int main()
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
 
     Chess::Board board("images/boardT.jpg");
-    Chess::FigureTexture sFigure("images/piecesT.png");
+    Chess::FigureTexture figure("images/piecesT.png");
 
     for (size_t i = 0; i < 32; i++) {
-        f[i].setTexture(sFigure.get_texture());
+        f[i].setTexture(figure.get_texture());
     }
 
     loadPosition();
