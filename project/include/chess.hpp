@@ -2,6 +2,17 @@
 
 namespace Chess {
 
+    class Board {
+        sf::Texture texture;
+        sf::Sprite sprite;
+
+    public:
+        Board(std::string filename);
+
+        sf::Texture get_texture();
+        sf::Sprite get_sprite();
+    };
+
     class FigureTexture {
         sf::Texture texture;
 

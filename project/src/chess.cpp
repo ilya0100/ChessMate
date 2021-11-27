@@ -4,6 +4,19 @@
 
 namespace Chess {
 
+    Board::Board(std::string filename) {
+        get_texture().loadFromFile(filename, sf::IntRect(62, 62, 417, 417));
+        get_sprite().setTexture(texture);
+    }
+
+    sf::Texture Board::get_texture() {
+        return texture;
+    }
+
+    sf::Sprite Board::get_sprite() {
+        return sprite;
+    }
+
     FigureTexture::FigureTexture(std::string texture_file) {
         texture.loadFromFile(texture_file);
     }
