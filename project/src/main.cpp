@@ -1,20 +1,18 @@
-#pragma once
-
-#include "chess.hpp"
+#include "chess.cpp"
 
 size_t size = 52;
 
 sf::Sprite f[32];
 
 int board[8][8] =
-    {-5, -4, -3, -2, -1, -3, -4, -5,
-     -6, -6, -6, -6, -6, -6, -6, -6,
-      0,  0,  0,  0,  0,  0,  0,  0,
-      0,  0,  0,  0,  0,  0,  0,  0,
-      0,  0,  0,  0,  0,  0,  0,  0,
-      0,  0,  0,  0,  0,  0,  0,  0,
-      6,  6,  6,  6,  6,  6,  6,  6,
-      5,  4,  3,  2,  1,  3,  4,  5};
+    {{-5, -4, -3, -2, -1, -3, -4, -5},
+     {-6, -6, -6, -6, -6, -6, -6, -6},
+      {0,  0,  0,  0,  0,  0,  0,  0},
+      {0,  0,  0,  0,  0,  0,  0,  0},
+      {0,  0,  0,  0,  0,  0,  0,  0},
+      {0,  0,  0,  0,  0,  0,  0,  0},
+      {6,  6,  6,  6,  6,  6,  6,  6},
+      {5,  4,  3,  2,  1,  3,  4,  5}};
 
 void loadPosition() {
     int k = 0;
@@ -37,7 +35,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
 
-    Chess::Board sBoard("images/boardT.jpg");
+    Chess::Board board("images/boardT.jpg");
     Chess::FigureTexture sFigure("images/piecesT.png");
 
     for (size_t i = 0; i < 32; i++) {
@@ -87,7 +85,7 @@ int main()
         if (isMove) { f[n].setPosition(pos.x - dx, pos.y - dy); }
 
         window.clear();
-        window.draw(sBoard);
+        window.draw(board.get_sprite());
         for (size_t i = 0; i < 32; i++) {
             window.draw(f[i]);
         }

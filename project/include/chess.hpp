@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <string>
 
 namespace Chess {
 
@@ -7,9 +8,12 @@ namespace Chess {
         sf::Sprite sprite;
 
     public:
-        Board(std::string filename);
 
-        sf::Texture get_texture();
+        Board(const std::string filename);
+
+        // void set_texture();
+        // void set_sprite();
+        // sf::Texture get_texture();
         sf::Sprite get_sprite();
     };
 
