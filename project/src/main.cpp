@@ -31,7 +31,7 @@ int main()
 {
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
 
-    Chess::Board board_texture("images/boardT.jpg");
+    Chess::BoardTexture board_texture("images/boardT.jpg");
     Chess::FigureTexture figures("images/piecesT.png");
 
     sf::Vector2i playSpace;

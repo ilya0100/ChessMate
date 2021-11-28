@@ -6,13 +6,13 @@
 
 namespace Chess {
 
-    class Board {
+    class BoardTexture {
             sf::Texture texture;
             sf::Sprite sprite;
             sf::Vector2i playSpace;
 
         public:
-            Board(const std::string filename);
+            BoardTexture(const std::string filename);
 
             void setPlaySpace(sf::Vector2i pos);
 
