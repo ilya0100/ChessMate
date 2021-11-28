@@ -6,12 +6,12 @@
 
 namespace Chess {
 
-    class Board {
+    class BoardTexture {
             sf::Texture texture;
             sf::Sprite sprite;
 
         public:
-            Board(const std::string filename);
+            BoardTexture(const std::string filename);
 
             sf::Sprite get_sprite();
     };

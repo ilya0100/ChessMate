@@ -2,12 +2,12 @@
 
 namespace Chess {
 
-    Board::Board(const std::string filename) {
+    BoardTexture::BoardTexture(const std::string filename) {
         texture.loadFromFile(filename, sf::IntRect(62, 62, 417, 417));
         sprite.setTexture(texture);
     }
 
-    sf::Sprite Board::get_sprite() {
+    sf::Sprite BoardTexture::get_sprite() {
         return sprite;
     }
 
