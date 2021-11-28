@@ -1,5 +1,6 @@
-#include "textures.cpp"
-#include "logic.cpp"
+#include "textures.hpp"
+#include "logic.hpp"
+#include "utils.hpp"
 
 size_t size = 52;
 
@@ -26,8 +27,10 @@ int board[8][8] =
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
+    menu(window);
 
     Chess::BoardTexture board_texture("images/boardT.jpg");
+    //Chess::MenuTexture menu_texture("images/menu.jpeg");
     Chess::FigureTexture figures("images/piecesT.png");
     Chess::BoardLogic board_logic;
 
@@ -155,7 +158,10 @@ int main()
         if (isMove) { f[n].setPosition(pos.x - dx, pos.y - dy); }
 
         window.clear();
+        //window.draw(menu_texture.get_sprite());
+
         window.draw(board_texture.get_sprite());
+
         for (size_t i = 0; i < 32; i++) {
             window.draw(f[i]);
         }

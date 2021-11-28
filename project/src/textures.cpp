@@ -7,6 +7,17 @@ namespace Chess {
         sprite.setTexture(texture);
     }
 
+    MenuTexture::MenuTexture(const std::string filename) {
+        texture.loadFromFile(filename, sf::IntRect(0, 0, 590, 590));
+        sprite.setTexture(texture);
+    }
+
+    sf::Sprite MenuTexture::get_sprite() {
+        return sprite;
+    }
+
+    
+
     sf::Sprite BoardTexture::get_sprite() {
         return sprite;
     }

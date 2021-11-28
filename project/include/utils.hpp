@@ -7,3 +7,5 @@ typedef struct {
     int x;
     int y;
 } NumCage;
+
+void menu(sf::RenderWindow & window);
