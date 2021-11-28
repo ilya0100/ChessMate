@@ -1,5 +1,4 @@
-#include "chess.cpp"
-#include "figures.cpp"
+#include "textures.cpp"
 
 size_t size = 52;
 
@@ -13,37 +12,7 @@ int board[8][8] =
       {0,  0,  0,  0,  0,  0,  0,  0},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {6,  6,  6,  6,  6,  6,  6,  6},
-      {5,  4,  3,  2,  1,  3,  4,  5}};
-/*
-void loadPosition() {
-    int k = 0;
-    int n = 0;
-    for (size_t i = 0; i < 8; i++) {
-        for (size_t j = 0; j < 8; j++) {
-            n = board_texture[i][j];
-            if (n) {
-                // int x = abs(n) - 1;
-                // int y = n > 0 ? 1 : 0;
-                // f[k].setTextureRect(sf::IntRect(size * x, size * y, size, size));
-                switch (n) {
-                case 6:
-                    f[k] = pawn_sprite.getWPawnSprite();
-                    break;
-
-                case 5:
-                    f[k] = rook_sprite.getWPawnSprite();
-                    break;
-                
-                default:
-                    break;
-                }
-                f[k].setPosition(size * j, size * i);
-                k++;
-            }
-        }
-    }
-}
-*/
+      {5,  4,  3,  1,  2,  3,  4,  5}};
 
 int main()
 {
@@ -52,18 +21,12 @@ int main()
     Chess::Board board_texture("images/boardT.jpg");
     Chess::FigureTexture figures("images/piecesT.png");
 
-    // Chess::Pawn pawn_sprite;
-    // Chess::Rook rook_sprite;
-
     int k = 0;
     int c = 0;
     for (size_t i = 0; i < 8; i++) {
         for (size_t j = 0; j < 8; j++) {
             c = board[i][j];
             if (c) {
-                // int x = abs(n) - 1;
-                // int y = n > 0 ? 1 : 0;
-                // f[k].setTextureRect(sf::IntRect(size * x, size * y, size, size));
                 switch (c) {
                 case 6:
                     f[k] = figures.getWPawnSprite();
@@ -121,12 +84,6 @@ int main()
             }
         }
     }
-
-    // for (size_t i = 0; i < 32; i++) {
-    //     f[i].setTexture(figures.get_texture());
-    // }
-
-    // loadPosition();
     
     bool isMove = false;
     float dx = 0;
