@@ -10,18 +10,18 @@ namespace Chess {
 
     Board::PutAllFiguresOnBoard() {
         Rook::Rook White_Left_Rook(W_ROOK, LEFT);
-        Rook::Rook White_Left_Rook(W_ROOK, RIGHT);
-        Rook::Rook Black_Right_Rook(B_ROOK, LEFT);
+        Rook::Rook White_Right_Rook(W_ROOK, RIGHT);
+        Rook::Rook Black_Left_Rook(B_ROOK, LEFT);
         Rook::Rook Black_Right_Rook(B_ROOK, RIGHT);
 
         Knight::Knight White_Left_Knight(W_KNIGHT, LEFT);
-        Knight::Knight White_Left_Knight(W_KNIGHT, RIGHT);
-        Knight::Knight Black_Right_Knight(B_KNIGHT, LEFT);
+        Knight::Knight White_Right_Knight(W_KNIGHT, RIGHT);
+        Knight::Knight Black_Left_Knight(B_KNIGHT, LEFT);
         Knight::Knight Black_Right_Knight(B_KNIGHT, RIGHT);
 
         Bishop::Bishop White_Left_Bishop(W_BISHOP, LEFT);
-        Bishop::Bishop White_Left_Bishop(W_BISHOP, RIGHT);
-        Bishop::Bishop Black_Right_Bishop(B_BISHOP, LEFT;
+        Bishop::Bishop White_Right_Bishop(W_BISHOP, RIGHT);
+        Bishop::Bishop Black_Left_Bishop(B_BISHOP, LEFT;
         Bishop::Bishop Black_Right_Bishop(B_BISHOP, RIGHT);
 
         Queen::Queen White_Queen(W_QUEEN);

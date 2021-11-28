@@ -8,6 +8,7 @@ namespace Chess {
     void Figures::SetFigure(Figure_Name figure, Letter_Position letter, Digit_Position digit) {
         Figures::SetSprite(figure);
         figures[figure].setPosition(size * letter, size * digit);
+        window.draw(figures[figure]);
     }
 
     void Figures::SetSprite(Figure_Name figure) {
@@ -74,7 +75,6 @@ namespace Chess {
             switch(S) {
                 case(LEFT):
                     Side = LEFT;
-                    Position[1][1]
                     Figures::SetFigure(Rook, A, ONE);
                     break;
                 case(RIGHT):

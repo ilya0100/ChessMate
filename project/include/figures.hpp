@@ -16,7 +16,7 @@ namespace Chess {
         friend
             Board::PutAllFiguresOnBoard();
 
-    }
+    };
 
     class Rook : public Figures {
         Figure_Name Name;   // либо, либо {B_ROOK, W_ROOK}
@@ -77,3 +77,4 @@ namespace Chess {
             Pawn(Figure_Name Pawn = W_PAWN, Pawn_Number P_Number = FIRST);
 
     };
+}
