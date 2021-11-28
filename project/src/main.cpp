@@ -1,4 +1,5 @@
 #include "chess.cpp"
+#include "board.hpp"
 
 size_t size = 52;
 
