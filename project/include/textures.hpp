@@ -9,13 +9,15 @@ namespace Chess {
     class Board {
             sf::Texture texture;
             sf::Sprite sprite;
+            sf::Vector2i playSpace;
 
         public:
             Board(const std::string filename);
 
+            void setPlaySpace(sf::Vector2i pos);
+
             sf::Sprite get_sprite();
     };
-
 
     class FigureTexture {
 

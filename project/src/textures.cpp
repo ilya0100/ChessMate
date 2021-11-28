@@ -11,6 +11,15 @@ namespace Chess {
         return sprite;
     }
 
+    // sf::Vector2i getPlaySpace() {
+    //     sf::Vector2i playSpace;
+    //     playSpace.x = sprite.getPosition().x + begin.x;
+    // }
+
+    void Board::setPlaySpace(sf::Vector2i pos) {
+        playSpace.x = pos.x;
+        playSpace.y = pos.y;
+    }
 
     FigureTexture::FigureTexture(std::string texture_file) {
         texture.loadFromFile(texture_file);

@@ -4,8 +4,21 @@ size_t size = 52;
 
 sf::Sprite f[32];
 
+typedef struct {
+    int x;
+    int y;
+} NumCage;
+
+// detect number of current cage
+NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
+    NumCage cage;
+    cage.x = (pos.x - playSpace.x) / CELL_SIZE;
+    cage.y = (pos.y - playSpace.y) / CELL_SIZE;
+    return cage;
+}
+
 int board[8][8] =
-    {{-5, -4, -3, -2, -1, -3, -4, -5},
+    {{-5, -4, -3, -1, -2, -3, -4, -5},
      {-6, -6, -6, -6, -6, -6, -6, -6},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {0,  0,  0,  0,  0,  0,  0,  0},
@@ -20,6 +33,11 @@ int main()
 
     Chess::Board board_texture("images/boardT.jpg");
     Chess::FigureTexture figures("images/piecesT.png");
+
+    sf::Vector2i playSpace;
+    playSpace.x = 0; // correct
+    playSpace.y = 0;
+    board_texture.setPlaySpace(playSpace);
 
     int k = 0;
     int c = 0;
@@ -84,8 +102,10 @@ int main()
             }
         }
     }
-    
+
+    NumCage curr_cage = {0};
     bool isMove = false;
+    bool isCatch = false;
     float dx = 0;
     float dy = 0;
     size_t n = 0;
@@ -106,7 +126,9 @@ int main()
                 if (event.key.code == sf::Mouse::Left) {
                     for (size_t i = 0; i < 32; i++) {
                         if (f[i].getGlobalBounds().contains(pos.x, pos.y)) {
+                            isCatch = true;
                             isMove = true;
+                            curr_cage = getCurrCage(pos, playSpace); //getPlaySpace
                             n = i;
                             dx = pos.x - f[i].getPosition().x;
                             dy = pos.y - f[i].getPosition().y;
@@ -118,6 +140,9 @@ int main()
             if (event.type == sf::Event::MouseButtonReleased) {
                 if (event.key.code == sf::Mouse::Left) {
                     isMove = false;
+                    if (isCatch) {
+                        curr_cage = getCurrCage(pos, playSpace);
+                    }
                 }
             }
             
