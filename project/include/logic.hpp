@@ -2,9 +2,7 @@
 
 #include "utils.hpp"
 
-namespace Chess {
-
-    typedef enum {
+typedef enum {
         B_ROOK,
         B_KNIGHT,
         B_BISHOP,
@@ -18,18 +16,21 @@ namespace Chess {
         W_KING,
         W_PAWN,
         EMPTY_CELL
-    } figureName;
+} figureName;
+
+namespace Chess {
 
     class BoardLogic {
         figureName board[8][8];
-        size_t current_pos_x;
-        size_t current_pos_y;
+        int current_pos_x;
+        int current_pos_y;
         
         public:
             BoardLogic();
 
-            void setFigurePosition(size_t x, size_t y);
-            bool isMoveFigure(figureName figure, size_t x, size_t y) const;
+            void setFigurePosition(int x, int y);
+            NumCage getFigurePosition() const;
+            bool isMoveFigure(figureName figure, int x, int y) const;
     };
 
 }  // namespace Chess

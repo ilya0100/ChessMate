@@ -2,3 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 #include <string>
+
+typedef struct {
+    int x;
+    int y;
+} NumCage;

@@ -16,7 +16,7 @@ namespace Chess {
     //     playSpace.x = sprite.getPosition().x + begin.x;
     // }
 
-    void Board::setPlaySpace(sf::Vector2i pos) {
+    void BoardTexture::setPlaySpace(sf::Vector2i pos) {
         playSpace.x = pos.x;
         playSpace.y = pos.y;
     }

@@ -1,13 +1,9 @@
 #include "textures.cpp"
+#include "logic.cpp"
 
 size_t size = 52;
 
 sf::Sprite f[32];
-
-typedef struct {
-    int x;
-    int y;
-} NumCage;
 
 // detect number of current cage
 NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
@@ -33,6 +29,7 @@ int main()
 
     Chess::BoardTexture board_texture("images/boardT.jpg");
     Chess::FigureTexture figures("images/piecesT.png");
+    Chess::BoardLogic board_logic;
 
     sf::Vector2i playSpace;
     playSpace.x = 0; // correct
@@ -129,6 +126,7 @@ int main()
                             isCatch = true;
                             isMove = true;
                             curr_cage = getCurrCage(pos, playSpace); //getPlaySpace
+                            board_logic.setFigurePosition(curr_cage.x, curr_cage.y);
                             n = i;
                             dx = pos.x - f[i].getPosition().x;
                             dy = pos.y - f[i].getPosition().y;
@@ -142,6 +140,12 @@ int main()
                     isMove = false;
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
+                        if (board_logic.isMoveFigure(W_PAWN, curr_cage.x, curr_cage.y)) {
+                            f[n].setPosition(playSpace.x + curr_cage.x * CELL_SIZE, playSpace.y + curr_cage.y * CELL_SIZE);;
+                        } else {
+                            curr_cage = board_logic.getFigurePosition();
+                            f[n].setPosition(playSpace.x + curr_cage.x * CELL_SIZE, playSpace.y + curr_cage.y * CELL_SIZE);
+                        }
                     }
                 }
             }

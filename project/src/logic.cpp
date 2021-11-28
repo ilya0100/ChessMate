@@ -39,28 +39,34 @@ namespace Chess {
         }
     }
 
-    void BoardLogic::setFigurePosition(size_t x, size_t y) {
+    void BoardLogic::setFigurePosition(int x, int y) {
         current_pos_x = x;
         current_pos_y = y;
     }
 
-    bool BoardLogic::isMoveFigure(figureName figure, size_t x, size_t y) const {
+    NumCage BoardLogic::getFigurePosition() const {
+        NumCage cage;
+        cage.x = current_pos_x;
+        cage.y = current_pos_y;
+        return cage;
+    }
+
+    bool BoardLogic::isMoveFigure(figureName figure, int x, int y) const {
         switch (figure) {
-            case B_ROOK:
-                if (y - current_pos_y == 1 && 
-                    (x - current_pos_x == 1 || x - current_pos_x == - 1)) {
+            case B_PAWN:
+                if (y == current_pos_y && x - current_pos_x == 1) {
                     return true;
                 }
 
-            case W_ROOK:
-                if (y - current_pos_y == - 1 && 
-                    (x - current_pos_x == 1 || x - current_pos_x == - 1)) {
+            case W_PAWN:
+                if (x == current_pos_x && y - current_pos_y == - 1) {
                     return true;
                 }
 
             default:
                 break;
         }
+        return false;
     }
 
 }  // namespace Chess
