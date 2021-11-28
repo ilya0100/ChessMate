@@ -17,6 +17,7 @@ namespace Chess {
         sf::Sprite get_sprite();
     };
 
+/*
     class FigureTexture {
         sf::Texture texture;
 
@@ -25,7 +26,7 @@ namespace Chess {
         FigureTexture() = default;
         FigureTexture(std::string texture_file);
         
-        sf::Texture get_texture();
+        const sf::Texture& get_texture();
 
     };
 
@@ -50,5 +51,6 @@ namespace Chess {
 
         void set_poositions(ChessFigure figure);
     };
-    
+*/
+
 }  // namesapce Chess

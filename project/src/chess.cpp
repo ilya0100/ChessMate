@@ -1,7 +1,5 @@
 #include "chess.hpp"
 
-#define CELL_SIZE 50
-
 namespace Chess {
 
     Board::Board(const std::string filename) {
@@ -17,11 +15,12 @@ namespace Chess {
         return sprite;
     }
 
+/*
     FigureTexture::FigureTexture(std::string texture_file) {
         texture.loadFromFile(texture_file);
     }
 
-    sf::Texture FigureTexture::get_texture() {
+    const sf::Texture& FigureTexture::get_texture() {
             return texture;
         }
 
@@ -45,5 +44,6 @@ namespace Chess {
         possible_positions_x.push_back(figure.get_x() - CELL_SIZE);
         possible_positions_y.push_back(figure.get_y() - CELL_SIZE);
     }
+*/
     
 }  // namesapce Chess
