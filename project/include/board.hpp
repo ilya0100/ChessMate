@@ -1,6 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "utils.h"
+#include "utils.hpp"
 
 namespace Chess {
 
@@ -11,7 +11,7 @@ namespace Chess {
     public:
 
         Board(const std::string filename);
-        PutAllFiguresOnBoard();
+        void PutAllFiguresOnBoard();
 
 
 

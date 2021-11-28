@@ -1,7 +1,7 @@
 #include "chess.hpp"
 #include "figures.hpp"
 #include "board.hpp"
-#include "utils.h"
+#include "utils.hpp"
 
 namespace Chess {
 

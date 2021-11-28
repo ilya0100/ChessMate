@@ -1,12 +1,12 @@
 #include <SFML/Graphics.hpp>
 #include <string>
-#include "utils.h"
+#include "utils.hpp"
 
 namespace Chess {
     class Figures {
 
         sf::Sprite figures[12];
-        static size_t size = 52;
+        static inline size_t size = 52;
 
         public:
 
@@ -14,7 +14,7 @@ namespace Chess {
         void SetFigure(Figure_Name figure, Letter_Position l_p, Digit_Position d_p);
 
         friend
-            Board::PutAllFiguresOnBoard();
+            void Board::PutAllFiguresOnBoard();
 
     };
 

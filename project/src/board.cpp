@@ -8,8 +8,8 @@ namespace Chess {
         sprite.setTexture(texture);
     }
 
-    Board::PutAllFiguresOnBoard() {
-        Rook::Rook White_Left_Rook(W_ROOK, LEFT);
+    void Board::PutAllFiguresOnBoard() {
+        Rook White_Left_Rook(W_ROOK, LEFT);
         Rook::Rook White_Right_Rook(W_ROOK, RIGHT);
         Rook::Rook Black_Left_Rook(B_ROOK, LEFT);
         Rook::Rook Black_Right_Rook(B_ROOK, RIGHT);
