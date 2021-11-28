@@ -1,10 +1,10 @@
-
+#include <cstring>
 
 namespace Chess {
     typedef struct Figure_Position{
         size_t pos_x;
         size_t pos_y;
-    } Figure_Position
+    } Figure_Position;
 
     typedef enum {
         B_ROOK,
