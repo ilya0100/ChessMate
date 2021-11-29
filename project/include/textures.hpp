@@ -3,6 +3,7 @@
 #include "utils.hpp"
 
 #define SPRITE_SIZE 50
+#define START_CAGE 143
 
 namespace Chess {
 
@@ -16,6 +17,9 @@ namespace Chess {
 
             void setPlaySpace(sf::Vector2i pos);
 
+            void getBoardPosition(float x, float y);
+            void setScaleBoard(float scale);
+
             sf::Sprite get_sprite();
     };
 
@@ -27,6 +31,8 @@ namespace Chess {
 
         public:
             FigureTexture(std::string texture_file);
+
+            void setScaleFigure(float scale);
 
             sf::Sprite getWPawnSprite();
             sf::Sprite getBPawnSprite();

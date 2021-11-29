@@ -3,12 +3,24 @@
 namespace Chess {
 
     BoardTexture::BoardTexture(const std::string filename) {
-        texture.loadFromFile(filename, sf::IntRect(62, 62, 417, 417));
+        texture.loadFromFile(filename, sf::IntRect(0, 0, 2400, 2400));
         sprite.setTexture(texture);
     }
 
     sf::Sprite BoardTexture::get_sprite() {
         return sprite;
+    }
+
+    void BoardTexture::getBoardPosition(float x, float y) {
+        sprite.setPosition(x, y);
+    }
+
+    void BoardTexture::setScaleBoard(float scale) {
+        sprite.setScale(scale, scale);
+    }
+
+    void FigureTexture::setScaleFigure(float scale) {
+        sprite.setScale(scale, scale);
     }
 
     // sf::Vector2i getPlaySpace() {

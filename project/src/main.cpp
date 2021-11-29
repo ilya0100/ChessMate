@@ -1,7 +1,7 @@
 #include "textures.hpp"
 #include "logic.hpp"
 
-#define CELL_SIZE 52
+#define CELL_SIZE 263
 
 size_t size = 52;
 
@@ -27,10 +27,14 @@ int board[8][8] =
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
+    sf::RenderWindow window(sf::VideoMode(600, 600), "ChessMate!");
 
-    Chess::BoardTexture board_texture("images/boardT.jpg");
-    Chess::FigureTexture figures("images/piecesT.png");
+    Chess::BoardTexture board_texture("images/boardTr.jpg");
+    board_texture.setScaleBoard(0.25f);
+    // board_texture.getBoardPosition(143, 143);
+
+    Chess::FigureTexture figures("images/piecesTr.png");
+    figures.setScaleFigure(0.2f);
     Chess::BoardLogic board_logic;
 
     sf::Vector2i playSpace;
@@ -96,7 +100,7 @@ int main()
                 default:
                     break;
                 }
-                f[k].setPosition(size * j, size * i);
+                f[k].setPosition(START_CAGE + size * j, START_CAGE + size * i);
                 k++;
             }
         }
