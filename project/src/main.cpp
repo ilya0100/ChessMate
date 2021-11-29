@@ -1,5 +1,5 @@
-#include "textures.cpp"
-#include "logic.cpp"
+#include "textures.hpp"
+#include "logic.hpp"
 
 #define CELL_SIZE 52
 
