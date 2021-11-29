@@ -1,5 +1,5 @@
-#include "textures.cpp"
-#include "logic.cpp"
+#include "textures.hpp"
+#include "logic.hpp"
 
 size_t size = 52;
 
