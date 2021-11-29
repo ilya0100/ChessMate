@@ -4,6 +4,8 @@
 
 #define CELL_SIZE 50
 
+static size_t size = 52;
+
 namespace Chess {
 
     class BoardTexture {
@@ -60,5 +62,7 @@ namespace Chess {
             sf::Sprite getWKingSprite();
             sf::Sprite getBKingSprite();
     };
+
+    void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figure);
 
 }  // namespace Chess

@@ -2,7 +2,6 @@
 #include "logic.hpp"
 #include "utils.hpp"
 
-size_t size = 52;
 
 sf::Sprite f[32];
 
@@ -45,71 +44,7 @@ int main()
     board_texture.setPlaySpace(playSpace);
 
     
- 
-
-    int k = 0;
-    int c = 0;
-    for (size_t i = 0; i < 8; i++) {
-        for (size_t j = 0; j < 8; j++) {
-            c = board[i][j];
-            if (c) {
-                switch (c) {
-                case 6:
-                    f[k] = figures.getWPawnSprite();
-                    break;
-
-                case 5:
-                    f[k] = figures.getWRookSprite();
-                    break;
-
-                case 4:
-                    f[k] = figures.getWKnightSprite();
-                    break;
-
-                case 3:
-                    f[k] = figures.getWElephantSprite();
-                    break;
-
-                case 2:
-                    f[k] = figures.getWQueenSprite();
-                    break;
-
-                case 1:
-                    f[k] = figures.getWKingSprite();
-                    break;
-
-                case -6:
-                    f[k] = figures.getBPawnSprite();
-                    break;
-
-                case -5:
-                    f[k] = figures.getBRookSprite();
-                    break;
-
-                case -4:
-                    f[k] = figures.getBKnightSprite();
-                    break;
-
-                case -3:
-                    f[k] = figures.getBElephantSprite();
-                    break;
-
-                case -2:
-                    f[k] = figures.getBQueenSprite();
-                    break;
-
-                case -1:
-                    f[k] = figures.getBKingSprite();
-                    break;
-
-                default:
-                    break;
-                }
-                f[k].setPosition(size * j, size * i);
-                k++;
-            }
-        }
-    }
+    Chess::loadPieces(f, board, figures);
 
     NumCage curr_cage = {0};
     bool isMove = false;

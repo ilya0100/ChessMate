@@ -9,3 +9,4 @@ typedef struct {
 } NumCage;
 
 void menu(sf::RenderWindow & window);
+
