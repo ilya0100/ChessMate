@@ -1,6 +1,8 @@
 #include "textures.cpp"
 #include "logic.cpp"
 
+#define CELL_SIZE 52
+
 size_t size = 52;
 
 sf::Sprite f[32];
