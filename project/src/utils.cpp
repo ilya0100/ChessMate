@@ -11,17 +11,26 @@ void menu(sf::RenderWindow & window) {
 	menu1.setPosition(120, 200);
 	menu3.setPosition(120, 290);
 	menuBg.setPosition(0, 0);
- 
+	
+	sf::Clock clock;
 	//////////////////////////////МЕНЮ///////////////////
 	while (isMenu)
-	{
+	{	
+		sf::Event event;
+ 		while (window.pollEvent(event)) {
+ 		if (event.type == sf::Event::Closed)
+ 		window.close();
+ 		}
+		float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+		clock.restart(); //перезагружает время
+		time = time/120; //скорость игры
 		menu1.setColor(sf::Color::White);
 		menu3.setColor(sf::Color::White);
 		menuNum = 0;
 		window.clear(sf::Color(129, 181, 221));
  
-		if (sf::IntRect(100, 30, 300, 50).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Blue); menuNum = 1; }
-		if (sf::IntRect(100, 150, 300, 50).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Blue); menuNum = 3; }
+		if (sf::IntRect(120, 200, 300, 50).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Blue); menuNum = 1; }
+		if (sf::IntRect(120, 290, 300, 50).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Blue); menuNum = 3; }
  
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
