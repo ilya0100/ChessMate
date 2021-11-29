@@ -25,12 +25,17 @@ int board[8][8] =
       {5,  4,  3,  1,  2,  3,  4,  5}};
 
 int main()
-{
+{   
+    int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
     menu(window);
+    sf::Texture ExitTexture;
+    ExitTexture.loadFromFile("images/exit.png");
+    sf::Sprite exit(ExitTexture);
+    exit.setPosition(500, 500);
+
 
     Chess::BoardTexture board_texture("images/boardT.jpg");
-    //Chess::MenuTexture menu_texture("images/menu.jpeg");
     Chess::FigureTexture figures("images/piecesT.png");
     Chess::BoardLogic board_logic;
 
@@ -38,6 +43,9 @@ int main()
     playSpace.x = 0; // correct
     playSpace.y = 0;
     board_texture.setPlaySpace(playSpace);
+
+    
+ 
 
     int k = 0;
     int c = 0;
@@ -121,6 +129,15 @@ int main()
                 window.close();
             }
 
+        exit.setColor(sf::Color::White);
+		menuNum = 0;    
+        if (sf::IntRect(500, 500, 61, 23).contains(sf::Mouse::getPosition(window))) { exit.setColor(sf::Color::Blue); menuNum = 3; }
+
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+		{
+			if (menuNum == 3)  { window.close();}
+		}
+
             //drag and drop
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.key.code == sf::Mouse::Left) {
@@ -159,7 +176,8 @@ int main()
 
         window.clear();
         //window.draw(menu_texture.get_sprite());
-
+        window.clear(sf::Color(129, 181, 221));
+        window.draw(exit);
         window.draw(board_texture.get_sprite());
 
         for (size_t i = 0; i < 32; i++) {

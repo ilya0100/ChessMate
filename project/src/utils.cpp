@@ -2,8 +2,8 @@
 
 void menu(sf::RenderWindow & window) {
 	sf::Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
-	menuTexture1.loadFromFile("images/play.jpeg");
-	menuTexture3.loadFromFile("images/exit.jpeg");
+	menuTexture1.loadFromFile("images/play.png");
+	menuTexture3.loadFromFile("images/exit.png");
 	menuBackground.loadFromFile("images/menu.jpeg");
 	sf::Sprite menu1(menuTexture1), menu3(menuTexture3), menuBg(menuBackground);
 	bool isMenu = 1;
@@ -18,8 +18,10 @@ void menu(sf::RenderWindow & window) {
 	{	
 		sf::Event event;
  		while (window.pollEvent(event)) {
- 		if (event.type == sf::Event::Closed)
- 		window.close();
+ 			if (event.type == sf::Event::Closed) {
+ 				window.close();
+				isMenu = false;
+		 		}
  		}
 		float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
 		clock.restart(); //перезагружает время
@@ -27,10 +29,10 @@ void menu(sf::RenderWindow & window) {
 		menu1.setColor(sf::Color::White);
 		menu3.setColor(sf::Color::White);
 		menuNum = 0;
-		window.clear(sf::Color(129, 181, 221));
+		//window.clear(sf::Color(129, 181, 221));
  
-		if (sf::IntRect(120, 200, 300, 50).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Blue); menuNum = 1; }
-		if (sf::IntRect(120, 290, 300, 50).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Blue); menuNum = 3; }
+		if (sf::IntRect(120, 200, 117, 23).contains(sf::Mouse::getPosition(window))) { menu1.setColor(sf::Color::Blue); menuNum = 1; }
+		if (sf::IntRect(120, 290, 61, 23).contains(sf::Mouse::getPosition(window))) { menu3.setColor(sf::Color::Blue); menuNum = 3; }
  
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
