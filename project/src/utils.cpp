@@ -22,6 +22,11 @@ void menu(sf::RenderWindow & window) {
  				window.close();
 				isMenu = false;
 		 		}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape))
+			{
+			window.close(); isMenu = false;
+
+			}
  		}
 		float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
 		clock.restart(); //перезагружает время
@@ -40,7 +45,9 @@ void menu(sf::RenderWindow & window) {
 			if (menuNum == 3)  { window.close(); isMenu = false; }
  
 		}
- 
+
+
+
 		window.draw(menuBg);
 		window.draw(menu1);
 		window.draw(menu3);

@@ -32,6 +32,10 @@ int main()
     ExitTexture.loadFromFile("images/exit.png");
     sf::Sprite exit(ExitTexture);
     exit.setPosition(500, 500);
+    sf::Texture BackTexture;
+    ExitTexture.loadFromFile("images/back.png");
+    sf::Sprite back(ExitTexture);
+    back.setPosition(38, 550);
 
 
     Chess::BoardTexture board_texture("images/boardT.jpg");
@@ -65,12 +69,15 @@ int main()
             }
 
         exit.setColor(sf::Color::White);
+        back.setColor(sf::Color::White);
 		menuNum = 0;    
         if (sf::IntRect(500, 500, 61, 23).contains(sf::Mouse::getPosition(window))) { exit.setColor(sf::Color::Blue); menuNum = 3; }
+        if (sf::IntRect(38, 550, 133, 23).contains(sf::Mouse::getPosition(window))) { back.setColor(sf::Color::Blue); menuNum = 4; }
 
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
 			if (menuNum == 3)  { window.close();}
+            if (menuNum == 4)  { menu(window);}
 		}
 
             //drag and drop
@@ -113,6 +120,7 @@ int main()
         //window.draw(menu_texture.get_sprite());
         window.clear(sf::Color(129, 181, 221));
         window.draw(exit);
+        window.draw(back);
         window.draw(board_texture.get_sprite());
 
         for (size_t i = 0; i < 32; i++) {
