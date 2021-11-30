@@ -2,6 +2,8 @@
 #include "logic.hpp"
 #include "utils.hpp"
 
+#define CELL_SIZE 52
+
 
 sf::Sprite f[32];
 

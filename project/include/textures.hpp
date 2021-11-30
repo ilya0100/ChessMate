@@ -2,7 +2,7 @@
 
 #include "utils.hpp"
 
-#define CELL_SIZE 50
+#define SPRITE_SIZE 50
 
 static size_t size = 52;
 
