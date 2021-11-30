@@ -99,71 +99,6 @@ namespace Chess {
 
     }
 
-    sf::Sprite FigureTexture::getWPawnSprite() {
-        sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    sf::Sprite FigureTexture::getBPawnSprite() {
-        sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    // Rook
-    sf::Sprite FigureTexture::getWRookSprite() {
-        sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    sf::Sprite FigureTexture::getBRookSprite() {
-        sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    // Knight
-    sf::Sprite FigureTexture::getWKnightSprite() {
-        sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    sf::Sprite FigureTexture::getBKnightSprite() {
-        sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    // Elephant
-    sf::Sprite FigureTexture::getWElephantSprite() {
-        sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    sf::Sprite FigureTexture::getBElephantSprite() {
-        sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    // Queen
-    sf::Sprite FigureTexture::getWQueenSprite() {
-        sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    sf::Sprite FigureTexture::getBQueenSprite() {
-        sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    // King
-    sf::Sprite FigureTexture::getWKingSprite() {
-        sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
-    sf::Sprite FigureTexture::getBKingSprite() {
-        sprite.setTextureRect(sf::IntRect(0, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-        return sprite;
-    }
-
     void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figures) {
         int k = 0;
     int c = 0;
@@ -173,51 +108,51 @@ namespace Chess {
             if (c) {
                 switch (c) {
                 case 6:
-                    f[k] = figures.getWPawnSprite();
+                    f[k] = figures.getFigureSprite(W_PAWN);
                     break;
 
                 case 5:
-                    f[k] = figures.getWRookSprite();
+                    f[k] = figures.getFigureSprite(W_ROOK);
                     break;
 
                 case 4:
-                    f[k] = figures.getWKnightSprite();
+                    f[k] = figures.getFigureSprite(W_KNIGHT);
                     break;
 
                 case 3:
-                    f[k] = figures.getWElephantSprite();
+                    f[k] = figures.getFigureSprite(W_BISHOP);
                     break;
 
                 case 2:
-                    f[k] = figures.getWQueenSprite();
+                    f[k] = figures.getFigureSprite(W_QUEEN);
                     break;
 
                 case 1:
-                    f[k] = figures.getWKingSprite();
+                    f[k] = figures.getFigureSprite(W_KING);
                     break;
 
                 case -6:
-                    f[k] = figures.getBPawnSprite();
+                    f[k] = figures.getFigureSprite(B_PAWN);
                     break;
 
                 case -5:
-                    f[k] = figures.getBRookSprite();
+                    f[k] = figures.getFigureSprite(B_ROOK);
                     break;
 
                 case -4:
-                    f[k] = figures.getBKnightSprite();
+                    f[k] = figures.getFigureSprite(B_KNIGHT);
                     break;
 
                 case -3:
-                    f[k] = figures.getBElephantSprite();
+                    f[k] = figures.getFigureSprite(B_BISHOP);
                     break;
 
                 case -2:
-                    f[k] = figures.getBQueenSprite();
+                    f[k] = figures.getFigureSprite(B_QUEEN);
                     break;
 
                 case -1:
-                    f[k] = figures.getBKingSprite();
+                    f[k] = figures.getFigureSprite(B_KING);
                     break;
 
                 default:
