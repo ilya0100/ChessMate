@@ -42,6 +42,7 @@ namespace Chess {
 
         public:
             FigureTexture(std::string texture_file);
+            sf::Sprite getFigureSprite(figureName fn);
 
             sf::Sprite getWPawnSprite();
             sf::Sprite getBPawnSprite();

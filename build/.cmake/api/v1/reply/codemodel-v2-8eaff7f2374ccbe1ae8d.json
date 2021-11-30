@@ -1,0 +1,60 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"jsonFile" : "directory-.-Release-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.13.4"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "ChessMate.out",
+					"targetIndexes" : 
+					[
+						0
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "ChessMate.out::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ChessMate.out-Release-a5328cf891a7569b893b.json",
+					"name" : "ChessMate.out",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/Users/Danis/Downloads/\u0414\u0418\u0421\u041a_\u0417/\u0445\u0430\u0441\u0431\u0438/\u0427\u0415\u0421\u0421_\u041c\u0415\u0419\u0422/ChessMate/build",
+		"source" : "/Users/Danis/Downloads/\u0414\u0418\u0421\u041a_\u0417/\u0445\u0430\u0441\u0431\u0438/\u0427\u0415\u0421\u0421_\u041c\u0415\u0419\u0422/ChessMate"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}

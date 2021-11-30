@@ -14,7 +14,7 @@ NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
     cage.y = (pos.y - playSpace.y) / CELL_SIZE;
     return cage;
 }
-
+  Chess::BoardLogic board_logic;
 int board[8][8] =
     {{-5, -4, -3, -1, -2, -3, -4, -5},
      {-6, -6, -6, -6, -6, -6, -6, -6},
@@ -26,7 +26,7 @@ int board[8][8] =
       {5,  4,  3,  1,  2,  3,  4,  5}};
 
 int main()
-{   
+{
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
@@ -57,14 +57,13 @@ int main()
 
     Chess::BoardTexture board_texture("images/boardT.jpg");
     Chess::FigureTexture figures("images/piecesT.png");
-    Chess::BoardLogic board_logic;
 
     sf::Vector2i playSpace;
     playSpace.x = 0; // correct
     playSpace.y = 0;
     board_texture.setPlaySpace(playSpace);
 
-    
+
     Chess::loadPieces(f, board, figures);
 
     NumCage curr_cage = {0};
@@ -139,7 +138,7 @@ int main()
                     }
                 }
             }
-            
+
         }
 
         if (isMove) { f[n].setPosition(pos.x - dx, pos.y - dy); }
