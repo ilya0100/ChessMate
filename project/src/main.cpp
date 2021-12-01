@@ -56,7 +56,7 @@ int main()
 
 
     Chess::BoardTexture board_texture("images/boardT.jpg");
-    Chess::FigureTexture figures("images/piecesT.png");
+    Chess::FigureTexture figures;
 
     sf::Vector2i playSpace;
     playSpace.x = 0; // correct

@@ -46,6 +46,7 @@ namespace Chess {
     FigureTexture::FigureTexture() {
 
         FigureTexture::texture.loadFromFile("images/piecesT.png");
+        sprite.setTexture(texture);
         figureName board[8][8] = {{B_ROOK    , B_KNIGHT  , B_BISHOP  , B_QUEEN   , B_KING    , B_BISHOP  , B_KNIGHT  , B_ROOK    },
                                   {B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    },
                                   {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
