@@ -40,12 +40,13 @@ namespace Chess {
             sf::Texture texture;
             sf::Sprite sprite;
             static sf::Texture textureN;
-            static figureName board[8][8];
+            static figureName boardN[8][8];
 
 
 
         public:
             FigureTexture(std::string texture_file);
+            FigureTexture();
             sf::Sprite getFigureSprite(figureName fn);
 
             sf::Sprite getWPawnSprite();

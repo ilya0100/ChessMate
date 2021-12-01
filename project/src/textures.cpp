@@ -16,7 +16,7 @@ namespace Chess {
         return sprite;
     }
 
-    
+
 
     sf::Sprite BoardTexture::get_sprite() {
         return sprite;
@@ -36,6 +36,10 @@ namespace Chess {
         texture.loadFromFile(texture_file);
         sprite.setTexture(texture);
         sprite.setTextureRect(sf::IntRect(5, 1, SPRITE_SIZE, SPRITE_SIZE));
+    }
+
+    FigureTexture::FigureTexture() {
+        FigureTexture::texture.loadFromFile("images/piecesT.png");
     }
 
     // Pawn
