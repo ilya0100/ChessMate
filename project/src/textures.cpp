@@ -1,7 +1,11 @@
 #include "textures.hpp"
 
-sf::Texture Chess::FigureTexture::textureN;
+
 namespace Chess {
+
+    // объявляем статические переменные
+    sf::Texture FigureTexture::texture;
+    figureName FigureTexture::board[8][8] = {};
 
     BoardTexture::BoardTexture(const std::string filename) {
         texture.loadFromFile(filename, sf::IntRect(62, 62, 417, 417));
@@ -41,8 +45,16 @@ namespace Chess {
 
     FigureTexture::FigureTexture() {
 
-        // эта строка не работает, переменная статическая
-        FigureTexture::textureN.loadFromFile("images/piecesT.png");
+        FigureTexture::texture.loadFromFile("images/piecesT.png");
+        figureName board[8][8] = {{B_ROOK    , B_KNIGHT  , B_BISHOP  , B_QUEEN   , B_KING    , B_BISHOP  , B_KNIGHT  , B_ROOK    },
+                                  {B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    },
+                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                  {W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    },
+                                  {W_ROOK    , W_KNIGHT  , W_BISHOP  , W_QUEEN   , W_KING    , W_BISHOP  , W_KNIGHT  , W_ROOK    }};
+
 
     }
 

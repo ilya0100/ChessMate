@@ -37,11 +37,10 @@ namespace Chess {
     class FigureTexture {
 
         protected:
-            sf::Texture texture;
             sf::Sprite sprite;
 
-            static sf::Texture textureN;
-            static figureName boardN[8][8];
+            static sf::Texture texture;
+            static figureName board[8][8];
 
 
 
