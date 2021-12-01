@@ -40,6 +40,7 @@ namespace Chess {
 
     // Pawn
 
+
     sf::Sprite FigureTexture::getFigureSprite(figureName fn) {
         switch (fn)
         {
