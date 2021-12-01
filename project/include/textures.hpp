@@ -39,6 +39,9 @@ namespace Chess {
         protected:
             sf::Texture texture;
             sf::Sprite sprite;
+            static sf::Texture textureN;
+            static figureName board[8][8];
+
 
 
         public:
