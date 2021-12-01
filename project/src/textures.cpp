@@ -1,5 +1,6 @@
 #include "textures.hpp"
 
+sf::Texture Chess::FigureTexture::textureN;
 namespace Chess {
 
     BoardTexture::BoardTexture(const std::string filename) {
@@ -39,7 +40,10 @@ namespace Chess {
     }
 
     FigureTexture::FigureTexture() {
-        FigureTexture::texture.loadFromFile("images/piecesT.png");
+
+        // эта строка не работает, переменная статическая
+        FigureTexture::textureN.loadFromFile("images/piecesT.png");
+
     }
 
     Figures::Figures(figureName fn) {

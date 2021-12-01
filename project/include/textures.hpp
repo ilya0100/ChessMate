@@ -39,6 +39,7 @@ namespace Chess {
         protected:
             sf::Texture texture;
             sf::Sprite sprite;
+
             static sf::Texture textureN;
             static figureName boardN[8][8];
 
@@ -49,25 +50,8 @@ namespace Chess {
             FigureTexture();
             sf::Sprite getFigureSprite(figureName fn);
 
-            sf::Sprite getWPawnSprite();
-            sf::Sprite getBPawnSprite();
-
-            sf::Sprite getWRookSprite();
-            sf::Sprite getBRookSprite();
-
-            sf::Sprite getWKnightSprite();
-            sf::Sprite getBKnightSprite();
-
-            sf::Sprite getWElephantSprite();
-            sf::Sprite getBElephantSprite();
-
-            sf::Sprite getWQueenSprite();
-            sf::Sprite getBQueenSprite();
-
-
-            sf::Sprite getWKingSprite();
-            sf::Sprite getBKingSprite();
     };
+
     class Figures: public FigureTexture {
 
         protected:
