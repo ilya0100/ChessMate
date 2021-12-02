@@ -78,8 +78,10 @@ namespace Chess {
             sprite.setTexture(texture);
             isTexture = true;
         }
-
-        switch (fn) {
+        name = fn;
+        figureSize.x = SPRITE_SIZE;
+        figureSize.y = SPRITE_SIZE;
+        switch (name) {
             case W_PAWN:
             sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;
@@ -119,6 +121,20 @@ namespace Chess {
         default:
             break;
         }
+    }
+
+    void Figures::setPos(Letter_Position lp, Digit_Position dp) {
+        letterPos = lp;
+        digitPos = dp;
+        figurePos.x = (float)lp * (float)size;
+        figurePos.y = (float)dp * (float)size;
+        sprite.setPosition(figurePos.x, figurePos.y);
+
+
+    }
+
+    void Figures::drawFigure(sf::RenderWindow (&window)) {
+        window.draw(sprite);
     }
 
     void Figures::SetFiguresToDefaultPositions(Figures (&f)[32]) {

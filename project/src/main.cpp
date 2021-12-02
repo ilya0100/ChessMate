@@ -30,6 +30,10 @@ int board[8][8] =
 int main()
 {
     //Chess::Figures F[32]; // пока тестируется
+    Chess::Figures one;
+    one.setSprite(W_QUEEN);
+    one.setPos(D, FOUR);
+
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
@@ -167,10 +171,10 @@ int main()
             window.draw(F[i].sprite);
         }
         */
-
-        for (size_t i = 0; i < 32; i++) {
-            window.draw(f[i]);
-        }
+        one.drawFigure(window);
+        //for (size_t i = 0; i < 32; i++) {
+          //  window.draw(f[i]);
+        //}
         window.display();
     }
 

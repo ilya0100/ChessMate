@@ -55,15 +55,29 @@ namespace Chess {
     class Figures: public FigureTexture {
 
         protected:
-            sf::Vector2f figurePos;
+
+            //  объявляется после определения спрайта
             sf::Vector2u figureSize;
             figureName name;
             Letter_Position letterPos;
+
+            // объявляется после определения позиции спрайте setPos
             Digit_Position digitPos;
+            sf::Vector2f figurePos;
 
         public:
+
+            //конструкторы
             Figures();
+
+
+            //сеттеры
             void setSprite(figureName fn);
+            void setPos(Letter_Position lp, Digit_Position dp);
+            void drawFigure(sf::RenderWindow (&window));
+
+
+            //статики
             static void SetFiguresToDefaultPositions(Figures (&f)[32]);
             static void DrawFigures(Figures (&f)[32], sf::RenderWindow (&window));
 
