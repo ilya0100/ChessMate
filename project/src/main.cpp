@@ -33,7 +33,7 @@ int main()
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
-    //menu(window);
+    menu(window);
 
     // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
