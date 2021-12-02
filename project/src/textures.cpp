@@ -65,7 +65,11 @@ namespace Chess {
     }
 
     Figures::Figures() {
-        FigureTexture();
+        if (!isTexture) {
+            FigureTexture::texture.loadFromFile("images/piecesT.png");
+            sprite.setTexture(texture);
+            isTexture = true;
+        }
     }
 
     Figures::Figures(figureName fn) {
