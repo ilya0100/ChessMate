@@ -57,6 +57,8 @@ namespace Chess {
         protected:
             sf::Vector2f figurePos;
             figureName name;
+            Letter_Position letterPos;
+            Digit_Position digitPos;
 
         public:
             Figures();

@@ -71,7 +71,6 @@ namespace Chess {
             isTexture = true;
         }
 
-
         switch (fn) {
             case W_PAWN:
             sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
@@ -177,68 +176,68 @@ namespace Chess {
 
     void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figures) {
         int k = 0;
-    int c = 0;
-    for (size_t i = 0; i < 8; i++) {
-        for (size_t j = 0; j < 8; j++) {
-            c = board[i][j];
-            if (c) {
-                switch (c) {
-                case 6:
-                    f[k] = figures.getFigureSprite(W_PAWN);
-                    break;
+        int c = 0;
+        for (size_t i = 0; i < 8; i++) {
+            for (size_t j = 0; j < 8; j++) {
+                c = board[i][j];
+                if (c) {
+                    switch (c) {
+                    case 6:
+                        f[k] = figures.getFigureSprite(W_PAWN);
+                        break;
 
-                case 5:
-                    f[k] = figures.getFigureSprite(W_ROOK);
-                    break;
+                    case 5:
+                        f[k] = figures.getFigureSprite(W_ROOK);
+                        break;
 
-                case 4:
-                    f[k] = figures.getFigureSprite(W_KNIGHT);
-                    break;
+                    case 4:
+                        f[k] = figures.getFigureSprite(W_KNIGHT);
+                        break;
 
-                case 3:
-                    f[k] = figures.getFigureSprite(W_BISHOP);
-                    break;
+                    case 3:
+                        f[k] = figures.getFigureSprite(W_BISHOP);
+                        break;
 
-                case 2:
-                    f[k] = figures.getFigureSprite(W_QUEEN);
-                    break;
+                    case 2:
+                        f[k] = figures.getFigureSprite(W_QUEEN);
+                        break;
 
-                case 1:
-                    f[k] = figures.getFigureSprite(W_KING);
-                    break;
+                    case 1:
+                        f[k] = figures.getFigureSprite(W_KING);
+                        break;
 
-                case -6:
-                    f[k] = figures.getFigureSprite(B_PAWN);
-                    break;
+                    case -6:
+                        f[k] = figures.getFigureSprite(B_PAWN);
+                        break;
 
-                case -5:
-                    f[k] = figures.getFigureSprite(B_ROOK);
-                    break;
+                    case -5:
+                        f[k] = figures.getFigureSprite(B_ROOK);
+                        break;
 
-                case -4:
-                    f[k] = figures.getFigureSprite(B_KNIGHT);
-                    break;
+                    case -4:
+                        f[k] = figures.getFigureSprite(B_KNIGHT);
+                        break;
 
-                case -3:
-                    f[k] = figures.getFigureSprite(B_BISHOP);
-                    break;
+                    case -3:
+                        f[k] = figures.getFigureSprite(B_BISHOP);
+                        break;
 
-                case -2:
-                    f[k] = figures.getFigureSprite(B_QUEEN);
-                    break;
+                    case -2:
+                        f[k] = figures.getFigureSprite(B_QUEEN);
+                        break;
 
-                case -1:
-                    f[k] = figures.getFigureSprite(B_KING);
-                    break;
+                    case -1:
+                        f[k] = figures.getFigureSprite(B_KING);
+                        break;
 
-                default:
-                    break;
+                    default:
+                        break;
+                    }
+                    f[k].setPosition(size * j, size * i);
+                    k++;
                 }
-                f[k].setPosition(size * j, size * i);
-                k++;
             }
         }
-    }
 
     }
 }  // namespace Chess
