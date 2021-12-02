@@ -156,7 +156,6 @@ int main()
         if (isMove) { f[n].setPosition(pos.x - dx, pos.y - dy); }
 
         window.clear();
-        //window.draw(menu_texture.get_sprite());
         window.clear(sf::Color(129, 181, 221));
         window.draw(exit);
         window.draw(back);
