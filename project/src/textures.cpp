@@ -123,18 +123,69 @@ namespace Chess {
 
     void Figures::SetFiguresToDefaultPositions(Figures (&f)[32]) {
         int k = 0;
-        for (int i = 0; i <= 8; i++) {
-            for (int j = 0; j <= 8; j++) {
+        for (int i = 0; i < 5; i++) {
+            //printf("%d\n", i);
+            /*
+            for (int j = 0; j < 5; j++) {
+                //printf("%d\n", j);
                 if (board[i][j] != EMPTY_CELL) {
-                    f[k].getFigureSprite(board[i][j]);
-                    f[k].sprite.setPosition(size * j, size * i);
+                    f[k].getFigureSprite(FigureTexture::board[i][j]);
                     k++;
                 }
-            }
-
+            }*/
         }
 
+        f[10].sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
+        //f[0].sprite.setPosition(size * 5, size * 5);
+        f[10].sprite.setPosition(size * 1, size * 1);
 
+
+
+        /*
+        f[1].sprite.setPosition(size * 0, size * 1);
+        f[2].sprite.setPosition(size * 0, size * 2);
+        f[3].sprite.setPosition(size * 0, size * 3);
+        f[4].sprite.setPosition(size * 0, size * 4);
+        f[5].sprite.setPosition(size * 0, size * 5);
+        f[6].sprite.setPosition(size * 0, size * 6);
+        f[7].sprite.setPosition(size * 0, size * 7);
+        f[8].sprite.setPosition(size * 1, size * 0);
+        f[9].sprite.setPosition(size * 1, size * 1);
+        f[10].sprite.setPosition(size * 1, size * 2);
+        f[11].sprite.setPosition(size * 1, size * 3);
+
+        f[12].sprite.setPosition(size * 1, size * 4);
+        f[13].sprite.setPosition(size * 1, size * 5);
+        f[14].sprite.setPosition(size * 1, size * 6);
+        f[15].sprite.setPosition(size * 1, size * 7);
+        f[16].sprite.setPosition(size * 2, size * 0);
+        f[17].sprite.setPosition(size * 2, size * 1);
+        f[18].sprite.setPosition(size * 2, size * 2);
+        f[19].sprite.setPosition(size * 2, size * 3);
+        //f[20].sprite.setPosition(size * 2, size * 4);
+        f[21].sprite.setPosition(size * 2, size * 5);
+        f[22].sprite.setPosition(size * 2, size * 6);
+        f[23].sprite.setPosition(size * 2, size * 6);
+        f[24].sprite.setPosition(size * 3, size * 0);
+        f[25].sprite.setPosition(size * 3, size * 1);
+        f[26].sprite.setPosition(size * 3, size * 2);
+        f[27].sprite.setPosition(size * 3, size * 3);
+        f[28].sprite.setPosition(size * 3, size * 4);
+        f[29].sprite.setPosition(size * 3, size * 5);
+        f[30].sprite.setPosition(size * 3, size * 6);
+        f[31].sprite.setPosition(size * 3, size * 7);
+        */
+    }
+
+    void Figures::DrawFigures(Figures (&f)[32], sf::RenderWindow (&window)) {
+        SetFiguresToDefaultPositions(f);
+
+        window.draw(f[10].sprite);
+        window.display();
+
+        /*for (size_t i = 0; i < 32; i++) {
+            window.draw(f[i].sprite);
+        }*/
     }
     // Pawn
 

@@ -64,7 +64,8 @@ namespace Chess {
         public:
             Figures();
             void setSprite(figureName fn);
-            void SetFiguresToDefaultPositions(Figures (&)[32]);
+            static void SetFiguresToDefaultPositions(Figures (&f)[32]);
+            static void DrawFigures(Figures (&f)[32], sf::RenderWindow (&window));
 
     };
 

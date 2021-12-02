@@ -29,11 +29,11 @@ int board[8][8] =
 
 int main()
 {
-    //Chess::Figures defaultFigures[32];
+    //Chess::Figures F[32]; // пока тестируется
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
-    menu(window);
+    //menu(window);
 
     // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
@@ -71,7 +71,7 @@ int main()
     playSpace.y = 0;
     board_texture.setPlaySpace(playSpace);
 
-
+    //Chess::Figures::SetFiguresToDefaultPositions(F);
     Chess::loadPieces(f, board, figures);
 
     NumCage curr_cage = {0};
@@ -161,6 +161,13 @@ int main()
         window.draw(exit);
         window.draw(back);
         window.draw(board_texture.get_sprite());
+
+        //Chess::Figures::DrawFigures(F, window);
+        /*
+        for (size_t i = 0; i < 32; i++) {
+            window.draw(F[i].sprite);
+        }
+        */
 
         for (size_t i = 0; i < 32; i++) {
             window.draw(f[i]);
