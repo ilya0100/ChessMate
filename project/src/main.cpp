@@ -16,14 +16,14 @@ NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
 }
   Chess::BoardLogic board_logic;
 int board[8][8] =
-    {{-5, -4, -3, -1, -2, -3, -4, -5},
+    {{-5, -4, -3, -2, -1, -3, -4, -5},
       {-6, -6, -6, -6, -6, -6, -6, -6},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {6,  6,  6,  6,  6,  6,  6,  6},
-      {5,  4,  3,  1,  2,  3,  4,  5}};
+      {5,  4,  3,  2,  1,  3,  4,  5}};
 
 
 
@@ -141,7 +141,7 @@ int main()
                     isMove = false;
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
-                        if (board_logic.isMoveFigure(W_PAWN, curr_cage.x, curr_cage.y)) {
+                        if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
                             f[n].setPosition(playSpace.x + curr_cage.x * CELL_SIZE, playSpace.y + curr_cage.y * CELL_SIZE);;
                         } else {
                             curr_cage = board_logic.getFigurePosition();
