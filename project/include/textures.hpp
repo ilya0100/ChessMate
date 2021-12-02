@@ -37,31 +37,36 @@ namespace Chess {
     class FigureTexture {
 
         protected:
-            sf::Texture texture;
             sf::Sprite sprite;
+
+            static sf::Texture texture;
+            static figureName board[8][8];
+            static bool isTexture;
+
+
 
         public:
             FigureTexture(std::string texture_file);
+            FigureTexture();
             sf::Sprite getFigureSprite(figureName fn);
 
-            sf::Sprite getWPawnSprite();
-            sf::Sprite getBPawnSprite();
+    };
 
-            sf::Sprite getWRookSprite();
-            sf::Sprite getBRookSprite();
+    class Figures: public FigureTexture {
 
-            sf::Sprite getWKnightSprite();
-            sf::Sprite getBKnightSprite();
+        protected:
+            sf::Vector2f figurePos;
+            sf::Vector2u figureSize;
+            figureName name;
+            Letter_Position letterPos;
+            Digit_Position digitPos;
 
-            sf::Sprite getWElephantSprite();
-            sf::Sprite getBElephantSprite();
+        public:
+            Figures();
+            void setSprite(figureName fn);
+            static void SetFiguresToDefaultPositions(Figures (&f)[32]);
+            static void DrawFigures(Figures (&f)[32], sf::RenderWindow (&window));
 
-            sf::Sprite getWQueenSprite();
-            sf::Sprite getBQueenSprite();
-
-
-            sf::Sprite getWKingSprite();
-            sf::Sprite getBKingSprite();
     };
 
     void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figure);

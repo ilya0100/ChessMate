@@ -24,5 +24,27 @@ typedef enum {
         EMPTY_CELL
 } figureName;
 
+typedef enum {
+        A,
+        B,
+        C,
+        D,
+        E,
+        F,
+        G,
+        H
+    } Letter_Position;
+
+    typedef enum {
+        EIGHT,
+        SEVEN,
+        SIX,
+        FIVE,
+        FOUR,
+        THREE,
+        TWO,
+        ONE
+    } Digit_Position;
+
 void menu(sf::RenderWindow & window);
 
