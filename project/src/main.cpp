@@ -14,10 +14,10 @@ NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
     cage.y = (pos.y - playSpace.y) / CELL_SIZE;
     return cage;
 }
-
+  Chess::BoardLogic board_logic;
 int board[8][8] =
     {{-5, -4, -3, -1, -2, -3, -4, -5},
-     {-6, -6, -6, -6, -6, -6, -6, -6},
+      {-6, -6, -6, -6, -6, -6, -6, -6},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {0,  0,  0,  0,  0,  0,  0,  0},
       {0,  0,  0,  0,  0,  0,  0,  0},
@@ -25,16 +25,24 @@ int board[8][8] =
       {6,  6,  6,  6,  6,  6,  6,  6},
       {5,  4,  3,  1,  2,  3,  4,  5}};
 
+
+
 int main()
-{   
+{
+    //Chess::Figures F[32]; // пока тестируется
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
     menu(window);
+
+    // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
 	sf::Vector2u windowSizeNew = window.getSize();
+    sf::Vector2f windowRatio;
+    windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
+    windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
 
-
+    // кнопка выхода
     sf::Texture ExitTexture;
     ExitTexture.loadFromFile("images/exit.png");
     sf::Sprite exit(ExitTexture);
@@ -44,7 +52,7 @@ int main()
 	exitSize.y = 23;
 	sf::Vector2f exitPos = exit.getPosition();
 
-
+    //кнопка назад
     sf::Texture BackTexture;
     BackTexture.loadFromFile("images/back.png");
     sf::Sprite back(BackTexture);
@@ -56,15 +64,14 @@ int main()
 
 
     Chess::BoardTexture board_texture("images/boardT.jpg");
-    Chess::FigureTexture figures("images/piecesT.png");
-    Chess::BoardLogic board_logic;
+    Chess::FigureTexture figures;
 
     sf::Vector2i playSpace;
     playSpace.x = 0; // correct
     playSpace.y = 0;
     board_texture.setPlaySpace(playSpace);
 
-    
+    //Chess::Figures::SetFiguresToDefaultPositions(F);
     Chess::loadPieces(f, board, figures);
 
     NumCage curr_cage = {0};
@@ -86,15 +93,19 @@ int main()
             if (event.type == sf::Event::Closed) {
                 window.close();
             }
+            // берем новый размер окна, чтобы можно было задать новую рабочую зону для кнопок
             if (event.type == sf::Event::Resized) {
 				windowSizeNew = window.getSize();
+                windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
+                windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
 		 	}
 
             menuNum = 0;
             exit.setColor(sf::Color::White);
             back.setColor(sf::Color::White);
-            if (sf::IntRect((float)exitPos.x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitPos.y * ((float)windowSizeNew.y / (float)windowSize.y), (float)exitSize.x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitSize.y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { exit.setColor(sf::Color::Blue); menuNum = 3; }
-            if (sf::IntRect((float)backPos.x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backPos.y * ((float)windowSizeNew.y / (float)windowSize.y), (float)backSize.x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backSize.y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { back.setColor(sf::Color::Blue); menuNum = 4; }
+            // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
+            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitSize.x * windowRatio.x, (float)exitSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exit.setColor(sf::Color::Blue); menuNum = 3; }
+            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { back.setColor(sf::Color::Blue); menuNum = 4; }
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
                 menu(window);
@@ -139,7 +150,7 @@ int main()
                     }
                 }
             }
-            
+
         }
 
         if (isMove) { f[n].setPosition(pos.x - dx, pos.y - dy); }
@@ -150,6 +161,13 @@ int main()
         window.draw(exit);
         window.draw(back);
         window.draw(board_texture.get_sprite());
+
+        //Chess::Figures::DrawFigures(F, window);
+        /*
+        for (size_t i = 0; i < 32; i++) {
+            window.draw(F[i].sprite);
+        }
+        */
 
         for (size_t i = 0; i < 32; i++) {
             window.draw(f[i]);
