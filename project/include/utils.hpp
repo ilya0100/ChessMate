@@ -10,19 +10,19 @@ typedef struct {
 } NumCage;
 
 typedef enum {
-        B_ROOK,
-        B_KNIGHT,
-        B_BISHOP,
-        B_QUEEN,
-        B_KING,
-        B_PAWN,
-        W_ROOK,
-        W_KNIGHT,
-        W_BISHOP,
-        W_QUEEN,
-        W_KING,
-        W_PAWN,
-        EMPTY_CELL
+        B_ROOK,     // 0
+        B_KNIGHT,   // 1
+        B_BISHOP,   // 2
+        B_QUEEN,    // 3
+        B_KING,     // 4
+        B_PAWN,     // 5
+        W_ROOK,     // 6
+        W_KNIGHT,   // 7
+        W_BISHOP,   // 8
+        W_QUEEN,    // 9
+        W_KING,     // 10
+        W_PAWN,     // 11
+        EMPTY_CELL  // 12
 } figureName;
 
 typedef enum {
