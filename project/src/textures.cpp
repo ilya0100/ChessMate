@@ -1,5 +1,7 @@
-#include "textures.hpp"
+#pragma once
 
+#include "utils.hpp"
+#include "textures.hpp"
 
 namespace Chess {
 
@@ -16,8 +18,12 @@ namespace Chess {
                                              {W_ROOK    , W_KNIGHT  , W_BISHOP  , W_QUEEN   , W_KING    , W_BISHOP  , W_KNIGHT  , W_ROOK    }};
 
     BoardTexture::BoardTexture(const std::string filename) {
-        texture.loadFromFile(filename, sf::IntRect(62, 62, 417, 417));
+        texture.loadFromFile(filename, sf::IntRect(0, 0, X_BOARD_SIZE, X_BOARD_SIZE));
         sprite.setTexture(texture);
+    }
+
+    void BoardTexture::setBoardScale(float scale) {
+        sprite.setScale(scale, scale);
     }
 
     MenuTexture::MenuTexture(const std::string filename) {
@@ -25,13 +31,15 @@ namespace Chess {
         sprite.setTexture(texture);
     }
 
-    sf::Sprite MenuTexture::get_sprite() {
+    sf::Sprite MenuTexture::getSprite() {
         return sprite;
     }
 
+    void FigureTexture::setFigureScale(float scale) {
+        sprite.setScale(scale, scale);
+    }
 
-
-    sf::Sprite BoardTexture::get_sprite() {
+    sf::Sprite BoardTexture::getSprite() {
         return sprite;
     }
 
@@ -56,7 +64,7 @@ namespace Chess {
 
     FigureTexture::FigureTexture() {
         if (!isTexture) {
-            FigureTexture::texture.loadFromFile("images/piecesT.png");
+            FigureTexture::texture.loadFromFile("images/piecesTru.png");
             sprite.setTexture(texture);
             isTexture = true;
         }
@@ -249,12 +257,6 @@ namespace Chess {
 
     }
 
-
-
-
-
-
-
     void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figures) {
         int k = 0;
         int c = 0;
@@ -314,7 +316,7 @@ namespace Chess {
                     default:
                         break;
                     }
-                    f[k].setPosition(size * j, size * i);
+                    f[k].setPosition(SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * j), SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * i));
                     k++;
                 }
             }
