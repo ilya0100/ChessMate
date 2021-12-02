@@ -4,8 +4,16 @@
 namespace Chess {
 
     // объявляем статические переменные
+    bool FigureTexture::isTexture = false;
     sf::Texture FigureTexture::texture;
-    figureName FigureTexture::board[8][8] = {};
+    figureName FigureTexture::board[8][8] = {{B_ROOK    , B_KNIGHT  , B_BISHOP  , B_QUEEN   , B_KING    , B_BISHOP  , B_KNIGHT  , B_ROOK    },
+                                             {B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    },
+                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
+                                             {W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    },
+                                             {W_ROOK    , W_KNIGHT  , W_BISHOP  , W_QUEEN   , W_KING    , W_BISHOP  , W_KNIGHT  , W_ROOK    }};
 
     BoardTexture::BoardTexture(const std::string filename) {
         texture.loadFromFile(filename, sf::IntRect(62, 62, 417, 417));
@@ -38,28 +46,32 @@ namespace Chess {
     }
 
     FigureTexture::FigureTexture(std::string texture_file) {
-        texture.loadFromFile(texture_file);
-        sprite.setTexture(texture);
-        sprite.setTextureRect(sf::IntRect(5, 1, SPRITE_SIZE, SPRITE_SIZE));
+        if (!isTexture) {
+            texture.loadFromFile(texture_file);
+            sprite.setTexture(texture);
+            sprite.setTextureRect(sf::IntRect(5, 1, SPRITE_SIZE, SPRITE_SIZE));
+            isTexture = true;
+        }
     }
 
     FigureTexture::FigureTexture() {
-
-        FigureTexture::texture.loadFromFile("images/piecesT.png");
-        sprite.setTexture(texture);
-        figureName board[8][8] = {{B_ROOK    , B_KNIGHT  , B_BISHOP  , B_QUEEN   , B_KING    , B_BISHOP  , B_KNIGHT  , B_ROOK    },
-                                  {B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    },
-                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                  {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                  {W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    },
-                                  {W_ROOK    , W_KNIGHT  , W_BISHOP  , W_QUEEN   , W_KING    , W_BISHOP  , W_KNIGHT  , W_ROOK    }};
+        if (!isTexture) {
+            FigureTexture::texture.loadFromFile("images/piecesT.png");
+            sprite.setTexture(texture);
+            isTexture = true;
+        }
 
 
     }
 
     Figures::Figures(figureName fn) {
+        if (!isTexture) {
+            FigureTexture::texture.loadFromFile("images/piecesT.png");
+            sprite.setTexture(texture);
+            isTexture = true;
+        }
+
+
         switch (fn) {
             case W_PAWN:
             sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));

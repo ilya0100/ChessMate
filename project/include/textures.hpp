@@ -41,6 +41,7 @@ namespace Chess {
 
             static sf::Texture texture;
             static figureName board[8][8];
+            static bool isTexture;
 
 
 
