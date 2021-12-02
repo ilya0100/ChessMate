@@ -121,7 +121,21 @@ namespace Chess {
         }
     }
 
+    void Figures::SetFiguresToDefaultPositions(Figures (&f)[32]) {
+        int k = 0;
+        for (int i = 0; i <= 8; i++) {
+            for (int j = 0; j <= 8; j++) {
+                if (board[i][j] != EMPTY_CELL) {
+                    f[k].getFigureSprite(board[i][j]);
+                    f[k].sprite.setPosition(size * j, size * i);
+                    k++;
+                }
+            }
 
+        }
+
+
+    }
     // Pawn
 
 
