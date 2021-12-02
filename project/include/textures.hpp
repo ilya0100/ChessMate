@@ -2,9 +2,8 @@
 
 #include "utils.hpp"
 
-#define SPRITE_SIZE 50
-
-static size_t size = 52;
+static float size = SPRITE_SIZE * SCALE_FACTOR;
+// static size_t size = 52;
 
 namespace Chess {
 
@@ -16,9 +15,10 @@ namespace Chess {
         public:
             BoardTexture(const std::string filename);
 
+            void setBoardScale(float scale);
             void setPlaySpace(sf::Vector2i pos);
 
-            sf::Sprite get_sprite();
+            sf::Sprite getSprite();
     };
 
     class MenuTexture {
@@ -31,7 +31,7 @@ namespace Chess {
 
             void setPlaySpace(sf::Vector2i pos);
 
-            sf::Sprite get_sprite();
+            sf::Sprite getSprite();
     };
 
     class FigureTexture {
@@ -48,6 +48,7 @@ namespace Chess {
         public:
             FigureTexture(std::string texture_file);
             FigureTexture();
+            void setFigureScale(float scale);
             sf::Sprite getFigureSprite(figureName fn);
 
     };
