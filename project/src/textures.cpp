@@ -64,6 +64,10 @@ namespace Chess {
 
     }
 
+    Figures::Figures() {
+        FigureTexture();
+    }
+
     Figures::Figures(figureName fn) {
         if (!isTexture) {
             FigureTexture::texture.loadFromFile("images/piecesT.png");
@@ -173,6 +177,14 @@ namespace Chess {
         return sprite;
 
     }
+
+    void Figures::setFigures(Figures (&f)[32]) {
+
+    }
+
+
+
+
 
     void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figures) {
         int k = 0;
