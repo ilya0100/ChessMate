@@ -141,7 +141,7 @@ int main()
                     isMove = false;
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
-                        if (board_logic.isMoveFigure(W_PAWN, curr_cage.x, curr_cage.y)) {
+                        if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
                             f[n].setPosition(playSpace.x + curr_cage.x * CELL_SIZE, playSpace.y + curr_cage.y * CELL_SIZE);;
                         } else {
                             curr_cage = board_logic.getFigurePosition();

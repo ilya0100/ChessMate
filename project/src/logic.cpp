@@ -51,17 +51,56 @@ namespace Chess {
         return cage;
     }
 
-    bool BoardLogic::isMoveFigure(figureName figure, int x, int y) const {
+    bool BoardLogic::isMoveFigure(int x, int y) {
+        figureName figure = board[current_pos_y][current_pos_x];
         switch (figure) {
             case B_PAWN:
-                if (y == current_pos_y && x - current_pos_x == 1) {
+                if (x == current_pos_x && y - current_pos_y == 1) {
+                    board[y][x] = B_PAWN;
                     return true;
                 }
+                break;
 
             case W_PAWN:
                 if (x == current_pos_x && y - current_pos_y == - 1) {
+                    board[y][x] = W_PAWN;
                     return true;
                 }
+                break;
+
+            case B_KING:
+                if ((x - current_pos_x) * (x - current_pos_x) || 
+                    (y - current_pos_y) * (y - current_pos_y)) {
+                    board[y][x] = B_KING;
+                    return true;
+                }
+                break;
+
+            case W_KING:
+                if ((x - current_pos_x) * (x - current_pos_x) || 
+                    (y - current_pos_y) * (y - current_pos_y)) {
+                    board[y][x] = W_KING;
+                    return true;
+                }
+                break;
+
+            case B_QUEEN:
+                if ((x - y) == (current_pos_x - current_pos_y) ||
+                    (x + y) == (current_pos_x + current_pos_y) ||
+                    x == current_pos_x || y == current_pos_y) {
+                    board[y][x] = B_KING;
+                    return true;
+                }
+                break;
+
+            case W_QUEEN:
+                if ((x - y) == (current_pos_x - current_pos_y) ||
+                    (x + y) == (current_pos_x + current_pos_y) ||
+                    x == current_pos_x || y == current_pos_y) {
+                    board[y][x] = W_KING;
+                    return true;
+                }
+                break;
 
             default:
                 break;

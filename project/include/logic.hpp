@@ -17,7 +17,7 @@ namespace Chess {
 
             void setFigurePosition(int x, int y);
             NumCage getFigurePosition() const;
-            bool isMoveFigure(figureName figure, int x, int y) const;
+            bool isMoveFigure(int x, int y);
     };
 
 }  // namespace Chess
