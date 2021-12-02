@@ -63,8 +63,8 @@ namespace Chess {
 
         public:
             Figures();
-            Figures(figureName fn);
-            void setFigures(Figures (&)[32]);
+            void setSprite(figureName fn);
+            void setFiguresToDefaultPositions(Figures (&)[32]);
 
     };
 

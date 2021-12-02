@@ -72,7 +72,7 @@ namespace Chess {
         }
     }
 
-    Figures::Figures(figureName fn) {
+    void Figures::setSprite(figureName fn) {
         if (!isTexture) {
             FigureTexture::texture.loadFromFile("images/piecesT.png");
             sprite.setTexture(texture);
@@ -120,6 +120,8 @@ namespace Chess {
             break;
         }
     }
+
+
     // Pawn
 
 
@@ -182,9 +184,7 @@ namespace Chess {
 
     }
 
-    void Figures::setFigures(Figures (&f)[32]) {
 
-    }
 
 
 
