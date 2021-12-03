@@ -21,6 +21,8 @@
 // scale
 #define SCALE_FACTOR 0.25
 
+static float size = SPRITE_SIZE * SCALE_FACTOR;
+
 typedef struct {
     int x;
     int y;

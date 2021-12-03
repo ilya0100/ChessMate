@@ -65,7 +65,7 @@ int main() {
     Chess::BoardTexture board_texture("images/boardTru.jpg");
     Chess::FigureTexture figures_testure;
     board_texture.setBoardScale(SCALE_FACTOR);
-    figures_testure.setFigureScale(SCALE_FACTOR);
+    // figures_testure.setFigureScale(SCALE_FACTOR);
     
     Chess::BoardLogic board_logic;
     Chess::Figures figures_arr[32]; // пока тестируется
@@ -86,6 +86,12 @@ int main() {
             }
         }
     }
+
+    std::cout << figures_arr[0].getFigureSprite().getGlobalBounds().height << std::endl;
+    std::cout << figures_arr[0].getFigureSprite().getGlobalBounds().width << "\n" << std::endl;
+
+    std::cout << figures_arr[0].getFigureSprite().getPosition().x << std::endl;
+    std::cout << figures_arr[0].getFigureSprite().getPosition().y << "\n" << std::endl;
 
     // Chess::Figures::SetFiguresToDefaultPositions(F);
 
@@ -144,8 +150,8 @@ int main() {
                             curr_cage = getCurrCage(pos, playSpace); //getPlaySpace
                             board_logic.setFigurePosition(curr_cage.x, curr_cage.y);
                             n = i;
-                            dx = pos.x - figures_arr[i].getFigurePos().x;
-                            dy = pos.y - figures_arr[i].getFigurePos().x;
+                            // dx = pos.x - figures_arr[i].getFigurePos().x;
+                            // dy = pos.y - figures_arr[i].getFigurePos().x;
                         }
                     }
                 }
@@ -168,7 +174,6 @@ int main() {
 
         }
 
-        if (isMove) { figures_arr[n].setSpritePos(pos.x - dx, pos.y - dy); }
 
         window.clear();
         //window.draw(menu_texture.getSprite());
@@ -184,7 +189,11 @@ int main() {
         }
         */
 
+
         for (size_t i = 0; i < 32; i++) {
+            if (isMove && i == n) {
+                figures_arr[i].moveFigure(pos.x - size / 2, pos.y - size / 2);
+            }
             window.draw(figures_arr[i].getFigureSprite());
         }
         window.display();

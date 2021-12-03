@@ -66,7 +66,7 @@ namespace Chess {
 
     FigureTexture::FigureTexture() {
         // if (!isTexture) {
-            FigureTexture::texture.loadFromFile("images/piecesT.png");
+            FigureTexture::texture.loadFromFile("images/piecesTru.png");
             main_sprite.setTexture(texture);
             // isTexture = true;
         // }
@@ -166,81 +166,71 @@ namespace Chess {
         // is_exists = true;
 
         name = figure_name;
+        sprite = main_sprite;
 
         switch (figure_name) {
         case W_PAWN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(5 * size, 0, size, size));
+            sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case B_PAWN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE * SCALE_FACTOR, 1 * SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
             break;
             
         case W_ROOK:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE * SCALE_FACTOR, 0, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case B_ROOK:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE * SCALE_FACTOR, 1 * SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case W_KNIGHT:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE * SCALE_FACTOR, 0, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE , 0, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case B_KNIGHT:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE * SCALE_FACTOR, 1 * SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case W_BISHOP:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE * SCALE_FACTOR, 0, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case B_BISHOP:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE * SCALE_FACTOR, 1 * SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case W_QUEEN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE * SCALE_FACTOR, 0, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case B_QUEEN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE * SCALE_FACTOR, 1 * SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case W_KING:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         case B_KING:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE * SCALE_FACTOR, 1 * SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR, SPRITE_SIZE * SCALE_FACTOR));
+            sprite.setTextureRect(sf::IntRect(0, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
             break;
 
         default:
             break;
         }
+        sprite.setScale(SCALE_FACTOR, SCALE_FACTOR);
     }
 
-    void Figures::setFigurePos(size_t i, size_t j) {
+    void Figures::setFigurePos(int i, int j) {
         figurePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * j);
         figurePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * i);
 
         sprite.setPosition(figurePos.x, figurePos.y);
     }
 
-    void Figures::setSpritePos(float x, float y) {
+    void Figures::moveFigure(float x, float y) {
         sprite.setPosition(x, y);
     }
 
@@ -322,7 +312,7 @@ namespace Chess {
         return figurePos;
     }
 
-    sf::Sprite Figures::getFigureSprite() const {
+    sf::Sprite Figures::getFigureSprite() {
 
         /*
         switch (figure_name) {

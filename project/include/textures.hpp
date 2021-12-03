@@ -2,9 +2,6 @@
 
 #include "utils.hpp"
 
-static float size = SPRITE_SIZE * SCALE_FACTOR;
-// static size_t size = 52;
-
 namespace Chess {
 
     class BoardTexture {
@@ -72,10 +69,10 @@ namespace Chess {
             // Figures(figureName name);
 
             void setSprite(figureName figure_name);
-            void setFigurePos(size_t i, size_t j);
-            void setSpritePos(float x, float y);
+            void setFigurePos(int i, int j);
+            void moveFigure(float x, float y);
 
-            sf::Sprite getFigureSprite() const;
+            sf::Sprite getFigureSprite();
             figureName getName() const;
             sf::Vector2f getFigurePos() const;
             // bool isExists() const;
