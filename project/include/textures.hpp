@@ -1,3 +1,5 @@
+#pragma once
+
 #include "utils.hpp"
 
 static float size = SPRITE_SIZE * SCALE_FACTOR;
