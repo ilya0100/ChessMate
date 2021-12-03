@@ -35,21 +35,20 @@ namespace Chess {
     };
 
     class FigureTexture {
+            sf::Texture texture;
 
         protected:
-            sf::Sprite sprite;
-
-            static sf::Texture texture;
-            static figureName board[8][8];
-            static bool isTexture;
+            sf::Sprite main_sprite;
+            // static figureName board[8][8];
+            // bool isTexture;
 
 
 
         public:
-            FigureTexture(std::string texture_file);
+            // FigureTexture(std::string texture_file);
             FigureTexture();
             void setFigureScale(float scale);
-            sf::Sprite getFigureSprite(figureName fn);
+            // sf::Sprite getFigureSprite(figureName figure_name);
 
     };
 
@@ -58,18 +57,33 @@ namespace Chess {
         protected:
             sf::Vector2f figurePos;
             sf::Vector2u figureSize;
-            figureName name;
+
             Letter_Position letterPos;
             Digit_Position digitPos;
 
+            figureName name;
+            sf::Sprite sprite;
+            // bool is_exists;
+
+
         public:
+
             Figures();
-            void setSprite(figureName fn);
-            static void SetFiguresToDefaultPositions(Figures (&f)[32]);
-            static void DrawFigures(Figures (&f)[32], sf::RenderWindow (&window));
+            // Figures(figureName name);
+
+            void setSprite(figureName figure_name);
+            void setFigurePos(size_t i, size_t j);
+            void setSpritePos(float x, float y);
+
+            sf::Sprite getFigureSprite() const;
+            figureName getName() const;
+            sf::Vector2f getFigurePos() const;
+            // bool isExists() const;
+            // static void SetFiguresToDefaultPositions(Figures (&f)[32]);
+            // static void DrawFigures(Figures (&f)[32], sf::RenderWindow (&window));
 
     };
 
-    void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figure);
+    void loadPieces(Figures& figure, figureName figure_name, size_t i, size_t j);
 
 }  // namespace Chess
