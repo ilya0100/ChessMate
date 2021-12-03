@@ -87,12 +87,6 @@ int main() {
         }
     }
 
-    std::cout << figures_arr[0].getFigureSprite().getGlobalBounds().height << std::endl;
-    std::cout << figures_arr[0].getFigureSprite().getGlobalBounds().width << "\n" << std::endl;
-
-    std::cout << figures_arr[0].getFigureSprite().getPosition().x << std::endl;
-    std::cout << figures_arr[0].getFigureSprite().getPosition().y << "\n" << std::endl;
-
     // Chess::Figures::SetFiguresToDefaultPositions(F);
 
     NumCage curr_cage = {0};
@@ -163,10 +157,10 @@ int main() {
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
-                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
+                            figures_arr[n].setFigurePos(curr_cage.y, curr_cage.x);
                         } else {
                             curr_cage = board_logic.getFigurePosition();
-                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
+                            figures_arr[n].setFigurePos(curr_cage.y, curr_cage.x);
                         }
                     }
                 }
