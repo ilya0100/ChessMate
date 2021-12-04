@@ -44,20 +44,20 @@ int main() {
     sf::Texture ExitTexture;
     ExitTexture.loadFromFile("images/exit.png");
     sf::Sprite exit(ExitTexture);
-    exit.setPosition(500, 500);
+    exit.setPosition(2500 * SCALE_FACTOR, 3000 * SCALE_FACTOR);
     sf::Vector2u exitSize;
-	exitSize.x = 61;
-	exitSize.y = 23;
+	exitSize.x = 119;
+	exitSize.y = 43;
 	sf::Vector2f exitPos = exit.getPosition();
 
     // кнопка назад
     sf::Texture BackTexture;
     BackTexture.loadFromFile("images/back.png");
     sf::Sprite back(BackTexture);
-    back.setPosition(38, 550);
+    back.setPosition(500 * SCALE_FACTOR, 3000 * SCALE_FACTOR);
     sf::Vector2u backSize;
-	backSize.x = 133;
-	backSize.y = 23;
+	backSize.x = 254;
+	backSize.y = 43;
 	sf::Vector2f backPos = back.getPosition();
 
     // add board and figure 
@@ -172,8 +172,6 @@ int main() {
         window.clear();
         //window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
-        window.draw(exit);
-        window.draw(back);
         window.draw(board_texture.getSprite());
 
         //Chess::Figures::DrawFigures(F, window);
@@ -190,6 +188,9 @@ int main() {
             }
             window.draw(figures_arr[i].getFigureSprite());
         }
+        window.draw(exit);
+        window.draw(back);
+
         window.display();
     }
 

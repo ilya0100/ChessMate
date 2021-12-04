@@ -32,10 +32,10 @@ namespace Chess {
     };
 
     class FigureTexture {
-            sf::Texture texture;
+            static sf::Texture texture;
 
         protected:
-            sf::Sprite main_sprite;
+            static sf::Sprite main_sprite;
             // static figureName board[8][8];
             // bool isTexture;
 

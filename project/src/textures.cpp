@@ -3,10 +3,12 @@
 
 namespace Chess {
 
-    /*
+
     // объявляем статические переменные
-    bool FigureTexture::isTexture = false;
+    //bool FigureTexture::isTexture = false;
     sf::Texture FigureTexture::texture;
+    sf::Sprite FigureTexture::main_sprite;
+    /*
     figureName FigureTexture::board[8][8] = {{B_ROOK    , B_KNIGHT  , B_BISHOP  , B_QUEEN   , B_KING    , B_BISHOP  , B_KNIGHT  , B_ROOK    },
                                              {B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    },
                                              {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},

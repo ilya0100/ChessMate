@@ -19,7 +19,7 @@
 #define CELL_SIZE (264 * SCALE_FACTOR)
 
 // scale
-#define SCALE_FACTOR 0.25
+#define SCALE_FACTOR 0.2
 
 static float size = SPRITE_SIZE * SCALE_FACTOR;
 
