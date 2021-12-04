@@ -67,10 +67,12 @@ namespace Chess {
 
             Figures();
             // Figures(figureName name);
-
+            Figures(figureName fn);
             void setSprite(figureName figure_name);
             void setFigurePos(int i, int j);
+            void setFigurePos(Letter_Position lp, Digit_Position dp);
             void moveFigure(float x, float y);
+            void drawFigure(sf:: RenderWindow &window);
 
             sf::Sprite getFigureSprite();
             figureName getName() const;

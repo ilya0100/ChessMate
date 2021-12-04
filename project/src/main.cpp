@@ -27,7 +27,13 @@ int board[8][8] =
 
 int main() {
 
-    
+    Chess::Figures one(W_QUEEN);
+    Chess::Figures two(B_KING);
+    one.setFigurePos(A, ONE);
+    two.setFigurePos(D, THREE);
+
+
+
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
@@ -56,8 +62,8 @@ int main() {
     sf::Sprite back(BackTexture);
     back.setPosition(500 * SCALE_FACTOR, 3000 * SCALE_FACTOR);
     sf::Vector2u backSize;
-	backSize.x = 254;
-	backSize.y = 43;
+	backSize.x = 284;
+	backSize.y = 53;
 	sf::Vector2f backPos = back.getPosition();
 
     // add board and figure 
@@ -173,13 +179,9 @@ int main() {
         //window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
         window.draw(board_texture.getSprite());
+        window.draw(exit);
+        window.draw(back);
 
-        //Chess::Figures::DrawFigures(F, window);
-        /*
-        for (size_t i = 0; i < 32; i++) {
-            window.draw(F[i].sprite);
-        }
-        */
 
 
         for (size_t i = 0; i < 32; i++) {
@@ -188,8 +190,9 @@ int main() {
             }
             window.draw(figures_arr[i].getFigureSprite());
         }
-        window.draw(exit);
-        window.draw(back);
+
+
+
 
         window.display();
     }

@@ -17,14 +17,14 @@ void menu(sf::RenderWindow & window) {
 	int menuNum = 0;
 
 	sf::Vector2u menu1Size;
-	menu1Size.x = 220;
-	menu1Size.y = 43;
+	menu1Size.x = 250;
+	menu1Size.y = 53;
 	menu1.setPosition(200, 200);
 	sf::Vector2f menu1Pos = menu1.getPosition();
 
 	sf::Vector2u menu3Size;
-	menu3Size.x = 119;
-	menu3Size.y = 43;
+	menu3Size.x = 149;
+	menu3Size.y = 53;
 	menu3.setPosition(200, 290);
 	sf::Vector2f menu3Pos = menu3.getPosition();
 

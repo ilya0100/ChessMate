@@ -158,7 +158,9 @@ namespace Chess {
         }
     }
     */
-
+    Figures::Figures(figureName fn) {
+        setSprite(fn);
+    }
     void Figures::setSprite(figureName figure_name) {
         // if (!isTexture) {
         //     FigureTexture::texture.loadFromFile("images/piecesT.png");
@@ -231,7 +233,17 @@ namespace Chess {
 
         sprite.setPosition(figurePos.x, figurePos.y);
     }
+    void Figures::setFigurePos(Letter_Position lp, Digit_Position dp) {
+        letterPos = lp;
+        digitPos = dp;
+        figurePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * (float)lp);
+        figurePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * (float)dp);
+        sprite.setPosition(figurePos.x, figurePos.y);
+    }
 
+    void Figures::drawFigure(sf:: RenderWindow &window) {
+        window.draw(sprite);
+    }
     void Figures::moveFigure(float x, float y) {
         sprite.setPosition(x, y);
     }
@@ -250,46 +262,6 @@ namespace Chess {
                 }
             }
         }
-
-        f[10].sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
-        //f[0].sprite.setPosition(size * 5, size * 5);
-        f[10].sprite.setPosition(size * 1, size * 1);
-
-
-
-        
-        f[1].sprite.setPosition(size * 0, size * 1);
-        f[2].sprite.setPosition(size * 0, size * 2);
-        f[3].sprite.setPosition(size * 0, size * 3);
-        f[4].sprite.setPosition(size * 0, size * 4);
-        f[5].sprite.setPosition(size * 0, size * 5);
-        f[6].sprite.setPosition(size * 0, size * 6);
-        f[7].sprite.setPosition(size * 0, size * 7);
-        f[8].sprite.setPosition(size * 1, size * 0);
-        f[9].sprite.setPosition(size * 1, size * 1);
-        f[10].sprite.setPosition(size * 1, size * 2);
-        f[11].sprite.setPosition(size * 1, size * 3);
-
-        f[12].sprite.setPosition(size * 1, size * 4);
-        f[13].sprite.setPosition(size * 1, size * 5);
-        f[14].sprite.setPosition(size * 1, size * 6);
-        f[15].sprite.setPosition(size * 1, size * 7);
-        f[16].sprite.setPosition(size * 2, size * 0);
-        f[17].sprite.setPosition(size * 2, size * 1);
-        f[18].sprite.setPosition(size * 2, size * 2);
-        f[19].sprite.setPosition(size * 2, size * 3);
-        //f[20].sprite.setPosition(size * 2, size * 4);
-        f[21].sprite.setPosition(size * 2, size * 5);
-        f[22].sprite.setPosition(size * 2, size * 6);
-        f[23].sprite.setPosition(size * 2, size * 6);
-        f[24].sprite.setPosition(size * 3, size * 0);
-        f[25].sprite.setPosition(size * 3, size * 1);
-        f[26].sprite.setPosition(size * 3, size * 2);
-        f[27].sprite.setPosition(size * 3, size * 3);
-        f[28].sprite.setPosition(size * 3, size * 4);
-        f[29].sprite.setPosition(size * 3, size * 5);
-        f[30].sprite.setPosition(size * 3, size * 6);
-        f[31].sprite.setPosition(size * 3, size * 7);
         
     }
 
