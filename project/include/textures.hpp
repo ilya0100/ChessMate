@@ -47,7 +47,7 @@ namespace Chess {
 
         protected:
             sf::Vector2f spritePos;
-            sf::Vector2u figureSize;
+            sf::Vector2u spriteSize;
 
             sf::Vector2u figurePos;
 
@@ -60,14 +60,16 @@ namespace Chess {
 
             void setSprite(figureName figure_name);
             void setFigurePos(int i, int j);
+            void setSpritePos(float x, float y);
             // void setFigurePos(Letter_Position lp, Digit_Position dp);
 
             void moveFigure(float x, float y);
             void drawFigure(sf:: RenderWindow &window);
 
-            sf::Sprite getFigureSprite();
+            sf::Vector2u getFigurePos() const;
+            sf::Sprite getFigureSprite() const;
             figureName getName() const;
-            sf::Vector2f getFigurePos() const;
+            sf::Vector2f getSpritePos() const;
 
     };
 

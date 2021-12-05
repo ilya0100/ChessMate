@@ -124,6 +124,12 @@ namespace Chess {
         figurePos.y = j;
     }
 
+    void Figures::setSpritePos(float x, float y) {
+        spritePos.x = x;
+        spritePos.y = y;
+        sprite.setPosition(spritePos.x, spritePos.y);
+    }
+
     /*
     void Figures::setFigurePos(Letter_Position lp, Digit_Position dp) {
         letterPos = lp;
@@ -142,16 +148,19 @@ namespace Chess {
         sprite.setPosition(x, y);
     }
 
+    sf::Vector2u Figures::getFigurePos() const {
+        return figurePos;
+    }
+
     figureName Figures::getName() const {
         return name;
     }
 
-    
-    sf::Vector2f Figures::getFigurePos() const {
+    sf::Vector2f Figures::getSpritePos() const {
         return spritePos;
     }
 
-    sf::Sprite Figures::getFigureSprite() {
+    sf::Sprite Figures::getFigureSprite() const{
         return sprite;
     }
 

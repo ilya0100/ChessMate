@@ -9,18 +9,17 @@ namespace Chess {
     class BoardLogic {
         figureName board[8][8];
 
-        int current_pos_x;
-        int current_pos_y;
+        sf::Vector2u current_pos;
         
         public:
             BoardLogic();
 
-            void setFigurePosition(int x, int y);
+            void setFigurePosition(sf::Vector2u pos);
 
-            NumCage getFigurePosition() const;
+            sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);
             
-            figureName operator()(int i, int j) const;
+            figureName operator()(int x, int y) const;
     };
 
 }  // namespace Chess

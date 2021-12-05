@@ -3,8 +3,8 @@
 #include "utils.hpp"
 
 // detect number of current cage
-NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
-    NumCage cage;
+sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
+    sf::Vector2u cage;
     cage.x = (pos.x - playSpace.x) / (CELL_SIZE);
     cage.y = (pos.y - playSpace.y) / (CELL_SIZE);
     return cage;
@@ -12,13 +12,6 @@ NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
 
 
 int main() {
-
-    Chess::Figures one(W_QUEEN);
-    Chess::Figures two(B_KING);
-    one.setFigurePos(A, ONE);
-    two.setFigurePos(D, THREE);
-
-
 
     sf::Clock clock;
     int menuNum = 0;
@@ -66,24 +59,25 @@ int main() {
     playSpace.y = Y_PLAYSPACE * SCALE_FACTOR;
     board_texture.setPlaySpace(playSpace);
 
-    size_t k = 0;
-    for (size_t i = 0; i < 8; i++) {
-        for (size_t j = 0; j < 8; j++) {
-            figureName figure = board_logic(i, j);
+    int k = 0;
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            figureName figure = board_logic(x, y);
 
             if (figure != EMPTY_CELL && k < 32) {
-                Chess::loadPieces(figures_arr[k], figure, i, j);
+                Chess::loadPieces(figures_arr[k], figure, x, y);
                 k++;
             }
         }
     }
 
-    NumCage curr_cage = {0};
+    sf::Vector2u curr_cage = {};
     bool isMove = false;
     bool isCatch = false;
     float dx = 0;
     float dy = 0;
     size_t n = 0;
+    int eaten_count = 0;
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -131,7 +125,7 @@ int main() {
                             isCatch = true;
                             isMove = true;
                             curr_cage = getCurrCage(pos, playSpace);
-                            board_logic.setFigurePosition(curr_cage.x, curr_cage.y);
+                            board_logic.setFigurePosition(curr_cage);
                             n = i;
                         }
                     }
@@ -146,6 +140,16 @@ int main() {
                         curr_cage = getCurrCage(pos, playSpace);
                         
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
+                            if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
+                                for (size_t i = 0; i < 32; i++) {
+                                    if (figures_arr[i].getFigurePos() == curr_cage) {
+                                        figures_arr[i].setSpritePos(600 + size / 3 * eaten_count, 100);
+                                        eaten_count++;
+                                        break;
+                                    }
+                                }
+                            }
+
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         } else {
                             curr_cage = board_logic.getFigurePosition();
@@ -168,7 +172,10 @@ int main() {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - size / 2, pos.y - size / 2);
             }
+            
+            // if (board_logic(figures_arr[i].getFigurePos().x, figures_arr[i].getFigurePos().y) != EMPTY_CELL) {
             window.draw(figures_arr[i].getFigureSprite());
+            // }
         }
 
         window.display();
