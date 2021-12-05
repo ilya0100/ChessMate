@@ -69,9 +69,9 @@ int main() {
     size_t k = 0;
     for (size_t i = 0; i < 8; i++) {
         for (size_t j = 0; j < 8; j++) {
-            figureName figure = board_logic.board[i][j];
+            figureName figure = board_logic(i, j);
 
-            if (figure != EMPTY_CELL) {
+            if (figure != EMPTY_CELL && k < 32) {
                 Chess::loadPieces(figures_arr[k], figure, i, j);
                 k++;
             }
@@ -141,13 +141,15 @@ int main() {
             if (event.type == sf::Event::MouseButtonReleased) {
                 if (event.key.code == sf::Mouse::Left) {
                     isMove = false;
+
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
+                        
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
-                            figures_arr[n].setFigurePos(curr_cage.y, curr_cage.x);
+                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         } else {
                             curr_cage = board_logic.getFigurePosition();
-                            figures_arr[n].setFigurePos(curr_cage.y, curr_cage.x);
+                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         }
                     }
                 }

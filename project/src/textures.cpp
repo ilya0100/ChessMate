@@ -116,19 +116,23 @@ namespace Chess {
     }
 
     void Figures::setFigurePos(int i, int j) {
-        figurePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * j);
-        figurePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * i);
+        spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * i);
+        spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * j);
+        sprite.setPosition(spritePos.x, spritePos.y);
 
-        sprite.setPosition(figurePos.x, figurePos.y);
+        figurePos.x = i;
+        figurePos.y = j;
     }
 
+    /*
     void Figures::setFigurePos(Letter_Position lp, Digit_Position dp) {
         letterPos = lp;
         digitPos = dp;
-        figurePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * (float)lp);
-        figurePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * (float)dp);
-        sprite.setPosition(figurePos.x, figurePos.y);
+        spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * (float)lp);
+        spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * (float)dp);
+        sprite.setPosition(spritePos.x, spritePos.y);
     }
+    */
 
     void Figures::drawFigure(sf:: RenderWindow &window) {
         window.draw(sprite);
@@ -144,7 +148,7 @@ namespace Chess {
 
     
     sf::Vector2f Figures::getFigurePos() const {
-        return figurePos;
+        return spritePos;
     }
 
     sf::Sprite Figures::getFigureSprite() {

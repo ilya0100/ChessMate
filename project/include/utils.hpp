@@ -56,14 +56,14 @@ typedef enum {
 } Letter_Position;
 
 typedef enum {
-    EIGHT,
-    SEVEN,
-    SIX,
-    FIVE,
-    FOUR,
-    THREE,
+    ONE,
     TWO,
-    ONE
+    THREE,
+    FOUR,
+    FIVE,
+    SIX,
+    SEVEN,
+    EIGHT
 } Digit_Position;
 
 void menu(sf::RenderWindow & window);

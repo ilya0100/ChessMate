@@ -46,11 +46,10 @@ namespace Chess {
     class Figures: public FigureTexture {
 
         protected:
-            sf::Vector2f figurePos;
+            sf::Vector2f spritePos;
             sf::Vector2u figureSize;
 
-            Letter_Position letterPos;
-            Digit_Position digitPos;
+            sf::Vector2u figurePos;
 
             figureName name;
             sf::Sprite sprite;
@@ -61,7 +60,7 @@ namespace Chess {
 
             void setSprite(figureName figure_name);
             void setFigurePos(int i, int j);
-            void setFigurePos(Letter_Position lp, Digit_Position dp);
+            // void setFigurePos(Letter_Position lp, Digit_Position dp);
 
             void moveFigure(float x, float y);
             void drawFigure(sf:: RenderWindow &window);

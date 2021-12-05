@@ -39,6 +39,10 @@ namespace Chess {
         }
     }
 
+    figureName BoardLogic::operator()(int i, int j) const {
+        return board[j][i];
+    }
+
     void BoardLogic::setFigurePosition(int x, int y) {
         current_pos_x = x;
         current_pos_y = y;
