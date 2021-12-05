@@ -20,6 +20,10 @@ namespace Chess {
             bool isMoveFigure(int x, int y);
             
             figureName operator()(int x, int y) const;
+        
+        private:
+            bool isFigureOnLine(int x, int y) const;
+            bool isFigureOnDiagonal(int x, int y) const;
     };
 
 }  // namespace Chess

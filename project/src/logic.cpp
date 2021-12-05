@@ -62,7 +62,11 @@ namespace Chess {
 
         switch (figure) {
             case B_PAWN:
-                if (x == current_pos.x && y - current_pos.y == 1) {
+                if (board[y][x] <= B_PAWN) {
+                    return false;
+                }
+                if (x == current_pos.x && y - current_pos.y == 1 &&
+                    board[y][x] == EMPTY_CELL) {
                     board[y][x] = B_PAWN;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -70,7 +74,11 @@ namespace Chess {
                 break;
 
             case W_PAWN:
-                if (x == current_pos.x && y - current_pos.y == - 1) {
+                if (board[y][x] >= W_ROOK) {
+                    return false;
+                }
+                if (x == current_pos.x && y - current_pos.y == - 1 &&
+                    board[y][x] == EMPTY_CELL) {
                     board[y][x] = W_PAWN;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -78,6 +86,9 @@ namespace Chess {
                 break;
 
             case B_KING:
+                if (board[y][x] <= B_PAWN) {
+                    return false;
+                }
                 if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
                     (y - current_pos.y) * (y - current_pos.y) <= 1) {
                     board[y][x] = B_KING;
@@ -87,6 +98,9 @@ namespace Chess {
                 break;
 
             case W_KING:
+                if (board[y][x] >= W_ROOK) {
+                    return false;
+                }
                 if ((x - current_pos.x) * (x - current_pos.x) <= 1 && 
                     (y - current_pos.y) * (y - current_pos.y) <= 1) {
                     board[y][x] = W_KING;
@@ -96,9 +110,10 @@ namespace Chess {
                 break;
 
             case B_QUEEN:
-                if ((x - y) == (current_pos.x - current_pos.y) ||
-                    (x + y) == (current_pos.x + current_pos.y) ||
-                    x == current_pos.x || y == current_pos.y) {
+                if (board[y][x] <= B_PAWN) {
+                    return false;
+                }
+                if (isFigureOnDiagonal(x, y) || isFigureOnLine(x, y)) {
                     board[y][x] = B_QUEEN;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -106,9 +121,10 @@ namespace Chess {
                 break;
 
             case W_QUEEN:
-                if ((x - y) == (current_pos.x - current_pos.y) ||
-                    (x + y) == (current_pos.x + current_pos.y) ||
-                    x == current_pos.x || y == current_pos.y) {
+                if (board[y][x] >= W_ROOK) {
+                    return false;
+                }
+                if (isFigureOnDiagonal(x, y) || isFigureOnLine(x, y)) {
                     board[y][x] = W_QUEEN;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -116,8 +132,10 @@ namespace Chess {
                 break;
 
             case B_BISHOP:
-                if ((x - y) == (current_pos.x - current_pos.y) ||
-                    (x + y) == (current_pos.x + current_pos.y)) {
+                if (board[y][x] <= B_PAWN) {
+                    return false;
+                }
+                if (isFigureOnDiagonal(x, y)) {
                     board[y][x] = B_BISHOP;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -125,8 +143,10 @@ namespace Chess {
                 break;
 
             case W_BISHOP:
-                if ((x - y) == (current_pos.x - current_pos.y) ||
-                    (x + y) == (current_pos.x + current_pos.y)) {
+                if (board[y][x] >= W_ROOK) {
+                    return false;
+                }
+                if (isFigureOnDiagonal(x, y)) {
                     board[y][x] = W_BISHOP;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -134,6 +154,9 @@ namespace Chess {
                 break;
 
             case B_KNIGHT:
+                if (board[y][x] <= B_PAWN) {
+                    return false;
+                }
                 if ((x - current_pos.x) * (x - current_pos.x) + 
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = B_KNIGHT;
@@ -143,6 +166,9 @@ namespace Chess {
                 break;
 
             case W_KNIGHT:
+                if (board[y][x] >= W_ROOK) {
+                    return false;
+                }
                 if ((x - current_pos.x) * (x - current_pos.x) + 
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = W_KNIGHT;
@@ -152,8 +178,10 @@ namespace Chess {
                 break;
             
             case B_ROOK:
-                if ((x == current_pos.x && y != current_pos.y) ||
-                    (x != current_pos.x && y == current_pos.y)) {
+                if (board[y][x] <= B_PAWN) {
+                    return false;
+                }
+                if (isFigureOnLine(x, y)) {
                     board[y][x] = B_ROOK;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -161,8 +189,10 @@ namespace Chess {
                 break;
 
             case W_ROOK:
-                if ((x == current_pos.x && y != current_pos.y) ||
-                    (x != current_pos.x && y == current_pos.y)) {
+                if (board[y][x] >= W_ROOK) {
+                    return false;
+                }
+                if (isFigureOnLine(x, y)) {
                     board[y][x] = W_ROOK;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
@@ -171,6 +201,48 @@ namespace Chess {
 
             default:
                 break;
+        }
+        return false;
+    }
+
+    bool BoardLogic::isFigureOnLine(int x, int y) const {
+        if (x == current_pos.x && y != current_pos.y) {
+            y < current_pos.y ? y++ : y--;
+            while (y != current_pos.y) {
+                if (board[y][x] != EMPTY_CELL) {
+                    return false;
+                }
+                y < current_pos.y ? y++ : y--;
+            }
+            return true;
+        }
+
+        if (x != current_pos.x && y == current_pos.y) {
+            x < current_pos.x ? x++ : x--;
+            while (x != current_pos.x) {
+                if (board[y][x] != EMPTY_CELL) {
+                    return false;
+                }
+                x < current_pos.x ? x++ : x--;
+            }
+            return true;
+        }
+        return false;
+    }
+    
+    bool BoardLogic::isFigureOnDiagonal(int x, int y) const {
+        if ((x - y) == (current_pos.x - current_pos.y) ||
+            (x + y) == (current_pos.x + current_pos.y)) {
+                y < current_pos.y ? y++ : y--;
+                x < current_pos.x ? x++ : x--;
+                while (x != current_pos.x || y != current_pos.y) {
+                    if (board[y][x] != EMPTY_CELL) {
+                        return false;
+                    }
+                    y < current_pos.y ? y++ : y--;
+                    x < current_pos.x ? x++ : x--;
+                }
+                return true;
         }
         return false;
     }

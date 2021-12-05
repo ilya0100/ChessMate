@@ -35,13 +35,13 @@ typedef enum {
     B_QUEEN,    // 3
     B_KING,     // 4
     B_PAWN,     // 5
+    EMPTY_CELL, // 12
     W_ROOK,     // 6
     W_KNIGHT,   // 7
     W_BISHOP,   // 8
     W_QUEEN,    // 9
     W_KING,     // 10
-    W_PAWN,     // 11
-    EMPTY_CELL  // 12
+    W_PAWN      // 11
 } figureName;
 
 typedef enum {
