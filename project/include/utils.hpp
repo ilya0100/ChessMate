@@ -14,9 +14,15 @@
 // board parameters
 #define X_BOARD_SIZE 2400
 #define Y_BOARD_SIZE 2400
-#define X_PLAYSPACE 144
-#define Y_PLAYSPACE 144
+#define X_PLAYSPACE (144 * SCALE_FACTOR)
+#define Y_PLAYSPACE (144 * SCALE_FACTOR)
 #define CELL_SIZE (264 * SCALE_FACTOR)
+
+// buttons parameters
+#define X_EXIT 119
+#define Y_EXIT 43
+#define X_BACK 284
+#define Y_BACK 53
 
 // scale
 #define SCALE_FACTOR 0.2
