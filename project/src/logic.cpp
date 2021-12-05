@@ -53,7 +53,6 @@ namespace Chess {
 
     bool BoardLogic::isMoveFigure(int x, int y) {
         figureName figure = board[current_pos_y][current_pos_x];
-        // std::cout << board[current_pos_y][current_pos_x] << "\n" << std::endl;
 
         if (x == current_pos_x && y == current_pos_y) {
             return false;

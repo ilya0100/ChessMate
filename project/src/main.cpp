@@ -2,8 +2,6 @@
 #include "logic.hpp"
 #include "utils.hpp"
 
-// sf::Sprite f[32];
-
 // detect number of current cage
 NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
     NumCage cage;
@@ -11,18 +9,6 @@ NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
     cage.y = (pos.y - playSpace.y) / (CELL_SIZE);
     return cage;
 }
-
-/*
-int board[8][8] =
-    {{-5, -4, -3, -2, -1, -3, -4, -5},
-      {-6, -6, -6, -6, -6, -6, -6, -6},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {6,  6,  6,  6,  6,  6,  6,  6},
-      {5,  4,  3,  2,  1,  3,  4,  5}};
-*/
 
 
 int main() {
@@ -71,13 +57,12 @@ int main() {
     Chess::BoardTexture board_texture("images/boardTru.jpg");
     Chess::FigureTexture figures_testure;
     board_texture.setBoardScale(SCALE_FACTOR);
-    // figures_testure.setFigureScale(SCALE_FACTOR);
     
     Chess::BoardLogic board_logic;
-    Chess::Figures figures_arr[32]; // пока тестируется
+    Chess::Figures figures_arr[32];
 
     sf::Vector2i playSpace;
-    playSpace.x = X_PLAYSPACE * SCALE_FACTOR; // correct
+    playSpace.x = X_PLAYSPACE * SCALE_FACTOR;
     playSpace.y = Y_PLAYSPACE * SCALE_FACTOR;
     board_texture.setPlaySpace(playSpace);
 
@@ -92,8 +77,6 @@ int main() {
             }
         }
     }
-
-    // Chess::Figures::SetFiguresToDefaultPositions(F);
 
     NumCage curr_cage = {0};
     bool isMove = false;
@@ -147,11 +130,9 @@ int main() {
                         if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
                             isCatch = true;
                             isMove = true;
-                            curr_cage = getCurrCage(pos, playSpace); //getPlaySpace
+                            curr_cage = getCurrCage(pos, playSpace);
                             board_logic.setFigurePosition(curr_cage.x, curr_cage.y);
                             n = i;
-                            // dx = pos.x - figures_arr[i].getFigurePos().x;
-                            // dy = pos.y - figures_arr[i].getFigurePos().x;
                         }
                     }
                 }
@@ -174,7 +155,6 @@ int main() {
 
         }
 
-
         window.clear();
         //window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
@@ -182,17 +162,12 @@ int main() {
         window.draw(exit);
         window.draw(back);
 
-
-
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - size / 2, pos.y - size / 2);
             }
             window.draw(figures_arr[i].getFigureSprite());
         }
-
-
-
 
         window.display();
     }
