@@ -3,22 +3,11 @@
 
 namespace Chess {
 
-
     // объявляем статические переменные
-    //bool FigureTexture::isTexture = false;
     sf::Texture FigureTexture::texture;
     sf::Sprite FigureTexture::main_sprite;
-    /*
-    figureName FigureTexture::board[8][8] = {{B_ROOK    , B_KNIGHT  , B_BISHOP  , B_QUEEN   , B_KING    , B_BISHOP  , B_KNIGHT  , B_ROOK    },
-                                             {B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    , B_PAWN    },
-                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                             {EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL, EMPTY_CELL},
-                                             {W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    , W_PAWN    },
-                                             {W_ROOK    , W_KNIGHT  , W_BISHOP  , W_QUEEN   , W_KING    , W_BISHOP  , W_KNIGHT  , W_ROOK    }};
-    */
 
+    // Board
     BoardTexture::BoardTexture(const std::string filename) {
         texture.loadFromFile(filename, sf::IntRect(0, 0, X_BOARD_SIZE, X_BOARD_SIZE));
         sprite.setTexture(texture);
@@ -28,6 +17,16 @@ namespace Chess {
         sprite.setScale(scale, scale);
     }
 
+    void BoardTexture::setPlaySpace(sf::Vector2i pos) {
+        playSpace.x = pos.x;
+        playSpace.y = pos.y;
+    }
+
+    sf::Sprite BoardTexture::getSprite() {
+        return sprite;
+    }
+
+    // Menu
     MenuTexture::MenuTexture(const std::string filename) {
         texture.loadFromFile(filename, sf::IntRect(0, 0, 590, 590));
         sprite.setTexture(texture);
@@ -37,138 +36,27 @@ namespace Chess {
         return sprite;
     }
 
+
+    // FigureTexture
+    FigureTexture::FigureTexture() {
+        FigureTexture::texture.loadFromFile("images/piecesTru.png");
+        main_sprite.setTexture(texture);
+    }
+
     void FigureTexture::setFigureScale(float scale) {
         main_sprite.setScale(scale, scale);
     }
 
-    sf::Sprite BoardTexture::getSprite() {
-        return sprite;
-    }
-
-    // sf::Vector2i getPlaySpace() {
-    //     sf::Vector2i playSpace;
-    //     playSpace.x = sprite.getPosition().x + begin.x;
-    // }
-
-    void BoardTexture::setPlaySpace(sf::Vector2i pos) {
-        playSpace.x = pos.x;
-        playSpace.y = pos.y;
-    }
-
-    /*
-    FigureTexture::FigureTexture(std::string texture_file) {
-        if (!isTexture) {
-            texture.loadFromFile(texture_file);
-            sprite.setTexture(texture);
-            sprite.setTextureRect(sf::IntRect(5, 1, SPRITE_SIZE, SPRITE_SIZE));
-            isTexture = true;
-        }
-    }
-    */
-
-    FigureTexture::FigureTexture() {
-        // if (!isTexture) {
-            FigureTexture::texture.loadFromFile("images/piecesTru.png");
-            main_sprite.setTexture(texture);
-            // isTexture = true;
-        // }
-
-
-    }
-
+    // Figures
     Figures::Figures() {
         name = EMPTY_CELL;
     }
 
-    // bool Figures::isExists() const {
-    //     return is_exists;
-    // }
-
-    /*
-    Figures::Figures(figureName name) {
-        // if (!isTexture) {
-        //     FigureTexture::texture.loadFromFile("images/piecesT.png");
-        //     sprite.setTexture(texture);
-        //     isTexture = true;
-        // }
-
-        switch (name) {
-        case W_PAWN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case B_PAWN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-            
-        case W_ROOK:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case B_ROOK:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case W_KNIGHT:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case B_KNIGHT:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case W_BISHOP:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case B_BISHOP:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case W_QUEEN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case B_QUEEN:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case W_KING:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        case B_KING:
-            sprite = main_sprite;
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            break;
-
-        default:
-            break;
-        }
-    }
-    */
     Figures::Figures(figureName fn) {
         setSprite(fn);
     }
-    void Figures::setSprite(figureName figure_name) {
-        // if (!isTexture) {
-        //     FigureTexture::texture.loadFromFile("images/piecesT.png");
-        //     sprite.setTexture(texture);
-        //     isTexture = true;
-        // }
-        // is_exists = true;
 
+    void Figures::setSprite(figureName figure_name) {
         name = figure_name;
         sprite = main_sprite;
 
@@ -228,193 +116,108 @@ namespace Chess {
     }
 
     void Figures::setFigurePos(int i, int j) {
-        figurePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * j);
-        figurePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * i);
+        spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * i);
+        spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * j);
+        sprite.setPosition(spritePos.x, spritePos.y);
 
-        sprite.setPosition(figurePos.x, figurePos.y);
+        figurePos.x = i;
+        figurePos.y = j;
     }
+
+    void Figures::setSpritePos(float x, float y) {
+        spritePos.x = x;
+        spritePos.y = y;
+        sprite.setPosition(spritePos.x, spritePos.y);
+    }
+
+    /*
     void Figures::setFigurePos(Letter_Position lp, Digit_Position dp) {
         letterPos = lp;
         digitPos = dp;
-        figurePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * (float)lp);
-        figurePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * (float)dp);
-        sprite.setPosition(figurePos.x, figurePos.y);
+        spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * (float)lp);
+        spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * (float)dp);
+        sprite.setPosition(spritePos.x, spritePos.y);
     }
+    */
 
     void Figures::drawFigure(sf:: RenderWindow &window) {
         window.draw(sprite);
     }
+
     void Figures::moveFigure(float x, float y) {
         sprite.setPosition(x, y);
     }
 
-    /*
-    void Figures::SetFiguresToDefaultPositions(Figures (&f)[32]) {
-        int k = 0;
-        for (int i = 0; i < 5; i++) {
-            //printf("%d\n", i);
-            
-            for (int j = 0; j < 5; j++) {
-                //printf("%d\n", j);
-                if (board[i][j] != EMPTY_CELL) {
-                    f[k].getFigureSprite(FigureTexture::board[i][j]);
-                    k++;
-                }
-            }
-        }
-        
+    sf::Vector2u Figures::getFigurePos() const {
+        return figurePos;
     }
-
-    void Figures::DrawFigures(Figures (&f)[32], sf::RenderWindow (&window)) {
-        SetFiguresToDefaultPositions(f);
-
-        window.draw(f[10].sprite);
-        window.display();
-
-        for (size_t i = 0; i < 32; i++) {
-            window.draw(f[i].sprite);
-        }
-    }
-    */
 
     figureName Figures::getName() const {
         return name;
     }
 
-    
-    sf::Vector2f Figures::getFigurePos() const {
-        return figurePos;
+    sf::Vector2f Figures::getSpritePos() const {
+        return spritePos;
     }
 
-    sf::Sprite Figures::getFigureSprite() {
+    sf::Sprite Figures::getFigureSprite() const{
+        return sprite;
+    }
 
-        /*
+
+    void loadPieces(Figures& figure, figureName figure_name, size_t i, size_t j) {
         switch (figure_name) {
         case W_PAWN:
-            main_sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
+            figure.setSprite(W_PAWN);
             break;
-        case B_PAWN:
-            main_sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
-            break;
+
         case W_ROOK:
-            main_sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
+            figure.setSprite(W_ROOK);
             break;
-        case B_ROOK:
-            main_sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
-            break;
+
         case W_KNIGHT:
-            main_sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
-            break;
-        case B_KNIGHT:
-            main_sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
-            break;
+          figure.setSprite(W_KNIGHT);
+           break;
+
         case W_BISHOP:
-            main_sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
+            figure.setSprite(W_BISHOP);
             break;
-        case B_BISHOP:
-            main_sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
-            break;
+
         case W_QUEEN:
-            main_sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
+            figure.setSprite(W_QUEEN);
             break;
-        case B_QUEEN:
-            main_sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
-            break;
+
         case W_KING:
-            main_sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
+            figure.setSprite(W_KING);
             break;
+
+        case B_PAWN:
+            figure.setSprite(B_PAWN);
+            break;
+
+        case B_ROOK:
+            figure.setSprite(B_ROOK);
+            break;
+
+        case B_KNIGHT:
+            figure.setSprite(B_KNIGHT);
+            break;
+
+        case B_BISHOP:
+            figure.setSprite(B_BISHOP);
+            break;
+
+        case B_QUEEN:
+            figure.setSprite(B_QUEEN);
+            break;
+
         case B_KING:
-            main_sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
-            return main_sprite;
+            figure.setSprite(B_KING);
             break;
 
         default:
             break;
         }
-        */
-
-        return sprite;
-
+        figure.setFigurePos(i, j);
     }
-
-    void loadPieces(Figures& figure, figureName figure_name, size_t i, size_t j) {
-        //int k = 0;
-        // int c = 0;
-        // for (size_t i = 0; i < 8; i++) {
-        //     for (size_t j = 0; j < 8; j++) {
-        //         c = board[i][j];
-        //         if (c) {
-
-                    switch (figure_name) {
-                    case W_PAWN:
-                        figure.setSprite(W_PAWN);
-                        break;
-
-                    case W_ROOK:
-                        figure.setSprite(W_ROOK);
-                        break;
-
-                    case W_KNIGHT:
-                        figure.setSprite(W_KNIGHT);
-                        break;
-
-                    case W_BISHOP:
-                        figure.setSprite(W_BISHOP);
-                        break;
-
-                    case W_QUEEN:
-                        figure.setSprite(W_QUEEN);
-                        break;
-
-                    case W_KING:
-                        figure.setSprite(W_KING);
-                        break;
-
-                    case B_PAWN:
-                        figure.setSprite(B_PAWN);
-                        break;
-
-                    case B_ROOK:
-                        figure.setSprite(B_ROOK);
-                        break;
-
-                    case B_KNIGHT:
-                        figure.setSprite(B_KNIGHT);
-                        break;
-
-                    case B_BISHOP:
-                        figure.setSprite(B_BISHOP);
-                        break;
-
-                    case B_QUEEN:
-                        figure.setSprite(B_QUEEN);
-                        break;
-
-                    case B_KING:
-                        figure.setSprite(B_KING);
-                        break;
-
-                    default:
-                        break;
-                    }
-                    figure.setFigurePos(i, j);
-                    
-                    // k++;
-        //         }
-        //     }
-        // }
-
-    }
-
 }  // namespace Chess

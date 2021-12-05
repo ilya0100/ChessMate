@@ -2,37 +2,16 @@
 #include "logic.hpp"
 #include "utils.hpp"
 
-// sf::Sprite f[32];
-
 // detect number of current cage
-NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
-    NumCage cage;
+sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
+    sf::Vector2u cage;
     cage.x = (pos.x - playSpace.x) / (CELL_SIZE);
     cage.y = (pos.y - playSpace.y) / (CELL_SIZE);
     return cage;
 }
 
-/*
-int board[8][8] =
-    {{-5, -4, -3, -2, -1, -3, -4, -5},
-      {-6, -6, -6, -6, -6, -6, -6, -6},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {6,  6,  6,  6,  6,  6,  6,  6},
-      {5,  4,  3,  2,  1,  3,  4,  5}};
-*/
-
 
 int main() {
-
-    Chess::Figures one(W_QUEEN);
-    Chess::Figures two(B_KING);
-    one.setFigurePos(A, ONE);
-    two.setFigurePos(D, THREE);
-
-
 
     sf::Clock clock;
     int menuNum = 0;
@@ -71,36 +50,34 @@ int main() {
     Chess::BoardTexture board_texture("images/boardTru.jpg");
     Chess::FigureTexture figures_testure;
     board_texture.setBoardScale(SCALE_FACTOR);
-    // figures_testure.setFigureScale(SCALE_FACTOR);
     
     Chess::BoardLogic board_logic;
-    Chess::Figures figures_arr[32]; // пока тестируется
+    Chess::Figures figures_arr[32];
 
     sf::Vector2i playSpace;
-    playSpace.x = X_PLAYSPACE * SCALE_FACTOR; // correct
+    playSpace.x = X_PLAYSPACE * SCALE_FACTOR;
     playSpace.y = Y_PLAYSPACE * SCALE_FACTOR;
     board_texture.setPlaySpace(playSpace);
 
-    size_t k = 0;
-    for (size_t i = 0; i < 8; i++) {
-        for (size_t j = 0; j < 8; j++) {
-            figureName figure = board_logic.board[i][j];
+    int k = 0;
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            figureName figure = board_logic(x, y);
 
-            if (figure != EMPTY_CELL) {
-                Chess::loadPieces(figures_arr[k], figure, i, j);
+            if (figure != EMPTY_CELL && k < 32) {
+                Chess::loadPieces(figures_arr[k], figure, x, y);
                 k++;
             }
         }
     }
 
-    // Chess::Figures::SetFiguresToDefaultPositions(F);
-
-    NumCage curr_cage = {0};
+    sf::Vector2u curr_cage = {};
     bool isMove = false;
     bool isCatch = false;
     float dx = 0;
     float dy = 0;
     size_t n = 0;
+    int eaten_count = 0;
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -147,11 +124,9 @@ int main() {
                         if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
                             isCatch = true;
                             isMove = true;
-                            curr_cage = getCurrCage(pos, playSpace); //getPlaySpace
-                            board_logic.setFigurePosition(curr_cage.x, curr_cage.y);
+                            curr_cage = getCurrCage(pos, playSpace);
+                            board_logic.setFigurePosition(curr_cage);
                             n = i;
-                            // dx = pos.x - figures_arr[i].getFigurePos().x;
-                            // dy = pos.y - figures_arr[i].getFigurePos().x;
                         }
                     }
                 }
@@ -160,20 +135,31 @@ int main() {
             if (event.type == sf::Event::MouseButtonReleased) {
                 if (event.key.code == sf::Mouse::Left) {
                     isMove = false;
+
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
+                        
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
-                            figures_arr[n].setFigurePos(curr_cage.y, curr_cage.x);
+                            if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
+                                for (size_t i = 0; i < 32; i++) {
+                                    if (figures_arr[i].getFigurePos() == curr_cage) {
+                                        figures_arr[i].setSpritePos(600 + size / 3 * eaten_count, 100);
+                                        eaten_count++;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         } else {
                             curr_cage = board_logic.getFigurePosition();
-                            figures_arr[n].setFigurePos(curr_cage.y, curr_cage.x);
+                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         }
                     }
                 }
             }
 
         }
-
 
         window.clear();
         //window.draw(menu_texture.getSprite());
@@ -182,17 +168,15 @@ int main() {
         window.draw(exit);
         window.draw(back);
 
-
-
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - size / 2, pos.y - size / 2);
             }
+            
+            // if (board_logic(figures_arr[i].getFigurePos().x, figures_arr[i].getFigurePos().y) != EMPTY_CELL) {
             window.draw(figures_arr[i].getFigureSprite());
+            // }
         }
-
-
-
 
         window.display();
     }

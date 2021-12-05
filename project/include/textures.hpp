@@ -36,50 +36,40 @@ namespace Chess {
 
         protected:
             static sf::Sprite main_sprite;
-            // static figureName board[8][8];
-            // bool isTexture;
-
-
 
         public:
-            // FigureTexture(std::string texture_file);
             FigureTexture();
+            
             void setFigureScale(float scale);
-            // sf::Sprite getFigureSprite(figureName figure_name);
-
     };
 
     class Figures: public FigureTexture {
 
         protected:
-            sf::Vector2f figurePos;
-            sf::Vector2u figureSize;
+            sf::Vector2f spritePos;
+            sf::Vector2u spriteSize;
 
-            Letter_Position letterPos;
-            Digit_Position digitPos;
+            sf::Vector2u figurePos;
 
             figureName name;
             sf::Sprite sprite;
-            // bool is_exists;
-
 
         public:
-
             Figures();
-            // Figures(figureName name);
             Figures(figureName fn);
+
             void setSprite(figureName figure_name);
             void setFigurePos(int i, int j);
-            void setFigurePos(Letter_Position lp, Digit_Position dp);
+            void setSpritePos(float x, float y);
+            // void setFigurePos(Letter_Position lp, Digit_Position dp);
+
             void moveFigure(float x, float y);
             void drawFigure(sf:: RenderWindow &window);
 
-            sf::Sprite getFigureSprite();
+            sf::Vector2u getFigurePos() const;
+            sf::Sprite getFigureSprite() const;
             figureName getName() const;
-            sf::Vector2f getFigurePos() const;
-            // bool isExists() const;
-            // static void SetFiguresToDefaultPositions(Figures (&f)[32]);
-            // static void DrawFigures(Figures (&f)[32], sf::RenderWindow (&window));
+            sf::Vector2f getSpritePos() const;
 
     };
 

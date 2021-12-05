@@ -3,8 +3,8 @@
 namespace Chess {
 
     BoardLogic::BoardLogic() {
-        current_pos_x = 0;
-        current_pos_y = 0;
+        current_pos.x = 0;
+        current_pos.y = 0;
 
         board[0][0] = B_ROOK;
         board[0][1] = B_KNIGHT;
@@ -39,131 +39,132 @@ namespace Chess {
         }
     }
 
-    void BoardLogic::setFigurePosition(int x, int y) {
-        current_pos_x = x;
-        current_pos_y = y;
+    figureName BoardLogic::operator()(int x, int y) const {
+        return board[y][x];
     }
 
-    NumCage BoardLogic::getFigurePosition() const {
-        NumCage cage;
-        cage.x = current_pos_x;
-        cage.y = current_pos_y;
+    void BoardLogic::setFigurePosition(sf::Vector2u pos) {
+        current_pos = pos;
+    }
+
+    sf::Vector2u BoardLogic::getFigurePosition() const {
+        sf::Vector2u cage;
+        cage = current_pos;
         return cage;
     }
 
     bool BoardLogic::isMoveFigure(int x, int y) {
-        figureName figure = board[current_pos_y][current_pos_x];
-        // std::cout << board[current_pos_y][current_pos_x] << "\n" << std::endl;
+        figureName figure = board[current_pos.y][current_pos.x];
 
-        if (x == current_pos_x && y == current_pos_y) {
+        if (x == current_pos.x && y == current_pos.y) {
             return false;
         }
 
         switch (figure) {
             case B_PAWN:
-                if (x == current_pos_x && y - current_pos_y == 1) {
+                if (x == current_pos.x && y - current_pos.y == 1) {
                     board[y][x] = B_PAWN;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case W_PAWN:
-                if (x == current_pos_x && y - current_pos_y == - 1) {
+                if (x == current_pos.x && y - current_pos.y == - 1) {
                     board[y][x] = W_PAWN;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case B_KING:
-                if ((x - current_pos_x) * (x - current_pos_x) <= 1 &&
-                    (y - current_pos_y) * (y - current_pos_y) <= 1) {
+                if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
+                    (y - current_pos.y) * (y - current_pos.y) <= 1) {
                     board[y][x] = B_KING;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case W_KING:
-                if ((x - current_pos_x) * (x - current_pos_x) <= 1 && 
-                    (y - current_pos_y) * (y - current_pos_y) <= 1) {
+                if ((x - current_pos.x) * (x - current_pos.x) <= 1 && 
+                    (y - current_pos.y) * (y - current_pos.y) <= 1) {
                     board[y][x] = W_KING;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case B_QUEEN:
-                if ((x - y) == (current_pos_x - current_pos_y) ||
-                    (x + y) == (current_pos_x + current_pos_y) ||
-                    x == current_pos_x || y == current_pos_y) {
+                if ((x - y) == (current_pos.x - current_pos.y) ||
+                    (x + y) == (current_pos.x + current_pos.y) ||
+                    x == current_pos.x || y == current_pos.y) {
                     board[y][x] = B_QUEEN;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case W_QUEEN:
-                if ((x - y) == (current_pos_x - current_pos_y) ||
-                    (x + y) == (current_pos_x + current_pos_y) ||
-                    x == current_pos_x || y == current_pos_y) {
+                if ((x - y) == (current_pos.x - current_pos.y) ||
+                    (x + y) == (current_pos.x + current_pos.y) ||
+                    x == current_pos.x || y == current_pos.y) {
                     board[y][x] = W_QUEEN;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case B_BISHOP:
-                if ((x - y) == (current_pos_x - current_pos_y) ||
-                    (x + y) == (current_pos_x + current_pos_y)) {
+                if ((x - y) == (current_pos.x - current_pos.y) ||
+                    (x + y) == (current_pos.x + current_pos.y)) {
                     board[y][x] = B_BISHOP;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case W_BISHOP:
-                if ((x - y) == (current_pos_x - current_pos_y) ||
-                    (x + y) == (current_pos_x + current_pos_y)) {
+                if ((x - y) == (current_pos.x - current_pos.y) ||
+                    (x + y) == (current_pos.x + current_pos.y)) {
                     board[y][x] = W_BISHOP;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case B_KNIGHT:
-                if ((x - current_pos_x) * (x - current_pos_x) + 
-                    (y - current_pos_y) * (y - current_pos_y) == 5) {
+                if ((x - current_pos.x) * (x - current_pos.x) + 
+                    (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = B_KNIGHT;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case W_KNIGHT:
-                if ((x - current_pos_x) * (x - current_pos_x) + 
-                    (y - current_pos_y) * (y - current_pos_y) == 5) {
+                if ((x - current_pos.x) * (x - current_pos.x) + 
+                    (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = W_KNIGHT;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
             
             case B_ROOK:
-                if ((x == current_pos_x && y != current_pos_y) ||
-                    (x != current_pos_x && y == current_pos_y)) {
+                if ((x == current_pos.x && y != current_pos.y) ||
+                    (x != current_pos.x && y == current_pos.y)) {
                     board[y][x] = B_ROOK;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
 
             case W_ROOK:
-                if ((x == current_pos_x && y != current_pos_y) ||
-                    (x != current_pos_x && y == current_pos_y)) {
+                if ((x == current_pos.x && y != current_pos.y) ||
+                    (x != current_pos.x && y == current_pos.y)) {
                     board[y][x] = W_ROOK;
-                    board[current_pos_y][current_pos_x] = EMPTY_CELL;
+                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
