@@ -28,7 +28,7 @@ int main() {
     // button exit through class Button
     Chess::Button exitButton("images/exit.png");
     exitButton.setSize(X_EXIT, Y_EXIT);
-    exitButton.getSprite().setPosition(500, 500);
+    exitButton.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     // exitButton.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     sf::Vector2f exitPos = exitButton.getSprite().getPosition();
 

@@ -39,16 +39,17 @@ namespace Chess {
             // sf::Vector2f pos;
 
         public:
-            // Button();
+            Button();
             Button(const std::string filename);
 
             void setButton(const std::string filename);
             void setSize(size_t x, size_t y);
             void setPosButton(float x, float y);
 
-            sf::Sprite getSprite();
+            sf::Sprite& getSprite();
             sf::Vector2u getSize();
             // sf::Vector2f getPosButton();
+            // TODO: method setPos 
 
     };
 

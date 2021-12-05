@@ -77,7 +77,7 @@ namespace Chess {
     //     pos.y = y;
     // }
 
-    sf::Sprite Button::getSprite() { return sprite; }
+    sf::Sprite& Button::getSprite() { return sprite; }
     sf::Vector2u Button::getSize() { return size; }
     // sf::Vector2f Button::getPosButton() { return pos; }
 
