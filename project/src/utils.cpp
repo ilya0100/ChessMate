@@ -23,3 +23,7 @@ sf::Vector2f Window:: getWindowRatio() {
 	return windowRatio;
 }
 
+sf::RenderWindow* Window:: getWindow() {
+	return window;
+}
+
