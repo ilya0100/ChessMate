@@ -47,8 +47,7 @@ namespace Chess {
 
             sf::Sprite& getSprite();
             sf::Vector2u getSize();
-            // sf::Vector2f getPosButton();
-            // TODO: method setPos 
+            sf::Vector2f getPosButton();
     };
 
     class MenuTexture {
@@ -65,6 +64,7 @@ namespace Chess {
     };
 
     void startMenu(sf::RenderWindow & window);
+    void startMenuN(Window & window);
 
     void chooseMenu(sf::RenderWindow & window);
     void selectMode(Window& window);

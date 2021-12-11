@@ -69,20 +69,17 @@ public:
         }
 };
 
-class Window {
+class Window: public sf::RenderWindow {
 
     protected:
-        sf::RenderWindow *window;
-        sf::Vector2u windowSize;
-        sf::Vector2u windowSizeNew;
-        sf::Vector2f windowRatio;
+        sf::Vector2u Size;
+        sf::Vector2u SizeNew;
+        sf::Vector2f Ratio;
 
     public:
-        Window(sf::VideoMode Mode, std::string s);
-        sf::RenderWindow* getWindow();
-        sf::Vector2u getWindowSize();
-        sf::Vector2u getWindowSizeNew();
-        sf::Vector2f getWindowRatio();
+        Window(sf::VideoMode mode, const sf::String &title): sf::RenderWindow(mode, title) {Size = getSize();};
+        sf::Vector2u getSizeNew();
+        sf::Vector2f getRatio();
 
 };
 

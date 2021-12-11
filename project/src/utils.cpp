@@ -9,28 +9,14 @@ sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
     return cage;
 }
 
-Window::Window(sf::VideoMode Mode, std::string s) {
-	window = new sf::RenderWindow(Mode, s);
-	windowSize = window->getSize();
-	windowSizeNew = window->getSize();
-	windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-	windowRatio.y = (float)windowSizeNew.x/(float)windowSize.y;
+
+sf::Vector2u Window::getSizeNew() {
+	SizeNew = getSize();
+	return SizeNew;
 }
 
-sf::Vector2u Window:: getWindowSize() {
-	return windowSize;
-}
-
-sf::Vector2u Window:: getWindowSizeNew() {
-	return windowSizeNew;
-}
-
-sf::Vector2f Window:: getWindowRatio() {
-	windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-    windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
-	return windowRatio;
-}
-
-sf::RenderWindow* Window:: getWindow() {
-	return window;
+sf::Vector2f Window::getRatio() {
+	Ratio.x = ((float)SizeNew.x) / ((float)Size.x);
+	Ratio.y = ((float)SizeNew.y) / ((float)Size.y);
+	return Ratio;
 }
