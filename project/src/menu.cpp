@@ -185,6 +185,8 @@ namespace Chess {
 	    playBut.setSize(149, 53);
 	    playBut.setPosButton(200, 380);
 
+		sf::Clock clock;  // время
+
 		while (isMenu) {
 			sf::Event event;
 			while (window.pollEvent(event)) {
@@ -199,8 +201,21 @@ namespace Chess {
 				if (event.type == sf::Event::Resized) {
 					window.getSizeNew();
 			 	}
-
 			}
+
+			float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+			clock.restart(); //перезагружает время
+			time = time / 120; //скорость игры
+			playBut.getSprite().setColor(sf::Color::White);
+			optionBut.getSprite().setColor(sf::Color::White);
+			exitBut.getSprite().setColor(sf::Color::White);
+			menuNum = 0;
+
+			//if (sf::IntRect((float)playBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)playBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+			//if (sf::IntRect((float)exitBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)exitBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+			//if (sf::IntRect((float)optionBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)optionBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
+
+
 		}
 
 
