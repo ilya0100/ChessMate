@@ -5,13 +5,24 @@
 
 int main() {
 
-
+    sf::Clock clock;
+    int menuNum = 0;
+    sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
+    Chess::startMenu(window);
 
     // размер окна для сохранения работоспособности при изменении размера
-
+    sf::Vector2u windowSize = window.getSize();
+	sf::Vector2u windowSizeNew = window.getSize();
+    sf::Vector2f windowRatio;
+    windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
+    windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
 
     // button exit through class Button
-
+    Chess::Button exitBut("images/exit.png");
+    exitBut.setSize(X_EXIT, Y_EXIT);
+    exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    sf::Vector2f exitPos = exitBut.getSprite().getPosition();
 
     // кнопка выхода
     //    sf::Texture ExitTexture;
@@ -24,7 +35,10 @@ int main() {
 	//    sf::Vector2f exitPos = exit.getPosition();
 
     // кнопка назад
-
+    Chess::Button backBut("images/back.png");
+    backBut.setSize(X_BACK, Y_BACK);
+    backBut.getSprite().setPosition(100, Y_WINDOW - 100);
+    sf::Vector2f backPos = backBut.getSprite().getPosition();
 
     // sf::Texture BackTexture;
     // BackTexture.loadFromFile("images/back.png");
@@ -36,11 +50,21 @@ int main() {
 	// sf::Vector2f backPos = back.getPosition();
 
     // add board and figure 
+    float scale = SCALE_FACTOR;
+    Chess::BoardTexture board_texture("images/boardTru.jpg");
+    Chess::FigureTexture figures_testure;
+    board_texture.setBoardScale(SCALE_FACTOR);
     
+    Chess::BoardLogic board_logic;
+    Chess::Figures figures_arr[32];
+
+    sf::Vector2i playSpace;
+    playSpace.x = X_PLAYSPACE;
+    playSpace.y = Y_PLAYSPACE;
+    board_texture.setPlaySpace(playSpace);
 
 
     //////////////////////////Netcode/////////////////////////////////////
-    /*
     sf::TcpSocket socket;
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
 
@@ -75,47 +99,8 @@ int main() {
     } else {
         board_logic.setSide(WHITE);
     }
-
-    */
     ////////////////////////////////////////////////////////////////////////////
 
-    sf::Clock clock;
-    int menuNum = 0;
-
-    Window windowN(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-
-    sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-    Chess::startMenu(window);
-
-    sf::Vector2u windowSize = window.getSize();
-	sf::Vector2u windowSizeNew = window.getSize();
-    sf::Vector2f windowRatio;
-    windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-    windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
-
-    Chess::Button exitBut("images/exit.png");
-    exitBut.setSize(X_EXIT, Y_EXIT);
-    exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    sf::Vector2f exitPos = exitBut.getSprite().getPosition();
-
-    Chess::Button backBut("images/back.png");
-    backBut.setSize(X_BACK, Y_BACK);
-    backBut.getSprite().setPosition(100, Y_WINDOW - 100);
-    sf::Vector2f backPos = backBut.getSprite().getPosition();
-
-    float scale = SCALE_FACTOR;
-    Chess::BoardTexture board_texture("images/boardTru.jpg");
-    Chess::FigureTexture figures_testure;
-    board_texture.setBoardScale(SCALE_FACTOR);
-
-    Chess::BoardLogic board_logic;
-    Chess::Figures figures_arr[32];
-
-    sf::Vector2i playSpace;
-    playSpace.x = X_PLAYSPACE;
-    playSpace.y = Y_PLAYSPACE;
-    board_texture.setPlaySpace(playSpace);
 
     int k = 0;
     for (int y = 0; y < 8; y++) {
@@ -222,12 +207,10 @@ int main() {
 
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
 
-                            /*
                             packet << board_logic;
                             socket.send(packet);
                             packet.clear();
                             enemy_turn = true;
-                            */
                             
                         } else {
                             curr_cage = board_logic.getFigurePosition();
@@ -269,7 +252,6 @@ int main() {
 
         window.display();
 
-        /*
         if (enemy_turn) {
                 if(socket.receive(packet) == sf::Socket::Done) {
                     packet >> board_logic;
@@ -286,8 +268,5 @@ int main() {
             }
     }
 
-    */
-   }
     return 0;
-
 }
