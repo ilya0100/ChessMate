@@ -7,9 +7,10 @@ int main() {
 
     sf::Clock clock;
     int menuNum = 0;
+    Window windowN(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
     sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
     Chess::startMenu(window);
-
+    //Chess::startMenuN(windowN);
     // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
 	sf::Vector2u windowSizeNew = window.getSize();
