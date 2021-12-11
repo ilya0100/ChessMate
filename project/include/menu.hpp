@@ -10,7 +10,6 @@
 #define Y_BOARD_SIZE 2400
 #define X_PLAYSPACE (144 * SCALE_FACTOR)
 #define Y_PLAYSPACE (144 * SCALE_FACTOR)
-#define CELL_SIZE (264 * SCALE_FACTOR)
 
 // window
 #define X_SCALE_W 2
@@ -25,7 +24,7 @@
 #define Y_BACK 53
 
 // scale
-#define SCALE_FACTOR 0.2
+// #define SCALE_FACTOR 0.2
 
 #define TSPRITE_SIZE (SPRITE_SIZE * SCALE_FACTOR)
 
