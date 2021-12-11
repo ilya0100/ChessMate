@@ -56,6 +56,31 @@ namespace Chess {
         setSprite(fn);
     }
 
+    // Buttons from menu
+    Button::Button(const std::string filename) {
+        texture.loadFromFile(filename);
+        sprite.setTexture(texture);
+    }
+
+    void Button::setButton(const std::string filename) {
+        texture.loadFromFile(filename);
+        sprite.setTexture(texture);
+    }
+
+    void Button::setSize(size_t x, size_t y) {
+        size.x = x;
+        size.y = y;
+    }
+
+    // void Button::setPosButton(float x, float y) {
+    //     pos.x = x;
+    //     pos.y = y;
+    // }
+
+    sf::Sprite& Button::getSprite() { return sprite; }
+    sf::Vector2u Button::getSize() { return size; }
+    // sf::Vector2f Button::getPosButton() { return pos; }
+
     void Figures::setSprite(figureName figure_name) {
         name = figure_name;
         sprite = main_sprite;
@@ -116,8 +141,10 @@ namespace Chess {
     }
 
     void Figures::setFigurePos(int i, int j) {
-        spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * i);
-        spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * j);
+        spritePos.x = X_PLAYSPACE + SCALE_FACTOR * SPRITE_SIZE * i;
+        spritePos.y = Y_PLAYSPACE + SCALE_FACTOR * SPRITE_SIZE * j;
+        // spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * i);
+        // spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * j);
         sprite.setPosition(spritePos.x, spritePos.y);
 
         figurePos.x = i;
