@@ -66,6 +66,43 @@ int main() {
     playSpace.y = Y_PLAYSPACE;
     board_texture.setPlaySpace(playSpace);
 
+/*
+    //////////////////////////Netcode/////////////////////////////////////
+    sf::TcpSocket socket;
+    sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+
+    char type;
+
+    std::cout << "Enter type connecting: [c] - client, [s] - server\n";
+    std::cin  >> type;
+
+    if (type == 's') {
+        ReuseableListener listener;
+        listener.listen(8080);
+        listener.reuse();
+
+        if(listener.accept(socket) != sf::Socket::Done) {
+            std::cout << "Error!\n";
+        }
+    }
+    else if (type == 'c') {
+        if (socket.connect(ip, 8080) != sf::Socket::Done) {
+            std::cout << "Error!\n";
+        }
+    }
+
+    socket.setBlocking(true);
+
+    sf::Packet packet;
+
+    if (type == 'c') {
+        if(socket.receive(packet) == sf::Socket::Done) {
+            packet >> board_logic;
+        }
+    } 
+    ////////////////////////////////////////////////////////////////////////////
+*/
+
     int k = 0;
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
@@ -85,6 +122,7 @@ int main() {
     float dy = 0;
     size_t n = 0;
     int eaten_count = 0;
+
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -148,17 +186,24 @@ int main() {
                         curr_cage = getCurrCage(pos, playSpace);
                         
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
-                            if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
-                                for (size_t i = 0; i < 32; i++) {
-                                    if (figures_arr[i].getFigurePos() == curr_cage) {
-                                        figures_arr[i].setSpritePos(600 + size / 3 * eaten_count, 100);
-                                        eaten_count++;
-                                        break;
-                                    }
-                                }
-                            }
+                            // if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
+                            //     for (size_t i = 0; i < 32; i++) {
+                            //         if (figures_arr[i].getFigurePos() == curr_cage) {
+                            //             figures_arr[i].setSpritePos(600 + size / 3 * eaten_count, 100);
+                            //             eaten_count++;
+                            //             break;
+                            //         }
+                            //     }
+                            // }
 
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
+
+                            // packet << board_logic;
+                            // socket.send(packet);
+                            // if(socket.receive(packet) == sf::Socket::Done) {
+                            //     packet >> board_logic;
+                            // }
+                            
                         } else {
                             curr_cage = board_logic.getFigurePosition();
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
@@ -176,14 +221,23 @@ int main() {
         window.draw(exitButton.getSprite());
         window.draw(back);
 
+        k = 0;
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                figureName figure = board_logic(x, y);
+    
+                if (figure != EMPTY_CELL && k < 32) {
+                    Chess::loadPieces(figures_arr[k], figure, x, y);
+                    k++;
+                }
+            }
+        }
+
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - size / 2, pos.y - size / 2);
             }
-            
-            // if (board_logic(figures_arr[i].getFigurePos().x, figures_arr[i].getFigurePos().y) != EMPTY_CELL) {
             window.draw(figures_arr[i].getFigureSprite());
-            // }
         }
 
         window.display();

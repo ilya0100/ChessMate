@@ -1,8 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include <string>
 #include <iostream>
+#include <sys/socket.h>
 
 // window
 #define X_WINDOW 900
@@ -71,6 +73,14 @@ typedef enum {
     SEVEN,
     EIGHT
 } Digit_Position;
+
+class ReuseableListener : public sf::TcpListener {
+public:
+        void reuse() {
+                char reuse = 1;
+                setsockopt(getHandle(), SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+        }
+};
 
 void menu(sf::RenderWindow & window);
 
