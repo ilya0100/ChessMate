@@ -189,20 +189,20 @@ int main() {
                         
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
                             if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
-                                for (size_t i = 0; i < 32; i++) {
-                                    if (figures_arr[i].getFigurePos() == curr_cage) {
-                                        figures_arr[i].setSpritePos(600 + TSPRITE_SIZE * eaten_count, 100);
-                                        eaten_count++;
-                                        break;
-                                    }
-                                }
-
+                                // for (size_t i = 0; i < 32; i++) {
+                                //     if (figures_arr[i].getFigurePos() == curr_cage) {
+                                //         figures_arr[i].setSpritePos(600 + TSPRITE_SIZE * eaten_count, 100);
+                                //         eaten_count++;
+                                //         break;
+                                //     }
+                                // }
+                            }
+                            
+                            board_logic.upsideDown();
                             if (board_logic.cur_side == BLACK) {
                                 board_logic.cur_side = WHITE;
-                            }
-                            else if (board_logic.cur_side == WHITE) {
+                            } else if (board_logic.cur_side == WHITE) {
                                 board_logic.cur_side = BLACK;
-                            }
                             }
 
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);

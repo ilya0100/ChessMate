@@ -91,6 +91,20 @@ namespace Chess {
         }           
     }
 
+    void BoardLogic::upsideDown() {
+        figureName buffer[8][8];
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                buffer[7 - i][j] = board[i][j];
+            }
+        }
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = buffer[i][j];
+            }
+        }
+    }
+
     figureName BoardLogic::operator()(int x, int y) const {
         return board[y][x];
     }
@@ -313,7 +327,7 @@ namespace Chess {
     }
 
     sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
-        for (int y = 7; y >= 0; y--) {
+        for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x ++) {
                 packet << board(x, y);
             }
