@@ -56,31 +56,6 @@ namespace Chess {
         setSprite(fn);
     }
 
-    // Buttons from menu
-    Button::Button(const std::string filename) {
-        texture.loadFromFile(filename);
-        sprite.setTexture(texture);
-    }
-
-    void Button::setButton(const std::string filename) {
-        texture.loadFromFile(filename);
-        sprite.setTexture(texture);
-    }
-
-    void Button::setSize(size_t x, size_t y) {
-        size.x = x;
-        size.y = y;
-    }
-
-    // void Button::setPosButton(float x, float y) {
-    //     pos.x = x;
-    //     pos.y = y;
-    // }
-
-    sf::Sprite& Button::getSprite() { return sprite; }
-    sf::Vector2u Button::getSize() { return size; }
-    // sf::Vector2f Button::getPosButton() { return pos; }
-
     Figure_Side Figures::getSide() { return side;}
 
     void Figures::setSprite(figureName figure_name) {
