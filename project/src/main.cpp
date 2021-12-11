@@ -49,7 +49,6 @@ int main() {
 	// backSize.y = 53;
 	// sf::Vector2f backPos = back.getPosition();
 
-/*
     // add board and figure 
     float scale = SCALE_FACTOR;
     Chess::BoardTexture board_texture("images/boardTru.jpg");
@@ -93,11 +92,10 @@ int main() {
 
     sf::Packet packet;
 
+    bool enemy_turn = false;
     if (type == 'c') {
-        if(socket.receive(packet) == sf::Socket::Done) {
-            packet >> board_logic;
-        }
-    } 
+        enemy_turn = true;
+    }
     ////////////////////////////////////////////////////////////////////////////
 
 
@@ -120,7 +118,6 @@ int main() {
     float dy = 0;
     size_t n = 0;
     int eaten_count = 0;
-*/
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -161,8 +158,8 @@ int main() {
                 if (menuNum == 4)  { Chess::startMenu(window); }
             }
 
-            Chess::gamePlay(window);
-            /*
+            // Chess::gamePlay(window);
+            
             //drag and drop
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.key.code == sf::Mouse::Left) {
@@ -207,11 +204,10 @@ int main() {
 
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
 
-                            // packet << board_logic;
-                            // socket.send(packet);
-                            // if(socket.receive(packet) == sf::Socket::Done) {
-                            //     packet >> board_logic;
-                            // }
+                            packet << board_logic;
+                            socket.send(packet);
+                            packet.clear();
+                            enemy_turn = true;
                             
                         } else {
                             curr_cage = board_logic.getFigurePosition();
@@ -221,17 +217,17 @@ int main() {
                     }
                 }
             }
-            */
+            
         }
 
         window.clear();
         //window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
-        // window.draw(board_texture.getSprite());
+        window.draw(board_texture.getSprite());
         window.draw(exitBut.getSprite());
         window.draw(backBut.getSprite());
 
-        /*
+        
         k = 0;
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -243,17 +239,30 @@ int main() {
                 }
             }
         }
-        */
-        /*
+        
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
             }
             window.draw(figures_arr[i].getFigureSprite());
         }
-        */
 
         window.display();
+
+        if (enemy_turn) {
+                if(socket.receive(packet) == sf::Socket::Done) {
+                    packet >> board_logic;
+                    packet.clear();
+                    enemy_turn = false;
+
+                    if (board_logic.cur_side == BLACK) {
+                        board_logic.cur_side = WHITE;
+                    }
+                    else if (board_logic.cur_side == WHITE) {
+                        board_logic.cur_side = BLACK;
+                    }
+                }
+            }
     }
 
     return 0;
