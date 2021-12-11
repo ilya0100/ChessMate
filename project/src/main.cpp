@@ -17,7 +17,7 @@ int main() {
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-    Chess::menu(window);
+    Chess::startMenu(window);
 
     // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
@@ -27,11 +27,11 @@ int main() {
     windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
 
     // button exit through class Button
-    Chess::Button exitButton("images/exit.png");
-    exitButton.setSize(X_EXIT, Y_EXIT);
-    exitButton.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    // exitButton.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    sf::Vector2f exitPos = exitButton.getSprite().getPosition();
+    Chess::Button exitBut("images/exit.png");
+    exitBut.setSize(X_EXIT, Y_EXIT);
+    exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    sf::Vector2f exitPos = exitBut.getSprite().getPosition();
 
     // кнопка выхода
     //    sf::Texture ExitTexture;
@@ -44,10 +44,10 @@ int main() {
 	//    sf::Vector2f exitPos = exit.getPosition();
 
     // кнопка назад
-    Chess::Button backButton("images/back.png");
-    backButton.setSize(X_BACK, Y_BACK);
-    backButton.getSprite().setPosition(100, Y_WINDOW - 100);
-    sf::Vector2f backPos = backButton.getSprite().getPosition();
+    Chess::Button backBut("images/back.png");
+    backBut.setSize(X_BACK, Y_BACK);
+    backBut.getSprite().setPosition(100, Y_WINDOW - 100);
+    sf::Vector2f backPos = backBut.getSprite().getPosition();
 
     // sf::Texture BackTexture;
     // BackTexture.loadFromFile("images/back.png");
@@ -150,15 +150,15 @@ int main() {
 		 	}
 
             menuNum = 0;
-            exitButton.getSprite().setColor(sf::Color::White);
-            backButton.getSprite().setColor(sf::Color::White);
+            exitBut.getSprite().setColor(sf::Color::White);
+            backBut.getSprite().setColor(sf::Color::White);
             // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
-            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitButton.getSize().x * windowRatio.x, (float)exitButton.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitButton.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
-            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backButton.getSize().x * windowRatio.x, (float)backButton.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backButton.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
+            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitBut.getSize().x * windowRatio.x, (float)exitBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backBut.getSize().x * windowRatio.x, (float)backBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-                Chess::menu(window);
+                Chess::startMenu(window);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 window.close();
@@ -166,7 +166,7 @@ int main() {
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 if (menuNum == 3)  { window.close(); }
-                if (menuNum == 4)  { Chess::menu(window); }
+                if (menuNum == 4)  { Chess::startMenu(window); }
             }
 
             //drag and drop
@@ -234,8 +234,8 @@ int main() {
         //window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
         window.draw(board_texture.getSprite());
-        window.draw(exitButton.getSprite());
-        window.draw(backButton.getSprite());
+        window.draw(exitBut.getSprite());
+        window.draw(backBut.getSprite());
 
         /*
         k = 0;

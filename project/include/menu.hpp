@@ -64,8 +64,8 @@ namespace Chess {
 
             sf::Sprite getSprite();
     };
-}
 
-namespace Chess {
-    void menu(sf::RenderWindow & window);
+    void startMenu(sf::RenderWindow & window);
+
+    void chooseMenu(sf::RenderWindow & window);
 }
