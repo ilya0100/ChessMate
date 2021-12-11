@@ -7,7 +7,7 @@ void Chess::menu(sf::RenderWindow & window) {
 	sf::Vector2u windowSizeNew = window.getSize();
 	menuTexture1.loadFromFile("images/play.png");
 	menuTexture3.loadFromFile("images/exit.png");
-	menuBackground.loadFromFile("images/menu.jpeg");
+	menuBackground.loadFromFile("images/menu.png");
 	sf::Sprite menu1(menuTexture1), menu3(menuTexture3), menuBg(menuBackground);
 
     // Chess:Button playBut("images/play.png");
