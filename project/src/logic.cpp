@@ -3,40 +3,92 @@
 namespace Chess {
 
     BoardLogic::BoardLogic() {
-        current_pos.x = 0;
-        current_pos.y = 0;
-
-        board[0][0] = B_ROOK;
-        board[0][1] = B_KNIGHT;
-        board[0][2] = B_BISHOP;
-        board[0][3] = B_QUEEN;
-        board[0][4] = B_KING;
-        board[0][5] = B_BISHOP;
-        board[0][6] = B_KNIGHT;
-        board[0][7] = B_ROOK;
-
-        board[7][0] = W_ROOK;
-        board[7][1] = W_KNIGHT;
-        board[7][2] = W_BISHOP;
-        board[7][3] = W_QUEEN;
-        board[7][4] = W_KING;
-        board[7][5] = W_BISHOP;
-        board[7][6] = W_KNIGHT;
-        board[7][7] = W_ROOK;
-
-        for (int j = 0; j < 8; j++) {
-            board[1][j] = B_PAWN;
-        }
-
-        for (int j = 0; j < 8; j++) {
-            board[6][j] = W_PAWN;
-        }
-
-        for (int i = 2; i < 6; i++) {
+        for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = EMPTY_CELL;
             }
         }
+    }
+
+    void BoardLogic::setSide(Figure_Side side) {
+        switch (side) {
+        case WHITE:
+            current_pos.x = 0;
+            current_pos.y = 0;
+
+            board[0][0] = B_ROOK;
+            board[0][1] = B_KNIGHT;
+            board[0][2] = B_BISHOP;
+            board[0][3] = B_QUEEN;
+            board[0][4] = B_KING;
+            board[0][5] = B_BISHOP;
+            board[0][6] = B_KNIGHT;
+            board[0][7] = B_ROOK;
+
+            board[7][0] = W_ROOK;
+            board[7][1] = W_KNIGHT;
+            board[7][2] = W_BISHOP;
+            board[7][3] = W_QUEEN;
+            board[7][4] = W_KING;
+            board[7][5] = W_BISHOP;
+            board[7][6] = W_KNIGHT;
+            board[7][7] = W_ROOK;
+
+            for (int j = 0; j < 8; j++) {
+                board[1][j] = B_PAWN;
+            }
+
+            for (int j = 0; j < 8; j++) {
+                board[6][j] = W_PAWN;
+            }
+
+            for (int i = 2; i < 6; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j] = EMPTY_CELL;
+                }
+            }
+            break;
+        
+        case BLACK:
+            current_pos.x = 0;
+            current_pos.y = 0;
+
+            board[7][0] = B_ROOK;
+            board[7][1] = B_KNIGHT;
+            board[7][2] = B_BISHOP;
+            board[7][3] = B_QUEEN;
+            board[7][4] = B_KING;
+            board[7][5] = B_BISHOP;
+            board[7][6] = B_KNIGHT;
+            board[7][7] = B_ROOK;
+
+            board[0][0] = W_ROOK;
+            board[0][1] = W_KNIGHT;
+            board[0][2] = W_BISHOP;
+            board[0][3] = W_QUEEN;
+            board[0][4] = W_KING;
+            board[0][5] = W_BISHOP;
+            board[0][6] = W_KNIGHT;
+            board[0][7] = W_ROOK;
+
+            for (int j = 0; j < 8; j++) {
+                board[6][j] = B_PAWN;
+            }
+
+            for (int j = 0; j < 8; j++) {
+                board[1][j] = W_PAWN;
+            }
+
+            for (int i = 2; i < 6; i++) {
+                for (int j = 0; j < 8; j++) {
+                    board[i][j] = EMPTY_CELL;
+                }
+            }
+            break;
+
+        default:
+            break;    
+        }           
     }
 
     figureName BoardLogic::operator()(int x, int y) const {
@@ -70,10 +122,14 @@ namespace Chess {
                 if (board[y][x] <= B_PAWN) {
                     return false;
                 }
-                if (x == current_pos.x && y - current_pos.y == 1 &&
-                    board[y][x] == EMPTY_CELL) {
-                    board[y][x] = B_PAWN;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
+                if (y - current_pos.y == - 1 && (x == current_pos.x && 
+                    board[y][x] == EMPTY_CELL ||
+                    (x - current_pos.x == -1 || x - current_pos.x == 1) &&
+                    board[y][x] != EMPTY_CELL) ||
+                    y - current_pos.y == -2 && x == current_pos.x &&
+                    current_pos.y == 6) {
+                        board[y][x] = B_PAWN;
+                        board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
@@ -82,10 +138,14 @@ namespace Chess {
                 if (board[y][x] >= W_ROOK) {
                     return false;
                 }
-                if (x == current_pos.x && y - current_pos.y == - 1 &&
-                    board[y][x] == EMPTY_CELL) {
-                    board[y][x] = W_PAWN;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
+                if (y - current_pos.y == - 1 && (x == current_pos.x && 
+                    board[y][x] == EMPTY_CELL ||
+                    (x - current_pos.x == -1 || x - current_pos.x == 1) &&
+                    board[y][x] != EMPTY_CELL) ||
+                    y - current_pos.y == -2 && x == current_pos.x &&
+                    current_pos.y == 6) {
+                        board[y][x] = W_PAWN;
+                        board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
@@ -253,7 +313,7 @@ namespace Chess {
     }
 
     sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
-        for (int y = 0; y < 8; y++) {
+        for (int y = 7; y >= 0; y--) {
             for (int x = 0; x < 8; x ++) {
                 packet << board(x, y);
             }

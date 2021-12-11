@@ -71,6 +71,9 @@ int main() {
     bool enemy_turn = false;
     if (type == 'c') {
         enemy_turn = true;
+        board_logic.setSide(BLACK);
+    } else {
+        board_logic.setSide(WHITE);
     }
 
     */
