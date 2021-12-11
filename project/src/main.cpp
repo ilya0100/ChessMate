@@ -78,7 +78,7 @@ int main() {
         }
     }
 
-    sf::Vector2u curr_cage = {};
+    sf::Vector2u curr_cage;
     bool isMove = false;
     bool isCatch = false;
     float dx = 0;
@@ -130,11 +130,13 @@ int main() {
                 if (event.key.code == sf::Mouse::Left) {
                     for (size_t i = 0; i < 32; i++) {
                         if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
+                            if (board_logic.cur_side == figures_arr[i].getSide()) {
                             isCatch = true;
                             isMove = true;
                             curr_cage = getCurrCage(pos, playSpace);
                             board_logic.setFigurePosition(curr_cage);
                             n = i;
+                            }
                         }
                     }
                 }
@@ -156,6 +158,12 @@ int main() {
                                         break;
                                     }
                                 }
+                            if (board_logic.cur_side == BLACK) {
+                                board_logic.cur_side = WHITE;
+                            }
+                            else if (board_logic.cur_side == WHITE) {
+                                board_logic.cur_side = BLACK;
+                            }
                             }
 
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
@@ -163,6 +171,7 @@ int main() {
                             curr_cage = board_logic.getFigurePosition();
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         }
+                        isCatch = false;
                     }
                 }
             }

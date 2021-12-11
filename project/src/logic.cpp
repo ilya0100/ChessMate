@@ -61,6 +61,7 @@ namespace Chess {
         }
 
         switch (figure) {
+
             case B_PAWN:
                 if (board[y][x] <= B_PAWN) {
                     return false;
@@ -101,7 +102,7 @@ namespace Chess {
                 if (board[y][x] >= W_ROOK) {
                     return false;
                 }
-                if ((x - current_pos.x) * (x - current_pos.x) <= 1 && 
+                if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
                     (y - current_pos.y) * (y - current_pos.y) <= 1) {
                     board[y][x] = W_KING;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
@@ -157,7 +158,7 @@ namespace Chess {
                 if (board[y][x] <= B_PAWN) {
                     return false;
                 }
-                if ((x - current_pos.x) * (x - current_pos.x) + 
+                if ((x - current_pos.x) * (x - current_pos.x) +
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = B_KNIGHT;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
@@ -169,14 +170,14 @@ namespace Chess {
                 if (board[y][x] >= W_ROOK) {
                     return false;
                 }
-                if ((x - current_pos.x) * (x - current_pos.x) + 
+                if ((x - current_pos.x) * (x - current_pos.x) +
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = W_KNIGHT;
                     board[current_pos.y][current_pos.x] = EMPTY_CELL;
                     return true;
                 }
                 break;
-            
+
             case B_ROOK:
                 if (board[y][x] <= B_PAWN) {
                     return false;
@@ -229,7 +230,7 @@ namespace Chess {
         }
         return false;
     }
-    
+
     bool BoardLogic::isFigureOnDiagonal(int x, int y) const {
         if ((x - y) == (current_pos.x - current_pos.y) ||
             (x + y) == (current_pos.x + current_pos.y)) {

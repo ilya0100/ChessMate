@@ -81,9 +81,15 @@ namespace Chess {
     sf::Vector2u Button::getSize() { return size; }
     // sf::Vector2f Button::getPosButton() { return pos; }
 
+    Figure_Side Figures::getSide() { return side;}
+
     void Figures::setSprite(figureName figure_name) {
         name = figure_name;
         sprite = main_sprite;
+        if (name <= B_PAWN)
+            side = BLACK;
+        if (name >= W_ROOK)
+            side = WHITE;
 
         switch (figure_name) {
         case W_PAWN:

@@ -72,5 +72,12 @@ typedef enum {
     EIGHT
 } Digit_Position;
 
+typedef enum {
+WHITE,
+BLACK
+} Figure_Side;
+
+
+
 void menu(sf::RenderWindow & window);
 

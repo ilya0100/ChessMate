@@ -18,6 +18,7 @@ namespace Chess {
 
             sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);
+            Figure_Side cur_side = WHITE;
             
             figureName operator()(int x, int y) const;
         
