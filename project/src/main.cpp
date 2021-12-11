@@ -40,6 +40,7 @@ int main() {
 
 
     //////////////////////////Netcode/////////////////////////////////////
+    /*
     sf::TcpSocket socket;
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
 
@@ -72,6 +73,7 @@ int main() {
         enemy_turn = true;
     }
 
+    */
     ////////////////////////////////////////////////////////////////////////////
 
     sf::Clock clock;
@@ -217,10 +219,12 @@ int main() {
 
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
 
+                            /*
                             packet << board_logic;
                             socket.send(packet);
                             packet.clear();
                             enemy_turn = true;
+                            */
                             
                         } else {
                             curr_cage = board_logic.getFigurePosition();
@@ -262,6 +266,7 @@ int main() {
 
         window.display();
 
+        /*
         if (enemy_turn) {
                 if(socket.receive(packet) == sf::Socket::Done) {
                     packet >> board_logic;
@@ -278,5 +283,8 @@ int main() {
             }
     }
 
+    */
+   }
     return 0;
+
 }
