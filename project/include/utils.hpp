@@ -54,8 +54,3 @@ typedef enum {
     WHITE,
     BLACK
 } Figure_Side;
-
-
-
-void menu(sf::RenderWindow & window);
-
