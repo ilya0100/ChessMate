@@ -8,6 +8,10 @@
 
 // figures
 #define SPRITE_SIZE 264
+#define CELL_SIZE (264 * SCALE_FACTOR)
+
+// scale
+#define SCALE_FACTOR 0.2
 
 typedef struct {
     int x;
@@ -86,4 +90,4 @@ class Window {
 
 
 void menu(sf::RenderWindow & window);
-
+sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace);

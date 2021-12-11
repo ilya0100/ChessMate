@@ -1,15 +1,6 @@
-#include "textures.hpp"
-#include "logic.hpp"
-#include "utils.hpp"
+#include "gameplay.hpp"
 #include "menu.hpp"
 
-// detect number of current cage
-sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
-    sf::Vector2u cage;
-    cage.x = (pos.x - playSpace.x) / (CELL_SIZE);
-    cage.y = (pos.y - playSpace.y) / (CELL_SIZE);
-    return cage;
-}
 
 
 int main() {
@@ -58,6 +49,7 @@ int main() {
 	// backSize.y = 53;
 	// sf::Vector2f backPos = back.getPosition();
 
+/*
     // add board and figure 
     float scale = SCALE_FACTOR;
     Chess::BoardTexture board_texture("images/boardTru.jpg");
@@ -72,7 +64,7 @@ int main() {
     playSpace.y = Y_PLAYSPACE;
     board_texture.setPlaySpace(playSpace);
 
-/*
+
     //////////////////////////Netcode/////////////////////////////////////
     sf::TcpSocket socket;
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
@@ -107,7 +99,7 @@ int main() {
         }
     } 
     ////////////////////////////////////////////////////////////////////////////
-*/
+
 
     int k = 0;
     for (int y = 0; y < 8; y++) {
@@ -128,7 +120,7 @@ int main() {
     float dy = 0;
     size_t n = 0;
     int eaten_count = 0;
-
+*/
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -169,17 +161,19 @@ int main() {
                 if (menuNum == 4)  { Chess::startMenu(window); }
             }
 
+            Chess::gamePlay(window);
+            /*
             //drag and drop
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.key.code == sf::Mouse::Left) {
                     for (size_t i = 0; i < 32; i++) {
                         if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
                             if (board_logic.cur_side == figures_arr[i].getSide()) {
-                            isCatch = true;
-                            isMove = true;
-                            curr_cage = getCurrCage(pos, playSpace);
-                            board_logic.setFigurePosition(curr_cage);
-                            n = i;
+                                isCatch = true;
+                                isMove = true;
+                                curr_cage = getCurrCage(pos, playSpace);
+                                board_logic.setFigurePosition(curr_cage);
+                                n = i;
                             }
                         }
                     }
@@ -227,13 +221,13 @@ int main() {
                     }
                 }
             }
-
+            */
         }
 
         window.clear();
         //window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
-        window.draw(board_texture.getSprite());
+        // window.draw(board_texture.getSprite());
         window.draw(exitBut.getSprite());
         window.draw(backBut.getSprite());
 
@@ -250,13 +244,14 @@ int main() {
             }
         }
         */
-
+        /*
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
             }
             window.draw(figures_arr[i].getFigureSprite());
         }
+        */
 
         window.display();
     }
