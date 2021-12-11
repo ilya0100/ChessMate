@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils.hpp"
+#include "menu.hpp"
 
 namespace Chess {
 
@@ -18,40 +19,40 @@ namespace Chess {
             sf::Sprite getSprite();
     };
 
-    class MenuTexture {
-            sf::Texture texture;
-            sf::Sprite sprite;
-            sf::Vector2i playSpace;
-
-        public:
-            MenuTexture(const std::string filename);
-
-            void setPlaySpace(sf::Vector2i pos);
-
-            sf::Sprite getSprite();
-    };
+    // class MenuTexture {
+    //         sf::Texture texture;
+    //         sf::Sprite sprite;
+    //         sf::Vector2i playSpace;
+// 
+    //     public:
+    //         MenuTexture(const std::string filename);
+// 
+    //         void setPlaySpace(sf::Vector2i pos);
+// 
+    //         sf::Sprite getSprite();
+    // };
 
     // test class
-    class Button {
-            sf::Texture texture;
-            sf::Sprite sprite;
-            sf::Vector2u size;
-            // sf::Vector2f pos;
-
-        public:
-            Button();
-            Button(const std::string filename);
-
-            void setButton(const std::string filename);
-            void setSize(size_t x, size_t y);
-            void setPosButton(float x, float y);
-
-            sf::Sprite& getSprite();
-            sf::Vector2u getSize();
-            // sf::Vector2f getPosButton();
-            // TODO: method setPos 
-
-    };
+    // class Button {
+    //         sf::Texture texture;
+    //         sf::Sprite sprite;
+    //         sf::Vector2u size;
+    //         // sf::Vector2f pos;
+// 
+    //     public:
+    //         Button();
+    //         Button(const std::string filename);
+// 
+    //         void setButton(const std::string filename);
+    //         void setSize(size_t x, size_t y);
+    //         void setPosButton(float x, float y);
+// 
+    //         sf::Sprite& getSprite();
+    //         sf::Vector2u getSize();
+    //         // sf::Vector2f getPosButton();
+    //         // TODO: method setPos 
+// 
+    // };
 
     class FigureTexture {
             static sf::Texture texture;

@@ -1,6 +1,7 @@
 #include "textures.hpp"
 #include "logic.hpp"
 #include "utils.hpp"
+#include "menu.hpp"
 
 // detect number of current cage
 sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
@@ -16,7 +17,7 @@ int main() {
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-    menu(window);
+    Chess::menu(window);
 
     // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
@@ -43,14 +44,19 @@ int main() {
 	//    sf::Vector2f exitPos = exit.getPosition();
 
     // кнопка назад
-    sf::Texture BackTexture;
-    BackTexture.loadFromFile("images/back.png");
-    sf::Sprite back(BackTexture);
-    back.setPosition(100, Y_WINDOW - 100);
-    sf::Vector2u backSize;
-	backSize.x = 284;
-	backSize.y = 53;
-	sf::Vector2f backPos = back.getPosition();
+    Chess::Button backButton("images/back.png");
+    backButton.setSize(X_BACK, Y_BACK);
+    backButton.getSprite().setPosition(100, Y_WINDOW - 100);
+    sf::Vector2f backPos = backButton.getSprite().getPosition();
+
+    // sf::Texture BackTexture;
+    // BackTexture.loadFromFile("images/back.png");
+    // sf::Sprite back(BackTexture);
+    // back.setPosition(100, Y_WINDOW - 100);
+    // sf::Vector2u backSize;
+	// backSize.x = 284;
+	// backSize.y = 53;
+	// sf::Vector2f backPos = back.getPosition();
 
     // add board and figure 
     float scale = SCALE_FACTOR;
@@ -107,14 +113,14 @@ int main() {
 
             menuNum = 0;
             exitButton.getSprite().setColor(sf::Color::White);
-            back.setColor(sf::Color::White);
+            backButton.getSprite().setColor(sf::Color::White);
             // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
             if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitButton.getSize().x * windowRatio.x, (float)exitButton.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitButton.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
-            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { back.setColor(sf::Color::Blue); menuNum = 4; }
+            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backButton.getSize().x * windowRatio.x, (float)backButton.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backButton.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-                menu(window);
+                Chess::menu(window);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 window.close();
@@ -122,7 +128,7 @@ int main() {
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 if (menuNum == 3)  { window.close(); }
-                if (menuNum == 4)  { menu(window); }
+                if (menuNum == 4)  { Chess::menu(window); }
             }
 
             //drag and drop
@@ -153,7 +159,7 @@ int main() {
                             if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
                                 for (size_t i = 0; i < 32; i++) {
                                     if (figures_arr[i].getFigurePos() == curr_cage) {
-                                        figures_arr[i].setSpritePos(600 + size / 3 * eaten_count, 100);
+                                        figures_arr[i].setSpritePos(600 + TSPRITE_SIZE / 3 * eaten_count, 100);
                                         eaten_count++;
                                         break;
                                     }
@@ -183,11 +189,11 @@ int main() {
         window.clear(sf::Color(129, 181, 221));
         window.draw(board_texture.getSprite());
         window.draw(exitButton.getSprite());
-        window.draw(back);
+        window.draw(backButton.getSprite());
 
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
-                figures_arr[i].moveFigure(pos.x - size / 2, pos.y - size / 2);
+                figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
             }
             
             // if (board_logic(figures_arr[i].getFigurePos().x, figures_arr[i].getFigurePos().y) != EMPTY_CELL) {
