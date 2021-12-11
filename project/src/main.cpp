@@ -1,7 +1,5 @@
-#include "gameplay.hpp"
+#include "basic_funcs.hpp"
 #include "menu.hpp"
-
-
 
 int main() {
 
@@ -14,25 +12,15 @@ int main() {
     sf::Vector2u windowSize = window.getSize();
 	sf::Vector2u windowSizeNew = window.getSize();
     sf::Vector2f windowRatio;
-    windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-    windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
+    windowRatio.x = (float)windowSizeNew.x / (float)windowSize.x;
+    windowRatio.y = (float)windowSizeNew.y / (float)windowSize.y;
 
-    // button exit through class Button
+    // button exit
     Chess::Button exitBut("images/exit.png");
     exitBut.setSize(X_EXIT, Y_EXIT);
     exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     sf::Vector2f exitPos = exitBut.getSprite().getPosition();
-
-    // кнопка выхода
-    //    sf::Texture ExitTexture;
-    //    ExitTexture.loadFromFile("images/exit.png");
-    //    sf::Sprite exit(ExitTexture);
-    //    exit.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    //    sf::Vector2u exitSize;
-	//    exitSize.x = 119;
-	//    exitSize.y = 43;
-	//    sf::Vector2f exitPos = exit.getPosition();
 
     // кнопка назад
     Chess::Button backBut("images/back.png");
@@ -40,16 +28,6 @@ int main() {
     backBut.getSprite().setPosition(100, Y_WINDOW - 100);
     sf::Vector2f backPos = backBut.getSprite().getPosition();
 
-    // sf::Texture BackTexture;
-    // BackTexture.loadFromFile("images/back.png");
-    // sf::Sprite back(BackTexture);
-    // back.setPosition(100, Y_WINDOW - 100);
-    // sf::Vector2u backSize;
-	// backSize.x = 284;
-	// backSize.y = 53;
-	// sf::Vector2f backPos = back.getPosition();
-
-/*
     // add board and figure 
     float scale = SCALE_FACTOR;
     Chess::BoardTexture board_texture("images/boardTru.jpg");
@@ -64,7 +42,7 @@ int main() {
     playSpace.y = Y_PLAYSPACE;
     board_texture.setPlaySpace(playSpace);
 
-
+/*
     //////////////////////////Netcode/////////////////////////////////////
     sf::TcpSocket socket;
     sf::IpAddress ip = sf::IpAddress::getLocalAddress();
@@ -100,7 +78,7 @@ int main() {
     } 
     ////////////////////////////////////////////////////////////////////////////
 
-
+*/
     int k = 0;
     for (int y = 0; y < 8; y++) {
         for (int x = 0; x < 8; x++) {
@@ -110,6 +88,7 @@ int main() {
                 Chess::loadPieces(figures_arr[k], figure, x, y);
                 k++;
             }
+
         }
     }
 
@@ -120,7 +99,6 @@ int main() {
     float dy = 0;
     size_t n = 0;
     int eaten_count = 0;
-*/
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -161,7 +139,7 @@ int main() {
                 if (menuNum == 4)  { Chess::startMenu(window); }
             }
 
-            Chess::gamePlay(window);
+            Chess::gamePlay(window, event, board_logic, figures_arr, playSpace, pos, n);
             /*
             //drag and drop
             if (event.type == sf::Event::MouseButtonPressed) {
@@ -225,13 +203,12 @@ int main() {
         }
 
         window.clear();
-        //window.draw(menu_texture.getSprite());
+        // window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
-        // window.draw(board_texture.getSprite());
+        window.draw(board_texture.getSprite());
         window.draw(exitBut.getSprite());
         window.draw(backBut.getSprite());
 
-        /*
         k = 0;
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -243,15 +220,13 @@ int main() {
                 }
             }
         }
-        */
-        /*
+        
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
             }
             window.draw(figures_arr[i].getFigureSprite());
         }
-        */
 
         window.display();
     }

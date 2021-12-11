@@ -1,8 +1,9 @@
-#include "gameplay.hpp"
+#include "basic_funcs.hpp"
 
 namespace Chess {
 
-    void gamePlay(sf::RenderWindow& window) {
+    void gamePlay(sf::RenderWindow& window, sf::Event event, Chess::BoardLogic& board_logic, Chess::Figures* figures_arr, sf::Vector2i& playSpace, sf::Vector2i& pos, size_t& n) {
+        /*
         float scale = SCALE_FACTOR;
         Chess::BoardTexture board_texture("images/boardTru.jpg");
         Chess::FigureTexture figures_testure;
@@ -15,6 +16,7 @@ namespace Chess {
         playSpace.x = X_PLAYSPACE;
         playSpace.y = Y_PLAYSPACE;
         board_texture.setPlaySpace(playSpace);
+        */
 
         /*
         //////////////////////////Netcode/////////////////////////////////////
@@ -53,6 +55,7 @@ namespace Chess {
         ////////////////////////////////////////////////////////////////////////////
         */
 
+/*
         int k = 0;
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
@@ -64,20 +67,20 @@ namespace Chess {
                 }
             }
         }
+*/
 
         sf::Vector2u curr_cage;
-        bool isMove = false;
-        bool isCatch = false;
-        float dx = 0;
-        float dy = 0;
-        size_t n = 0;
-        int eaten_count = 0;
-
+        static bool isMove = false;
+        static bool isCatch = false;
+        static float dx = 0;
+        static float dy = 0;
+        static int eaten_count = 0;
+/*
         while (window.isOpen()) {
             sf::Vector2i pos = sf::Mouse::getPosition(window);
             sf::Event event;
 
-            while (window.pollEvent(event)) {
+            while (window.pollEvent(event)) { */
                 if (event.type == sf::Event::MouseButtonPressed) {
                     if (event.key.code == sf::Mouse::Left) {
                         for (size_t i = 0; i < 32; i++) {
@@ -135,33 +138,35 @@ namespace Chess {
                         }
                     }
                 }
-            }
-
-            window.clear();
-            window.clear(sf::Color(129, 181, 221));
-            window.draw(board_texture.getSprite());
-        
-            k = 0;
-            for (int y = 0; y < 8; y++) {
-                for (int x = 0; x < 8; x++) {
-                    figureName figure = board_logic(x, y);
-
-                    if (figure != EMPTY_CELL && k < 32) {
-                        Chess::loadPieces(figures_arr[k], figure, x, y);
-                        k++;
-                    }
-                }
-            }
-
-            for (size_t i = 0; i < 32; i++) {
-                if (isMove && i == n) {
-                    figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
-                }
-                window.draw(figures_arr[i].getFigureSprite());
-            }
-
-            window.display();
-        }
     }
 
+/*
+    void drawGame(sf::RenderWindow& window, ) {
+        window.clear();
+        window.draw(menu_texture.getSprite());
+        window.clear(sf::Color(129, 181, 221));
+        window.draw(board_texture.getSprite());
+        window.draw(exitBut.getSprite());
+        window.draw(backBut.getSprite());
+
+        k = 0;
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                figureName figure = board_logic(x, y);
+    
+                if (figure != EMPTY_CELL && k < 32) {
+                    Chess::loadPieces(figures_arr[k], figure, x, y);
+                    k++;
+                }
+            }
+        }
+
+        for (size_t i = 0; i < 32; i++) {
+            if (isMove && i == n) {
+                figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
+            }
+            window.draw(figures_arr[i].getFigureSprite());
+        }
+    }
+*/
 }  // namespace Chess

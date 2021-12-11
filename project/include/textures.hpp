@@ -23,13 +23,12 @@ namespace Chess {
     //         sf::Texture texture;
     //         sf::Sprite sprite;
     //         sf::Vector2i playSpace;
-// 
+
     //     public:
     //         MenuTexture(const std::string filename);
-// 
+
     //         void setPlaySpace(sf::Vector2i pos);
-// 
-    //         sf::Sprite getSprite();
+        //     sf::Sprite getSprite();
     // };
 
     // test class
@@ -67,7 +66,6 @@ namespace Chess {
     };
  
     class Figures: public FigureTexture {
-
         protected:
             sf::Vector2f spritePos;
             sf::Vector2u spriteSize;
