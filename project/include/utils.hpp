@@ -65,5 +65,25 @@ public:
         }
 };
 
+class Window {
+
+    protected:
+        sf::RenderWindow *window;
+        sf::Vector2u windowSize;
+        sf::Vector2u windowSizeNew;
+        sf::Vector2f windowRatio;
+
+    public:
+        Window(sf::VideoMode Mode, std::string s);
+        sf::RenderWindow* getWindow();
+        sf::Vector2u getWindowSize();
+        sf::Vector2u getWindowSizeNew();
+        sf::Vector2f getWindowRatio();
+
+};
+
+
+
+
 void menu(sf::RenderWindow & window);
 
