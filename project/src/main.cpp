@@ -70,8 +70,8 @@ int main() {
 
     char type;
 
-    std::cout << "Enter type connecting: [c] - client, [s] - server\n";
-    std::cin  >> type;
+    // std::cout << "Enter type connecting: [c] - client, [s] - server\n";
+    // std::cin  >> type;
 
     if (type == 's') {
         ReuseableListener listener;

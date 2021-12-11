@@ -12,8 +12,9 @@ namespace Chess {
 		// sf::Sprite menu1(menuTexture1), menu3(menuTexture3), menuBg(menuBackground);
 
 	    Chess::Button playBut("images/play.png");
-	    playBut.setSize(250, 53);
-	    playBut.getSprite().setPosition(200, 200);
+	    playBut.setSize(X_PLAY, Y_PLAY);
+	    // playBut.getSprite().setPosition(200, 200);
+		playBut.getSprite().setPosition(X_WINDOW / 2 - X_PLAY / 2, Y_WINDOW / 5);
 	    sf::Vector2f playButPos = playBut.getSprite().getPosition();
 
 		Chess::Button optionBut("images/option.png");
@@ -33,6 +34,7 @@ namespace Chess {
 		sf::Texture menuBackground;
 		menuBackground.loadFromFile("images/menu.png");
 		sf::Sprite menuBg(menuBackground);
+		menuBg.setScale(X_WINDOW / X_MENU, Y_WINDOW / Y_MENU);
 
 		bool isMenu = 1;
 		int menuNum = 0;

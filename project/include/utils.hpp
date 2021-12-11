@@ -11,7 +11,7 @@
 #define CELL_SIZE (264 * SCALE_FACTOR)
 
 // scale
-#define SCALE_FACTOR 0.2
+#define SCALE_FACTOR 0.3
 
 typedef struct {
     int x;

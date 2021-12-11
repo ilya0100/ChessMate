@@ -23,6 +23,14 @@
 #define X_BACK 284
 #define Y_BACK 53
 
+// menu
+#define X_MENU 1333
+#define Y_MENU 751
+
+// playBut size
+#define X_PLAY 250
+#define Y_PLAY 53
+
 // scale
 // #define SCALE_FACTOR 0.2
 
