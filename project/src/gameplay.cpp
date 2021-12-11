@@ -16,7 +16,6 @@ namespace Chess {
         playSpace.y = Y_PLAYSPACE;
         board_texture.setPlaySpace(playSpace);
 
-        /*
         //////////////////////////Netcode/////////////////////////////////////
         sf::TcpSocket socket;
         sf::IpAddress ip = sf::IpAddress::getLocalAddress();
@@ -45,13 +44,11 @@ namespace Chess {
 
         sf::Packet packet;
 
+        bool enemy_turn = false;
         if (type == 'c') {
-            if(socket.receive(packet) == sf::Socket::Done) {
-                packet >> board_logic;
-            }
-        } 
+            enemy_turn = true;
+        }
         ////////////////////////////////////////////////////////////////////////////
-        */
 
         int k = 0;
         for (int y = 0; y < 8; y++) {
@@ -77,7 +74,9 @@ namespace Chess {
             sf::Vector2i pos = sf::Mouse::getPosition(window);
             sf::Event event;
 
+
             while (window.pollEvent(event)) {
+
                 if (event.type == sf::Event::MouseButtonPressed) {
                     if (event.key.code == sf::Mouse::Left) {
                         for (size_t i = 0; i < 32; i++) {
@@ -111,21 +110,20 @@ namespace Chess {
                                         }
                                     }
 
-                                if (board_logic.cur_side == BLACK) {
-                                    board_logic.cur_side = WHITE;
-                                }
-                                else if (board_logic.cur_side == WHITE) {
-                                    board_logic.cur_side = BLACK;
-                                }
+                                    if (board_logic.cur_side == BLACK) {
+                                        board_logic.cur_side = WHITE;
+                                    }
+                                    else if (board_logic.cur_side == WHITE) {
+                                        board_logic.cur_side = BLACK;
+                                    }
                                 }
 
                                 figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
 
-                                // packet << board_logic;
-                                // socket.send(packet);
-                                // if(socket.receive(packet) == sf::Socket::Done) {
-                                //     packet >> board_logic;
-                                // }
+                                packet << board_logic;
+                                socket.send(packet);
+                                packet.clear();
+                                enemy_turn = true;
 
                             } else {
                                 curr_cage = board_logic.getFigurePosition();
@@ -161,6 +159,21 @@ namespace Chess {
             }
 
             window.display();
+
+            if (enemy_turn) {
+                if(socket.receive(packet) == sf::Socket::Done) {
+                    packet >> board_logic;
+                    packet.clear();
+                    enemy_turn = false;
+
+                    if (board_logic.cur_side == BLACK) {
+                        board_logic.cur_side = WHITE;
+                    }
+                    else if (board_logic.cur_side == WHITE) {
+                        board_logic.cur_side = BLACK;
+                    }
+                }
+            }
         }
     }
 
