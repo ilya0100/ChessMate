@@ -54,7 +54,7 @@ int main() {
     Chess::BoardTexture board_texture("images/boardTru.jpg");
     Chess::FigureTexture figures_testure;
     board_texture.setBoardScale(SCALE_FACTOR);
-    
+
     Chess::BoardLogic board_logic;
     Chess::Figures figures_arr[32];
 
@@ -70,8 +70,8 @@ int main() {
 
     char type;
 
-    std::cout << "Enter type connecting: [c] - client, [s] - server\n";
-    std::cin  >> type;
+    //std::cout << "Enter type connecting: [c] - client, [s] - server\n";
+    //std::cin  >> type;
 
     if (type == 's') {
         ReuseableListener listener;

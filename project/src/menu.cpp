@@ -88,7 +88,7 @@ namespace Chess {
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				if (menuNum == 1) isMenu = false;  // если нажали первую кнопку, то выходим из меню 
+				if (menuNum == 1) { Chess::selectMode(window);}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 3) { window.close(); isMenu = false; }
 				if (menuNum == 4) {}  // add implementation of option
 	
@@ -129,23 +129,163 @@ namespace Chess {
     sf::Vector2u Button::getSize() { return size; }
     sf::Vector2f Button::getPosButton() { return pos; }
 
-	void selectMode(Window& window) {
+	void selectMode(sf::RenderWindow& window) {
 
+
+		sf::Vector2u windowSize = window.getSize();
+		sf::Vector2u windowSizeNew = window.getSize();
+
+		//  Загружаем фон
 		sf::Texture menuBackground;
 		menuBackground.loadFromFile("images/menu.png");
 		sf::Sprite menuBg(menuBackground);
+		menuBg.setPosition(0, 0);
 
+		//
+		bool isMenu = 1;  // пока меню открыто
+		int menuNum = 0;  // для номеров кнопок
+
+		//  кнопки
 
 		Chess::Button singlePlayBut("images/singlePlay.png");
 	    singlePlayBut.setSize(561, 53);
 	    singlePlayBut.setPosButton(169.5, 200);
 
-		/*
-		Chess::Button online_game("images/.png");
-	    playBut.setSize(250, 53);
-	    playBut.getSprite().setPosition(200, 200);
-	    sf::Vector2f playButPos = playBut.getSprite().getPosition();
 
+		Chess::Button onlineGameBut("images/online_game.png");
+	    onlineGameBut.setSize(270, 53);
+	    onlineGameBut.getSprite().setPosition(315, 286);
+
+		Chess::Button backBut("images/backk.png");
+	    backBut.setSize(141, 53);
+	    backBut.getSprite().setPosition(379.5, 372);
+
+		sf::Clock clock;
+
+		while (isMenu) {
+			sf::Event event;
+			while (window.pollEvent(event)) {
+				if (event.type == sf::Event::Closed) {
+					window.close();
+					isMenu = false;
+				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+						window.close();
+						isMenu = false;
+				}
+				if (event.type == sf::Event::Resized) {
+					windowSizeNew = window.getSize();
+			 	}
+			}
+
+			float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+			clock.restart(); //перезагружает время
+			time = time / 120; //скорость игры
+			singlePlayBut.getSprite().setColor(sf::Color::White);
+			onlineGameBut.getSprite().setColor(sf::Color::White);
+			backBut.getSprite().setColor(sf::Color::White);
+			menuNum = 0;
+
+			if (sf::IntRect((float)singlePlayBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)singlePlayBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)singlePlayBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)singlePlayBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { singlePlayBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+			if (sf::IntRect((float)onlineGameBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)onlineGameBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)onlineGameBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)onlineGameBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+			if (sf::IntRect((float)backBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)backBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+				if (menuNum == 1) {isMenu = false;}  // если нажали первую кнопку, то выходим из меню
+				if (menuNum == 2) {isMenu = false;}
+				if (menuNum == 3) {Chess::startMenu(window);}  // add implementation of option
+
+			}
+
+			window.draw(menuBg);
+			window.draw(singlePlayBut.getSprite());
+			window.draw(onlineGameBut.getSprite());
+			window.draw(backBut.getSprite());
+			window.display();
+
+		}
+
+		void selectH(sf::RenderWindow& window) {
+			sf::Vector2u windowSize = window.getSize();
+			sf::Vector2u windowSizeNew = window.getSize();
+
+			//  Загружаем фон
+			sf::Texture menuBackground;
+			menuBackground.loadFromFile("images/menu.png");
+			sf::Sprite menuBg(menuBackground);
+			menuBg.setPosition(0, 0);
+
+			//
+			bool isMenu = 1;  // пока меню открыто
+			int menuNum = 0;  // для номеров кнопок
+
+			//  кнопки
+
+			Chess::Button createBut("images/createGame.png");
+			createBut.setSize(268, 53);
+			createBut.setPosButton(316, 200);
+
+
+			Chess::Button joinBut("images/joinGame.png");
+			joinBut.setSize(270, 53);
+			joinBut.getSprite().setPosition(467, 286);
+
+			Chess::Button backBut("images/backk.png");
+			backBut.setSize(141, 53);
+			backBut.getSprite().setPosition(379.5, 372);
+
+			sf::Clock clock;
+
+			while (isMenu) {
+				sf::Event event;
+				while (window.pollEvent(event)) {
+					if (event.type == sf::Event::Closed) {
+						window.close();
+						isMenu = false;
+					}
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+							window.close();
+							isMenu = false;
+					}
+					if (event.type == sf::Event::Resized) {
+						windowSizeNew = window.getSize();
+					}
+				}
+
+				float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+				clock.restart(); //перезагружает время
+				time = time / 120; //скорость игры
+				singlePlayBut.getSprite().setColor(sf::Color::White);
+				onlineGameBut.getSprite().setColor(sf::Color::White);
+				backBut.getSprite().setColor(sf::Color::White);
+				menuNum = 0;
+
+				if (sf::IntRect((float)createBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)createBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)createBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)createBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+				if (sf::IntRect((float)joinBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)joinBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)joinBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)joinBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+				if (sf::IntRect((float)backBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)backBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+
+				if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+					if (menuNum == 1) {isMenu = false;}  // если нажали первую кнопку, то выходим из меню
+					if (menuNum == 2) {isMenu = false;}
+					if (menuNum == 3) {Chess::startMenu(window);}  // add implementation of option
+
+				}
+
+				window.draw(menuBg);
+				window.draw(createBut.getSprite());
+				window.draw(joinBut.getSprite());
+				window.draw(backBut.getSprite());
+				window.display();
+
+			}
+
+		}
+
+
+
+
+
+		/*
 		Chess::Button optionBut("images/option.png");
 		optionBut.setSize(231, 53);
 		optionBut.getSprite().setPosition(200, 290);
@@ -194,10 +334,10 @@ namespace Chess {
 					window.close();
 					isMenu = false;
 				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-						window.close();
-						isMenu = false;
-				}
+				if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
+                	Chess::startMenu(window);
+					isMenu = false;
+            	}
 				if (event.type == sf::Event::Resized) {
 					window.getSizeNew();
 			 	}

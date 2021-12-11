@@ -64,8 +64,10 @@ namespace Chess {
     };
 
     void startMenu(sf::RenderWindow & window);
-    void startMenuN(Window & window);
 
-    void chooseMenu(sf::RenderWindow & window);
-    void selectMode(Window& window);
+    void selectMode(sf::RenderWindow& window);
+    void selectH(sf::RenderWindow& window);
+
+
+    void startMenuN(Window & window);
 }
