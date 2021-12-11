@@ -15,6 +15,7 @@ namespace Chess {
             BoardLogic();
 
             void setFigurePosition(sf::Vector2u pos);
+            void setSide(Figure_Side side);
 
             sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);
