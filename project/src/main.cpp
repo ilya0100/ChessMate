@@ -2,37 +2,20 @@
 #include "logic.hpp"
 #include "utils.hpp"
 
-#define CELL_SIZE 52
-
-
-sf::Sprite f[32];
-
 // detect number of current cage
-NumCage getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
-    NumCage cage;
-    cage.x = (pos.x - playSpace.x) / CELL_SIZE;
-    cage.y = (pos.y - playSpace.y) / CELL_SIZE;
+sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace) {
+    sf::Vector2u cage;
+    cage.x = (pos.x - playSpace.x) / (CELL_SIZE);
+    cage.y = (pos.y - playSpace.y) / (CELL_SIZE);
     return cage;
 }
-  Chess::BoardLogic board_logic;
-int board[8][8] =
-    {{-5, -4, -3, -2, -1, -3, -4, -5},
-      {-6, -6, -6, -6, -6, -6, -6, -6},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {0,  0,  0,  0,  0,  0,  0,  0},
-      {6,  6,  6,  6,  6,  6,  6,  6},
-      {5,  4,  3,  2,  1,  3,  4,  5}};
 
 
+int main() {
 
-int main()
-{
-    //Chess::Figures F[32]; // пока тестируется
     sf::Clock clock;
     int menuNum = 0;
-    sf::RenderWindow window(sf::VideoMode(590, 590), "ChessMate!");
+    sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
     menu(window);
 
     // размер окна для сохранения работоспособности при изменении размера
@@ -46,40 +29,55 @@ int main()
     sf::Texture ExitTexture;
     ExitTexture.loadFromFile("images/exit.png");
     sf::Sprite exit(ExitTexture);
-    exit.setPosition(500, 500);
+    exit.setPosition(2500 * SCALE_FACTOR, 3000 * SCALE_FACTOR);
     sf::Vector2u exitSize;
-	exitSize.x = 61;
-	exitSize.y = 23;
+	exitSize.x = 119;
+	exitSize.y = 43;
 	sf::Vector2f exitPos = exit.getPosition();
 
-    //кнопка назад
+    // кнопка назад
     sf::Texture BackTexture;
     BackTexture.loadFromFile("images/back.png");
     sf::Sprite back(BackTexture);
-    back.setPosition(38, 550);
+    back.setPosition(500 * SCALE_FACTOR, 3000 * SCALE_FACTOR);
     sf::Vector2u backSize;
-	backSize.x = 133;
-	backSize.y = 23;
+	backSize.x = 284;
+	backSize.y = 53;
 	sf::Vector2f backPos = back.getPosition();
 
-
-    Chess::BoardTexture board_texture("images/boardT.jpg");
-    Chess::FigureTexture figures;
+    // add board and figure 
+    float scale = SCALE_FACTOR;
+    Chess::BoardTexture board_texture("images/boardTru.jpg");
+    Chess::FigureTexture figures_testure;
+    board_texture.setBoardScale(SCALE_FACTOR);
+    
+    Chess::BoardLogic board_logic;
+    Chess::Figures figures_arr[32];
 
     sf::Vector2i playSpace;
-    playSpace.x = 0; // correct
-    playSpace.y = 0;
+    playSpace.x = X_PLAYSPACE * SCALE_FACTOR;
+    playSpace.y = Y_PLAYSPACE * SCALE_FACTOR;
     board_texture.setPlaySpace(playSpace);
 
-    //Chess::Figures::SetFiguresToDefaultPositions(F);
-    Chess::loadPieces(f, board, figures);
+    int k = 0;
+    for (int y = 0; y < 8; y++) {
+        for (int x = 0; x < 8; x++) {
+            figureName figure = board_logic(x, y);
 
-    NumCage curr_cage = {0};
+            if (figure != EMPTY_CELL && k < 32) {
+                Chess::loadPieces(figures_arr[k], figure, x, y);
+                k++;
+            }
+        }
+    }
+
+    sf::Vector2u curr_cage = {};
     bool isMove = false;
     bool isCatch = false;
     float dx = 0;
     float dy = 0;
     size_t n = 0;
+    int eaten_count = 0;
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -123,14 +121,12 @@ int main()
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.key.code == sf::Mouse::Left) {
                     for (size_t i = 0; i < 32; i++) {
-                        if (f[i].getGlobalBounds().contains(pos.x, pos.y)) {
+                        if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
                             isCatch = true;
                             isMove = true;
-                            curr_cage = getCurrCage(pos, playSpace); //getPlaySpace
-                            board_logic.setFigurePosition(curr_cage.x, curr_cage.y);
+                            curr_cage = getCurrCage(pos, playSpace);
+                            board_logic.setFigurePosition(curr_cage);
                             n = i;
-                            dx = pos.x - f[i].getPosition().x;
-                            dy = pos.y - f[i].getPosition().y;
                         }
                     }
                 }
@@ -139,13 +135,25 @@ int main()
             if (event.type == sf::Event::MouseButtonReleased) {
                 if (event.key.code == sf::Mouse::Left) {
                     isMove = false;
+
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
+                        
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
-                            f[n].setPosition(playSpace.x + curr_cage.x * CELL_SIZE, playSpace.y + curr_cage.y * CELL_SIZE);;
+                            if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
+                                for (size_t i = 0; i < 32; i++) {
+                                    if (figures_arr[i].getFigurePos() == curr_cage) {
+                                        figures_arr[i].setSpritePos(600 + size / 3 * eaten_count, 100);
+                                        eaten_count++;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         } else {
                             curr_cage = board_logic.getFigurePosition();
-                            f[n].setPosition(playSpace.x + curr_cage.x * CELL_SIZE, playSpace.y + curr_cage.y * CELL_SIZE);
+                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
                         }
                     }
                 }
@@ -153,25 +161,23 @@ int main()
 
         }
 
-        if (isMove) { f[n].setPosition(pos.x - dx, pos.y - dy); }
-
         window.clear();
-        //window.draw(menu_texture.get_sprite());
+        //window.draw(menu_texture.getSprite());
         window.clear(sf::Color(129, 181, 221));
+        window.draw(board_texture.getSprite());
         window.draw(exit);
         window.draw(back);
-        window.draw(board_texture.get_sprite());
-
-        //Chess::Figures::DrawFigures(F, window);
-        /*
-        for (size_t i = 0; i < 32; i++) {
-            window.draw(F[i].sprite);
-        }
-        */
 
         for (size_t i = 0; i < 32; i++) {
-            window.draw(f[i]);
+            if (isMove && i == n) {
+                figures_arr[i].moveFigure(pos.x - size / 2, pos.y - size / 2);
+            }
+            
+            // if (board_logic(figures_arr[i].getFigurePos().x, figures_arr[i].getFigurePos().y) != EMPTY_CELL) {
+            window.draw(figures_arr[i].getFigureSprite());
+            // }
         }
+
         window.display();
     }
 

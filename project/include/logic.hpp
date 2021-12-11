@@ -7,17 +7,23 @@ namespace Chess {
     class FigureTexture;
 
     class BoardLogic {
+        figureName board[8][8];
 
-        int current_pos_x;
-        int current_pos_y;
+        sf::Vector2u current_pos;
         
         public:
             BoardLogic();
-            figureName board[8][8];
 
-            void setFigurePosition(int x, int y);
-            NumCage getFigurePosition() const;
+            void setFigurePosition(sf::Vector2u pos);
+
+            sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);
+            
+            figureName operator()(int x, int y) const;
+        
+        private:
+            bool isFigureOnLine(int x, int y) const;
+            bool isFigureOnDiagonal(int x, int y) const;
     };
 
 }  // namespace Chess

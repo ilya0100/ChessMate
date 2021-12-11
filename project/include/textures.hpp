@@ -2,10 +2,6 @@
 
 #include "utils.hpp"
 
-#define SPRITE_SIZE 50
-
-static size_t size = 52;
-
 namespace Chess {
 
     class BoardTexture {
@@ -16,9 +12,10 @@ namespace Chess {
         public:
             BoardTexture(const std::string filename);
 
+            void setBoardScale(float scale);
             void setPlaySpace(sf::Vector2i pos);
 
-            sf::Sprite get_sprite();
+            sf::Sprite getSprite();
     };
 
     class MenuTexture {
@@ -31,44 +28,51 @@ namespace Chess {
 
             void setPlaySpace(sf::Vector2i pos);
 
-            sf::Sprite get_sprite();
+            sf::Sprite getSprite();
     };
 
     class FigureTexture {
+            static sf::Texture texture;
 
         protected:
-            sf::Sprite sprite;
-
-            static sf::Texture texture;
-            static figureName board[8][8];
-            static bool isTexture;
-
-
+            static sf::Sprite main_sprite;
 
         public:
-            FigureTexture(std::string texture_file);
             FigureTexture();
-            sf::Sprite getFigureSprite(figureName fn);
-
+            
+            void setFigureScale(float scale);
     };
 
     class Figures: public FigureTexture {
 
         protected:
-            sf::Vector2f figurePos;
-            sf::Vector2u figureSize;
+            sf::Vector2f spritePos;
+            sf::Vector2u spriteSize;
+
+            sf::Vector2u figurePos;
+
             figureName name;
-            Letter_Position letterPos;
-            Digit_Position digitPos;
+            sf::Sprite sprite;
 
         public:
             Figures();
-            void setSprite(figureName fn);
-            static void SetFiguresToDefaultPositions(Figures (&f)[32]);
-            static void DrawFigures(Figures (&f)[32], sf::RenderWindow (&window));
+            Figures(figureName fn);
+
+            void setSprite(figureName figure_name);
+            void setFigurePos(int i, int j);
+            void setSpritePos(float x, float y);
+            // void setFigurePos(Letter_Position lp, Digit_Position dp);
+
+            void moveFigure(float x, float y);
+            void drawFigure(sf:: RenderWindow &window);
+
+            sf::Vector2u getFigurePos() const;
+            sf::Sprite getFigureSprite() const;
+            figureName getName() const;
+            sf::Vector2f getSpritePos() const;
 
     };
 
-    void loadPieces(sf::Sprite (&f)[32], int (&board)[8][8], FigureTexture figure);
+    void loadPieces(Figures& figure, figureName figure_name, size_t i, size_t j);
 
 }  // namespace Chess
