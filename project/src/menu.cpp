@@ -205,7 +205,18 @@ namespace Chess {
 
 		}
 
-		void selectH(sf::RenderWindow& window) {
+		/*
+		Chess::Button optionBut("images/option.png");
+		optionBut.setSize(231, 53);
+		optionBut.getSprite().setPosition(200, 290);
+		sf::Vector2f OptionButPos = optionBut.getSprite().getPosition();
+		*/
+
+
+	}
+}
+
+	void selectH(sf::RenderWindow& window) {
 			sf::Vector2u windowSize = window.getSize();
 			sf::Vector2u windowSizeNew = window.getSize();
 
@@ -255,8 +266,8 @@ namespace Chess {
 				float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
 				clock.restart(); //перезагружает время
 				time = time / 120; //скорость игры
-				singlePlayBut.getSprite().setColor(sf::Color::White);
-				onlineGameBut.getSprite().setColor(sf::Color::White);
+				createBut.getSprite().setColor(sf::Color::White);
+				joinBut.getSprite().setColor(sf::Color::White);
 				backBut.getSprite().setColor(sf::Color::White);
 				menuNum = 0;
 
@@ -280,23 +291,6 @@ namespace Chess {
 			}
 
 		}
-
-
-
-
-
-		/*
-		Chess::Button optionBut("images/option.png");
-		optionBut.setSize(231, 53);
-		optionBut.getSprite().setPosition(200, 290);
-		sf::Vector2f OptionButPos = optionBut.getSprite().getPosition();
-		*/
-
-
-	}
-}
-
-
 
 
 	void startMenuN(Window & window) {
