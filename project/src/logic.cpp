@@ -43,6 +43,10 @@ namespace Chess {
         return board[y][x];
     }
 
+    figureName& BoardLogic::operator()(int x, int y) {
+        return board[y][x];
+    }
+
     void BoardLogic::setFigurePosition(sf::Vector2u pos) {
         current_pos = pos;
     }
@@ -246,6 +250,27 @@ namespace Chess {
                 return true;
         }
         return false;
+    }
+
+    sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x ++) {
+                packet << board(x, y);
+            }
+        }
+        return packet;
+    }
+
+    sf::Packet& operator>>(sf::Packet& packet, BoardLogic& board) {
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x ++) {
+                int buffer;
+                packet >> buffer;
+                board(x, y) = (figureName)buffer;
+            }
+        }
+        return packet;
     }
 
 }  // namespace Chess

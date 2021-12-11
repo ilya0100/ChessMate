@@ -1,8 +1,10 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Network.hpp>
 #include <string>
 #include <iostream>
+#include <sys/socket.h>
 
 // figures
 #define SPRITE_SIZE 264
@@ -54,3 +56,14 @@ typedef enum {
     WHITE,
     BLACK
 } Figure_Side;
+
+class ReuseableListener : public sf::TcpListener {
+public:
+        void reuse() {
+                char reuse = 1;
+                setsockopt(getHandle(), SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+        }
+};
+
+void menu(sf::RenderWindow & window);
+
