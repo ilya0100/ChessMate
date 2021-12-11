@@ -35,7 +35,7 @@ namespace Chess {
             sf::Texture texture;
             sf::Sprite sprite;
             sf::Vector2u size;
-            // sf::Vector2f pos;
+            sf::Vector2f pos;
 
         public:
             Button();
@@ -67,4 +67,5 @@ namespace Chess {
     void startMenu(sf::RenderWindow & window);
 
     void chooseMenu(sf::RenderWindow & window);
+    void selectMode(Window& window);
 }

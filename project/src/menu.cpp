@@ -119,13 +119,39 @@ namespace Chess {
         size.y = y;
     }
 
-    // void Button::setPosButton(float x, float y) {
-    //     pos.x = x;
-    //     pos.y = y;
-    // }
+ 	void Button::setPosButton(float x, float y) {
+		sprite.setPosition(x, y);
+		pos.x = x;
+    	pos.y = y;
+    }
 
     sf::Sprite& Button::getSprite() { return sprite; }
     sf::Vector2u Button::getSize() { return size; }
     // sf::Vector2f Button::getPosButton() { return pos; }
 
+	void selectMode(Window& window) {
+
+		sf::Texture menuBackground;
+		menuBackground.loadFromFile("images/menu.png");
+		sf::Sprite menuBg(menuBackground);
+
+
+		Chess::Button singlePlayBut("images/singlePlay.png");
+	    singlePlayBut.setSize(561, 53);
+	    singlePlayBut.setPosButton(169.5, 200);
+
+		/*
+		Chess::Button online_game("images/.png");
+	    playBut.setSize(250, 53);
+	    playBut.getSprite().setPosition(200, 200);
+	    sf::Vector2f playButPos = playBut.getSprite().getPosition();
+
+		Chess::Button optionBut("images/option.png");
+		optionBut.setSize(231, 53);
+		optionBut.getSprite().setPosition(200, 290);
+		sf::Vector2f OptionButPos = optionBut.getSprite().getPosition();
+		*/
+
+
+	}
 }
