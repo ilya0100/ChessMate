@@ -154,8 +154,8 @@ int main() {
             exitBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
-            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitBut.getSize().x * windowRatio.x, (float)exitBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
-            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backBut.getSize().x * windowRatio.x, (float)backBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
+            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitBut.getSize().x * windowRatio.x, (float)exitBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backBut.getSize().x * windowRatio.x, (float)backBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
@@ -165,9 +165,15 @@ int main() {
                 window.close();
             }
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                if (menuNum == 3)  { window.close(); }
-                if (menuNum == 4)  { Chess::startMenu(window, flags); }
+            if (event.type == sf::Event::MouseButtonReleased) {
+                if (menuNum == 1) {
+                    window.close();
+                }
+                if (menuNum == 2)  {
+                    flags.isClient = false;
+                    flags.isHost = false;
+                    flags.isOnePlayerMode = false;
+                    Chess::selectMode(window, flags); }
             }
 
             // Chess::gamePlay(window);
