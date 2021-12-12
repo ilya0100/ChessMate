@@ -83,8 +83,18 @@ class Window: public sf::RenderWindow {
 
 };
 
+class Flags {
+    public:
+        bool isOnePlayerMode;
+        bool isOnlineGame;
+        bool isHost;
+        bool isClient;
 
+        Flags(): isOnePlayerMode(false), isOnlineGame(false), isHost(false), isClient(false) {}
+};
 
 
 void menu(sf::RenderWindow & window);
 sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace);
+
+static Flags flags;

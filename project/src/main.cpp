@@ -2,7 +2,6 @@
 #include "menu.hpp"
 
 
-
 int main() {
 
     sf::Clock clock;
