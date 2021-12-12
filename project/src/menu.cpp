@@ -32,6 +32,7 @@ namespace Chess {
 		sf::Texture menuBackground;
 		menuBackground.loadFromFile("images/menu.png");
 		sf::Sprite menuBg(menuBackground);
+		menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
 
 		bool isMenu = 1;
 		int menuNum = 0;
@@ -88,7 +89,7 @@ namespace Chess {
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 				if (menuNum == 1) {
-					isMenu = false;
+					// isMenu = false;
 					event.type = sf::Event::MouseButtonReleased;
 					Chess::selectMode(window);
 					// if (flags.isOnePlayerMode) { isMenu = false; }
@@ -97,6 +98,8 @@ namespace Chess {
 				if (menuNum == 4) { isMenu = false; }  // add implementation of option
 	
 			}
+
+			if (flags.isClient || flags.isHost || flags.isOnePlayerMode) { isMenu = false; }
 
 			window.draw(menuBg);
 			window.draw(playBut.getSprite());
@@ -204,7 +207,7 @@ namespace Chess {
 					flags.isOnePlayerMode = true;
 				}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 2) {
-					isMenu = false;
+					// isMenu = false;
 					event.type = sf::Event::MouseButtonReleased;
 					flags.isOnlineGame = true;
 					Chess::selectH(window);
@@ -253,16 +256,16 @@ namespace Chess {
 
 			Chess::Button createBut("images/createGame.png");
 			createBut.setSize(268, 53);
-			createBut.setPosButton(316, 200);
+			createBut.setPosButton(X_WINDOW - 270, 200);
 
 
 			Chess::Button joinBut("images/joinGame.png");
 			joinBut.setSize(270, 53);
-			joinBut.getSprite().setPosition(467, 286);
+			joinBut.getSprite().setPosition(X_WINDOW - 270, 286);
 
 			Chess::Button backBut("images/backk.png");
 			backBut.setSize(141, 53);
-			backBut.getSprite().setPosition(379.5, 372);
+			backBut.getSprite().setPosition(X_WINDOW - 141, 372);
 
 			sf::Clock clock;
 
