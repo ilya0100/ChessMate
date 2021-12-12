@@ -1,7 +1,7 @@
 #include "menu.hpp"
 
 namespace Chess {
-	void startMenu(sf::RenderWindow & window) {
+	void startMenu(sf::RenderWindow & window, Flags& flags) {
 		// sf::Texture menuTexture1, menuTexture2, menuTexture3, aboutTexture, menuBackground;
 		sf::Vector2u windowSize = window.getSize();
 		sf::Vector2u windowSizeNew = window.getSize();
@@ -91,7 +91,7 @@ namespace Chess {
 				if (menuNum == 1) {
 					// isMenu = false;
 					event.type = sf::Event::MouseButtonReleased;
-					Chess::selectMode(window);
+					Chess::selectMode(window, flags);
 					// if (flags.isOnePlayerMode) { isMenu = false; }
 				}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 3) { window.close(); isMenu = false; }
@@ -137,7 +137,7 @@ namespace Chess {
     sf::Vector2f Button::getPosButton() { return pos; }
 
 
-	void selectMode(sf::RenderWindow& window) {
+	void selectMode(sf::RenderWindow& window, Flags& flags) {
 
 
 		sf::Vector2u windowSize = window.getSize();
@@ -210,7 +210,7 @@ namespace Chess {
 					// isMenu = false;
 					event.type = sf::Event::MouseButtonReleased;
 					flags.isOnlineGame = true;
-					Chess::selectH(window);
+					Chess::selectH(window, flags);
 				}
 				if (menuNum == 3) {
 					isMenu = false;
@@ -238,7 +238,7 @@ namespace Chess {
 	}
 
 
-	void selectH(sf::RenderWindow& window) {
+	void selectH(sf::RenderWindow& window, Flags& flags) {
 			sf::Vector2u windowSize = window.getSize();
 			sf::Vector2u windowSizeNew = window.getSize();
 
@@ -362,7 +362,7 @@ namespace Chess {
 					isMenu = false;
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-                	Chess::startMenu(window);
+                	// Chess::startMenu(window);
 					isMenu = false;
             	}
 				if (event.type == sf::Event::Resized) {

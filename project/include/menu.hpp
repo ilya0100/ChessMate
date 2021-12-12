@@ -64,10 +64,10 @@ namespace Chess {
             sf::Sprite getSprite();
     };
 
-    void startMenu(sf::RenderWindow & window);
+    void startMenu(sf::RenderWindow & window, Flags& flags);
 
-    void selectMode(sf::RenderWindow& window);
-    void selectH(sf::RenderWindow& window);
+    void selectMode(sf::RenderWindow& window, Flags& flags);
+    void selectH(sf::RenderWindow& window, Flags& flags);
 
 
     void startMenuN(Window & window);

@@ -7,7 +7,14 @@ int main() {
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-    Chess::startMenu(window);
+
+    Flags flags;
+    Chess::startMenu(window, flags);
+
+    std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
+    std::cout << "online    " << flags.isOnlineGame << std::endl;
+    std::cout << "host  " << flags.isHost << std::endl;
+    std::cout << "client    " << flags.isClient << std::endl;
 
     // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
@@ -64,35 +71,38 @@ int main() {
 
 
     //////////////////////////Netcode/////////////////////////////////////
-    sf::TcpSocket socket;
-    sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+    // sf::TcpSocket socket;
+    // sf::IpAddress ip = sf::IpAddress::getLocalAddress();
 
-    char type;
+    SocAndIP socIP;
+    socIP.ip = sf::IpAddress::getLocalAddress();
+
+    // char type;
 
     //std::cout << "Enter type connecting: [c] - client, [s] - server\n";
     //std::cin  >> type;
 
-    if (type == 's') {
+    if (flags.isHost) {
         ReuseableListener listener;
         listener.listen(8080);
         listener.reuse();
 
-        if(listener.accept(socket) != sf::Socket::Done) {
+        if(listener.accept(socIP.socket) != sf::Socket::Done) {
             std::cout << "Error!\n";
         }
     }
-    else if (type == 'c') {
-        if (socket.connect(ip, 8080) != sf::Socket::Done) {
+    else if (flags.isClient) {
+        if (socIP.socket.connect(socIP.ip, 8080) != sf::Socket::Done) {
             std::cout << "Error!\n";
         }
     }
 
-    socket.setBlocking(true);
+    socIP.socket.setBlocking(true);
 
     sf::Packet packet;
 
     bool enemy_turn = false;
-    if (type == 'c') {
+    if (flags.isClient) {
         enemy_turn = true;
         board_logic.setSide(BLACK);
     } else {
@@ -149,7 +159,7 @@ int main() {
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-                Chess::startMenu(window);
+                Chess::startMenu(window, flags);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 window.close();
@@ -157,7 +167,7 @@ int main() {
 
             if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                 if (menuNum == 3)  { window.close(); }
-                if (menuNum == 4)  { Chess::startMenu(window); }
+                if (menuNum == 4)  { Chess::startMenu(window, flags); }
             }
 
             // Chess::gamePlay(window);
@@ -196,20 +206,24 @@ int main() {
                                 //     }
                                 // }
                             }
-                            
-                            board_logic.upsideDown();
+                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
+
+                            if (flags.isOnePlayerMode) {
+                                board_logic.upsideDown();
+                            }
+
                             if (board_logic.cur_side == BLACK) {
                                 board_logic.cur_side = WHITE;
                             } else if (board_logic.cur_side == WHITE) {
                                 board_logic.cur_side = BLACK;
                             }
 
-                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
-
-                            packet << board_logic;
-                            socket.send(packet);
-                            packet.clear();
-                            enemy_turn = true;
+                            if (flags.isOnlineGame) {
+                                packet << board_logic;
+                                socIP.socket.send(packet);
+                                packet.clear();
+                                enemy_turn = true;
+                            }
                             
                         } else {
                             curr_cage = board_logic.getFigurePosition();
@@ -252,9 +266,10 @@ int main() {
         window.display();
 
         if (enemy_turn) {
-                if(socket.receive(packet) == sf::Socket::Done) {
+                if(socIP.socket.receive(packet) == sf::Socket::Done) {
                     packet >> board_logic;
                     packet.clear();
+                    board_logic.upsideDown();
                     enemy_turn = false;
 
                     if (board_logic.cur_side == BLACK) {
