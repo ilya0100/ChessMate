@@ -12,17 +12,17 @@ namespace Chess {
 
 	    Chess::Button playBut("images/play.png");
 	    playBut.setSize(250, 53);
-	    playBut.getSprite().setPosition(200, 200);
+	    playBut.getSprite().setPosition(20, 200);
 	    sf::Vector2f playButPos = playBut.getSprite().getPosition();
 
 		Chess::Button optionBut("images/option.png");
 		optionBut.setSize(231, 53);
-		optionBut.getSprite().setPosition(200, 290);
+		optionBut.getSprite().setPosition(20, 290);
 		sf::Vector2f OptionButPos = optionBut.getSprite().getPosition();
 
 		Chess::Button exitBut("images/exit.png");
 		exitBut.setSize(149, 53);
-		exitBut.getSprite().setPosition(200, 380);
+		exitBut.getSprite().setPosition(20, 380);
 		sf::Vector2f exitButPos = exitBut.getSprite().getPosition();
 
 		// Chess::Button BgBut("images/exit.png");
@@ -87,10 +87,12 @@ namespace Chess {
 
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
-				if (menuNum == 1) { 
+				if (menuNum == 1) {
+					isMenu = false;
 					event.type = sf::Event::MouseButtonReleased;
 					Chess::selectMode(window);
-					}  // если нажали первую кнопку, то выходим из меню
+					// if (flags.isOnePlayerMode) { isMenu = false; }
+				}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 3) { window.close(); isMenu = false; }
 				if (menuNum == 4) { isMenu = false; }  // add implementation of option
 	
@@ -173,8 +175,8 @@ namespace Chess {
 					isMenu = false;
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-						window.close();
-						isMenu = false;
+					window.close();
+					isMenu = false;
 				}
 				if (event.type == sf::Event::Resized) {
 					windowSizeNew = window.getSize();
@@ -193,6 +195,8 @@ namespace Chess {
 			if (sf::IntRect((float)onlineGameBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)onlineGameBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)onlineGameBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)onlineGameBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
 			if (sf::IntRect((float)backBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)backBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
+			if (flags.isHost || flags.isClient) { isMenu = false; }
+
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
 				if (menuNum == 1) {
 					isMenu = false;
@@ -205,7 +209,10 @@ namespace Chess {
 					flags.isOnlineGame = true;
 					Chess::selectH(window);
 				}
-				if (menuNum == 3) {Chess::startMenu(window);}  // add implementation of option
+				if (menuNum == 3) {
+					isMenu = false;
+					// Chess::startMenu(window);
+				}  // add implementation of option
 
 			}
 
@@ -298,7 +305,10 @@ namespace Chess {
 						event.type = sf::Event::MouseButtonReleased;
 						flags.isClient = true;
 					}
-					if (menuNum == 3) {Chess::startMenu(window);}  // add implementation of option
+					if (menuNum == 3) {
+						isMenu = false;
+						// Chess::startMenu(window);
+					}  // add implementation of option
 
 				}
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils.hpp"
+#include <stdlib.h>
 
 // figures
 // #define SPRITE_SIZE 264
