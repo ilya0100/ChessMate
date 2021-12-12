@@ -69,6 +69,6 @@ namespace Chess {
     void selectMode(sf::RenderWindow& window, Flags& flags);
     void selectH(sf::RenderWindow& window, Flags& flags);
 
-
-    void startMenuN(Window & window);
+    int Test(Window & window);
+    void startMenuN(Window & window, Flags& flags);
 }

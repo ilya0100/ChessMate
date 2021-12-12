@@ -2,14 +2,19 @@
 #include "menu.hpp"
 
 
+
 int main() {
+
+    Window w(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
+    int a = Chess::Test(w);
+    std::cout << a;
 
     sf::Clock clock;
     int menuNum = 0;
     sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
 
     Flags flags;
-    Chess::startMenu(window, flags);
+    //Chess::startMenu(window, flags);
 
     std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
     std::cout << "online    " << flags.isOnlineGame << std::endl;
