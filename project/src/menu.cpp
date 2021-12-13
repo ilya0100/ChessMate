@@ -1,7 +1,7 @@
 #include "menu.hpp"
 
 namespace Chess {
-	void startMenu(sf::RenderWindow & window, Flags& flags) {
+	void startMenu(Window & window, Flags& flags) {
 
 		sf::Vector2u windowSize = window.getSize();
 		sf::Vector2u windowSizeNew = window.getSize();
@@ -135,7 +135,7 @@ namespace Chess {
 	////////////////////////////////////////////////////
 
 
-	void selectMode(sf::RenderWindow& window, Flags& flags) {
+	void selectMode(Window& window, Flags& flags) {
 
 
 		sf::Vector2u windowSize = window.getSize();
@@ -235,7 +235,7 @@ namespace Chess {
 	}
 
 
-	void selectH(sf::RenderWindow& window, Flags& flags) {
+	void selectH(Window& window, Flags& flags) {
 			sf::Vector2u windowSize = window.getSize();
 			sf::Vector2u windowSizeNew = window.getSize();
 

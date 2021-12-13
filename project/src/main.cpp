@@ -5,15 +5,14 @@
 
 int main() {
     Flags flags;
-    Window w(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-    Chess::Test(w, flags);
+    Window window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
 
     sf::Clock clock;
     int menuNum = 0;
-    sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
+    //sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
 
 
-    //Chess::startMenu(window, flags);
+    Chess::startMenu(window, flags);
 
     std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
     std::cout << "online    " << flags.isOnlineGame << std::endl;
