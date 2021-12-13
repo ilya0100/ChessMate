@@ -82,7 +82,7 @@ class Window: public sf::RenderWindow {
         sf::Vector2f Ratio;
 
     public:
-        Window(sf::VideoMode mode, const sf::String &title): sf::RenderWindow(mode, title) {Size = getSize();};
+        Window(sf::VideoMode mode, const sf::String &title): sf::RenderWindow(mode, title) {Size = getSize(); SizeNew = getSize();};
         sf::Vector2u getSizeNew();
         sf::Vector2f getRatio();
 

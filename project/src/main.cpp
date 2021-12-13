@@ -148,17 +148,15 @@ int main() {
             }
             // берем новый размер окна, чтобы можно было задать новую рабочую зону для кнопок
             if (event.type == sf::Event::Resized) {
-				windowSizeNew = window.getSize();
-                windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-                windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
+				window.getSizeNew();
 		 	}
 
             menuNum = 0;
             exitBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
-            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitBut.getSize().x * windowRatio.x, (float)exitBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backBut.getSize().x * windowRatio.x, (float)backBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (sf::IntRect(exitPos.x * window.getRatio().x, exitPos.y * window.getRatio().y, (float)exitBut.getSize().x * window.getRatio().x, (float)exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (sf::IntRect(backPos.x * window.getRatio().x, backPos.y * window.getRatio().y, (float)backBut.getSize().x * window.getRatio().x, (float)backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
