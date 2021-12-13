@@ -9,8 +9,6 @@ int main() {
 
     sf::Clock clock;
     int menuNum = 0;
-    //sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-
 
     Chess::startMenu(window, flags);
 
