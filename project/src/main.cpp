@@ -17,17 +17,12 @@ int main() {
     std::cout << "host  " << flags.isHost << std::endl;
     std::cout << "client    " << flags.isClient << std::endl;
 
-    // размер окна для сохранения работоспособности при изменении размера
-    sf::Vector2u windowSize = window.getSize();
-	sf::Vector2u windowSizeNew = window.getSize();
-    sf::Vector2f windowRatio;
-    windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-    windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
+
 
     // button exit through class Button
     Chess::Button exitBut("images/exit.png");
     exitBut.setSize(X_EXIT, Y_EXIT);
-    exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    exitBut.setPosButton(X_WINDOW - 200, Y_WINDOW - 100);
     // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     sf::Vector2f exitPos = exitBut.getSprite().getPosition();
 
@@ -44,7 +39,7 @@ int main() {
     // кнопка назад
     Chess::Button backBut("images/back.png");
     backBut.setSize(X_BACK, Y_BACK);
-    backBut.getSprite().setPosition(100, Y_WINDOW - 100);
+    backBut.setPosButton(100, Y_WINDOW - 100);
     sf::Vector2f backPos = backBut.getSprite().getPosition();
 
     // sf::Texture BackTexture;
@@ -153,8 +148,8 @@ int main() {
             exitBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
-            if (sf::IntRect(exitPos.x * window.getRatio().x, exitPos.y * window.getRatio().y, (float)exitBut.getSize().x * window.getRatio().x, (float)exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-            if (sf::IntRect(backPos.x * window.getRatio().x, backPos.y * window.getRatio().y, (float)backBut.getSize().x * window.getRatio().x, (float)backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (sf::IntRect(exitBut.getPosButton().x * window.getRatio().x, exitBut.getPosButton().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (sf::IntRect(backBut.getPosButton().x * window.getRatio().x, backBut.getPosButton().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {

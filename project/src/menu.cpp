@@ -62,9 +62,9 @@ namespace Chess {
 			exitBut.getSprite().setColor(sf::Color::White);
 			menuNum = 0;
 
-			if (sf::IntRect((float)playBut.getPosButton().x * window.getRatio().x, (float)playBut.getPosButton().y * window.getRatio().y, (float)playBut.getSize().x * window.getRatio().x, (float)playBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-			if (sf::IntRect((float)optionBut.getPosButton().x * window.getRatio().x, (float)optionBut.getPosButton().y * window.getRatio().y, (float)optionBut.getSize().x * window.getRatio().x, (float)optionBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
-			if (sf::IntRect((float)exitBut.getPosButton().x * window.getRatio().x, (float)exitBut.getPosButton().y * window.getRatio().y, (float)exitBut.getSize().x * window.getRatio().x, (float)exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+			if (sf::IntRect(playBut.getPosButton().x * window.getRatio().x, playBut.getPosButton().y * window.getRatio().y, playBut.getSize().x * window.getRatio().x, playBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+			if (sf::IntRect(optionBut.getPosButton().x * window.getRatio().x, optionBut.getPosButton().y * window.getRatio().y, optionBut.getSize().x * window.getRatio().x, optionBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+			if (sf::IntRect(exitBut.getPosButton().x * window.getRatio().x, exitBut.getPosButton().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
 
 
 				if (event.type == sf::Event::MouseButtonReleased) {
@@ -106,7 +106,7 @@ namespace Chess {
         sprite.setTexture(texture);
     }
 
-    void Button::setSize(size_t x, size_t y) {
+    void Button::setSize(float x, float y) {
         size.x = x;
         size.y = y;
     }
@@ -118,7 +118,7 @@ namespace Chess {
     }
 
     sf::Sprite& Button::getSprite() { return sprite; }
-    sf::Vector2u Button::getSize() { return size; }
+    sf::Vector2f Button::getSize() { return size; }
     sf::Vector2f Button::getPosButton() { return pos; }
 
 	////////////////////////////////////////////////////
@@ -180,9 +180,9 @@ namespace Chess {
 			backBut.getSprite().setColor(sf::Color::White);
 			menuNum = 0;
 
-			if (sf::IntRect((float)singlePlayBut.getPosButton().x * window.getRatio().x, (float)singlePlayBut.getPosButton().y * window.getRatio().y, (float)singlePlayBut.getSize().x * window.getRatio().x, (float)singlePlayBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { singlePlayBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-			if (sf::IntRect((float)onlineGameBut.getPosButton().x * window.getRatio().x, (float)onlineGameBut.getPosButton().y * window.getRatio().y, (float)onlineGameBut.getSize().x * window.getRatio().x, (float)onlineGameBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
-			if (sf::IntRect((float)backBut.getPosButton().x * window.getRatio().x, (float)backBut.getPosButton().y * window.getRatio().y, (float)backBut.getSize().x * window.getRatio().x, (float)backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+			if (sf::IntRect(singlePlayBut.getPosButton().x * window.getRatio().x, singlePlayBut.getPosButton().y * window.getRatio().y, singlePlayBut.getSize().x * window.getRatio().x, singlePlayBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { singlePlayBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+			if (sf::IntRect(onlineGameBut.getPosButton().x * window.getRatio().x, onlineGameBut.getPosButton().y * window.getRatio().y, onlineGameBut.getSize().x * window.getRatio().x, onlineGameBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+			if (sf::IntRect(backBut.getPosButton().x * window.getRatio().x, backBut.getPosButton().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
 			//if (flags.isHost || flags.isClient) { isMenu = false; }
 
@@ -269,9 +269,9 @@ namespace Chess {
 				backBut.getSprite().setColor(sf::Color::White);
 				menuNum = 0;
 
-				if (sf::IntRect((float)createBut.getPosButton().x * window.getRatio().x, (float)createBut.getPosButton().y * window.getRatio().y, (float)createBut.getSize().x * window.getRatio().x, (float)createBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-				if (sf::IntRect((float)joinBut.getPosButton().x * window.getRatio().x, (float)joinBut.getPosButton().y * window.getRatio().y, (float)joinBut.getSize().x * window.getRatio().x, (float)joinBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
-				if (sf::IntRect((float)backBut.getPosButton().x * window.getRatio().x, (float)backBut.getPosButton().y * window.getRatio().y, (float)backBut.getSize().x * window.getRatio().x, (float)backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+				if (sf::IntRect(createBut.getPosButton().x * window.getRatio().x, createBut.getPosButton().y * window.getRatio().y, createBut.getSize().x * window.getRatio().x, createBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+				if (sf::IntRect(joinBut.getPosButton().x * window.getRatio().x, joinBut.getPosButton().y * window.getRatio().y, joinBut.getSize().x * window.getRatio().x, joinBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+				if (sf::IntRect(backBut.getPosButton().x * window.getRatio().x, backBut.getPosButton().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
 				if (event.type == sf::Event::MouseButtonReleased) {
 					if (menuNum == 1) {

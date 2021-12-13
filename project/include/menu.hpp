@@ -35,7 +35,7 @@ namespace Chess {
     class Button {
             sf::Texture texture;
             sf::Sprite sprite;
-            sf::Vector2u size;
+            sf::Vector2f size;
             sf::Vector2f pos;
 
         public:
@@ -43,11 +43,11 @@ namespace Chess {
             Button(const std::string filename);
 
             void setButton(const std::string filename);
-            void setSize(size_t x, size_t y);
+            void setSize(float x, float y);
             void setPosButton(float x, float y);
 
             sf::Sprite& getSprite();
-            sf::Vector2u getSize();
+            sf::Vector2f getSize();
             sf::Vector2f getPosButton();
     };
 
