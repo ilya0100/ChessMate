@@ -44,11 +44,11 @@ namespace Chess {
 
             void setButton(const std::string filename);
             void setSize(float x, float y);
-            void setPosButton(float x, float y);
+            void setPosition(float x, float y);
 
             sf::Sprite& getSprite();
             sf::Vector2f getSize();
-            sf::Vector2f getPosButton();
+            sf::Vector2f getPosition();
     };
 
     class MenuTexture {
