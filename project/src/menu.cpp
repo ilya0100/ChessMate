@@ -1,10 +1,7 @@
 #include "menu.hpp"
 
 namespace Chess {
-	void startMenu(sf::RenderWindow & window, Flags& flags) {
-
-		sf::Vector2u windowSize = window.getSize();
-		sf::Vector2u windowSizeNew = window.getSize();
+	void startMenu(Window & window, Flags& flags) {
 
 
 	    Chess::Button playBut("images/play.png");
@@ -32,8 +29,6 @@ namespace Chess {
 		bool isMenu = 1;
 		int menuNum = 0;
 
-
-
 		menuBg.setPosition(0, 0);
 
 		sf::Clock clock;
@@ -55,7 +50,7 @@ namespace Chess {
 					rectPos = rectS.getPosition();
 					*/
 				if (event.type == sf::Event::Resized) {
-					windowSizeNew = window.getSize();
+					window.getSizeNew();
 			 	}
 	 		}
 
@@ -66,24 +61,23 @@ namespace Chess {
 			optionBut.getSprite().setColor(sf::Color::White);
 			exitBut.getSprite().setColor(sf::Color::White);
 			menuNum = 0;
-	
-			if (sf::IntRect((float)playBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)playBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-			if (sf::IntRect((float)optionBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)optionBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
-			if (sf::IntRect((float)exitBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)exitBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+
+			if (sf::IntRect((float)playBut.getPosButton().x * window.getRatio().x, (float)playBut.getPosButton().y * window.getRatio().y, (float)playBut.getSize().x * window.getRatio().x, (float)playBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+			if (sf::IntRect((float)optionBut.getPosButton().x * window.getRatio().x, (float)optionBut.getPosButton().y * window.getRatio().y, (float)optionBut.getSize().x * window.getRatio().x, (float)optionBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+			if (sf::IntRect((float)exitBut.getPosButton().x * window.getRatio().x, (float)exitBut.getPosButton().y * window.getRatio().y, (float)exitBut.getSize().x * window.getRatio().x, (float)exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
 
 
-
-				//if (exitBut.getSprite().getColor() == sf::Color::Blue)  {menuNum = 3;}
-					//if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 				if (event.type == sf::Event::MouseButtonReleased) {
-                if (menuNum == 1) {
-					isMenu = false;
-					Chess::selectMode(window, flags);
-				}
-				if (menuNum == 2) {  }
-				if (menuNum == 3) { window.close(); isMenu = false; }  //
-            }
-	
+                	if (menuNum == 1) {
+						isMenu = false;
+						Chess::selectMode(window, flags);
+					}
+					if (menuNum == 2) {
+					}
+					if (menuNum == 3) { window.close(); isMenu = false;
+					}  //
+            	}
+
 
 
 
@@ -133,11 +127,7 @@ namespace Chess {
 	////////////////////////////////////////////////////
 
 
-	void selectMode(sf::RenderWindow& window, Flags& flags) {
-
-
-		sf::Vector2u windowSize = window.getSize();
-		sf::Vector2u windowSizeNew = window.getSize();
+	void selectMode(Window& window, Flags& flags) {
 
 		//  Загружаем фон
 		sf::Texture menuBackground;
@@ -178,7 +168,7 @@ namespace Chess {
 					isMenu = false;
 				}
 				if (event.type == sf::Event::Resized) {
-					windowSizeNew = window.getSize();
+					window.getSizeNew();
 			 	}
 			}
 
@@ -190,9 +180,9 @@ namespace Chess {
 			backBut.getSprite().setColor(sf::Color::White);
 			menuNum = 0;
 
-			if (sf::IntRect((float)singlePlayBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)singlePlayBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)singlePlayBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)singlePlayBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { singlePlayBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-			if (sf::IntRect((float)onlineGameBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)onlineGameBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)onlineGameBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)onlineGameBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
-			if (sf::IntRect((float)backBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)backBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+			if (sf::IntRect((float)singlePlayBut.getPosButton().x * window.getRatio().x, (float)singlePlayBut.getPosButton().y * window.getRatio().y, (float)singlePlayBut.getSize().x * window.getRatio().x, (float)singlePlayBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { singlePlayBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+			if (sf::IntRect((float)onlineGameBut.getPosButton().x * window.getRatio().x, (float)onlineGameBut.getPosButton().y * window.getRatio().y, (float)onlineGameBut.getSize().x * window.getRatio().x, (float)onlineGameBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+			if (sf::IntRect((float)backBut.getPosButton().x * window.getRatio().x, (float)backBut.getPosButton().y * window.getRatio().y, (float)backBut.getSize().x * window.getRatio().x, (float)backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
 			//if (flags.isHost || flags.isClient) { isMenu = false; }
 
@@ -222,20 +212,11 @@ namespace Chess {
 
 		}
 
-		/*
-		Chess::Button optionBut("images/option.png");
-		optionBut.setSize(231, 53);
-		optionBut.getSprite().setPosition(200, 290);
-		sf::Vector2f OptionButPos = optionBut.getSprite().getPosition();
-		*/
-
 
 	}
 
 
-	void selectH(sf::RenderWindow& window, Flags& flags) {
-			sf::Vector2u windowSize = window.getSize();
-			sf::Vector2u windowSizeNew = window.getSize();
+	void selectH(Window& window, Flags& flags) {
 
 			//  Загружаем фон
 			sf::Texture menuBackground;
@@ -276,7 +257,7 @@ namespace Chess {
 							isMenu = false;
 					}
 					if (event.type == sf::Event::Resized) {
-						windowSizeNew = window.getSize();
+						window.getSizeNew();
 					}
 				}
 
@@ -288,9 +269,9 @@ namespace Chess {
 				backBut.getSprite().setColor(sf::Color::White);
 				menuNum = 0;
 
-				if (sf::IntRect((float)createBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)createBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)createBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)createBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-				if (sf::IntRect((float)joinBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)joinBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)joinBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)joinBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
-				if (sf::IntRect((float)backBut.getPosButton().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getPosButton().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)backBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)backBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+				if (sf::IntRect((float)createBut.getPosButton().x * window.getRatio().x, (float)createBut.getPosButton().y * window.getRatio().y, (float)createBut.getSize().x * window.getRatio().x, (float)createBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+				if (sf::IntRect((float)joinBut.getPosButton().x * window.getRatio().x, (float)joinBut.getPosButton().y * window.getRatio().y, (float)joinBut.getSize().x * window.getRatio().x, (float)joinBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+				if (sf::IntRect((float)backBut.getPosButton().x * window.getRatio().x, (float)backBut.getPosButton().y * window.getRatio().y, (float)backBut.getSize().x * window.getRatio().x, (float)backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
 				if (event.type == sf::Event::MouseButtonReleased) {
 					if (menuNum == 1) {
@@ -315,148 +296,7 @@ namespace Chess {
 				window.display();
 
 			}
-
 		}
 }
 
-	void startMenuN(Window & window) {
 
-		//  Загружаем фон
-		sf::Texture menuBackground;
-		menuBackground.loadFromFile("images/menu.png");
-		sf::Sprite menuBg(menuBackground);
-		menuBg.setPosition(0,0);
-
-		//
-		bool isMenu = 1;  // пока меню открыто
-		int menuNum = 0;  // для номеров кнопок
-
-		//  кнопки
-
-		Chess::Button playBut("images/play.png");
-	    playBut.setSize(250, 53);
-	    playBut.setPosButton(200, 200);
-
-		Chess::Button optionBut("images/option.png");
-	    playBut.setSize(231, 53);
-	    playBut.setPosButton(200, 290);
-
-		Chess::Button exitBut("images/exit.png");
-	    playBut.setSize(149, 53);
-	    playBut.setPosButton(200, 380);
-
-		sf::Clock clock;  // время
-
-		while (isMenu) {
-			sf::Event event;
-			while (window.pollEvent(event)) {
-				if (event.type == sf::Event::Closed) {
-					window.close();
-					isMenu = false;
-				}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-                	// Chess::startMenu(window);
-					isMenu = false;
-            	}
-				if (event.type == sf::Event::Resized) {
-					window.getSizeNew();
-			 	}
-			}
-
-			float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
-			clock.restart(); //перезагружает время
-			time = time / 120; //скорость игры
-			playBut.getSprite().setColor(sf::Color::White);
-			optionBut.getSprite().setColor(sf::Color::White);
-			exitBut.getSprite().setColor(sf::Color::White);
-			menuNum = 0;
-
-			//if (sf::IntRect((float)playBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)playBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-			//if (sf::IntRect((float)exitBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)exitBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
-			//if (sf::IntRect((float)optionBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)optionBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
-
-
-		}
-
-
-
-/*
-		sf::Vector2u windowSize = window.getSize();
-		sf::Vector2u windowSizeNew = window.getSize();
-
-
-	    Chess::Button playBut("images/play.png");
-	    playBut.setSize(250, 53);
-	    playBut.getSprite().setPosition(200, 200);
-	    sf::Vector2f playButPos = playBut.getSprite().getPosition();
-
-		Chess::Button optionBut("images/option.png");
-		optionBut.setSize(231, 53);
-		optionBut.getSprite().setPosition(200, 290);
-		sf::Vector2f OptionButPos = optionBut.getSprite().getPosition();
-
-		Chess::Button exitBut("images/exit.png");
-		exitBut.setSize(149, 53);
-		exitBut.getSprite().setPosition(200, 380);
-		sf::Vector2f exitButPos = exitBut.getSprite().getPosition();
-
-
-
-		sf::Texture menuBackground;
-		menuBackground.loadFromFile("images/menu.png");
-		sf::Sprite menuBg(menuBackground);
-
-		bool isMenu = 1;
-		int menuNum = 0;
-
-
-
-		menuBg.setPosition(0, 0);
-
-		sf::Clock clock;
-
-		while (isMenu) {
-			sf::Event event;
-	 		while (window.pollEvent(event)) {
-	 			if (event.type == sf::Event::Closed) {
-	 				window.close();
-					isMenu = false;
-			 		}
-				if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-						window.close();
-						isMenu = false;
-				}
-
-				if (event.type == sf::Event::Resized) {
-					windowSizeNew = window.getSize();
-			 	}
-	 		}
-
-			float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
-			clock.restart(); //перезагружает время
-			time = time / 120; //скорость игры
-			playBut.getSprite().setColor(sf::Color::White);
-			optionBut.getSprite().setColor(sf::Color::White);
-			exitBut.getSprite().setColor(sf::Color::White);
-			menuNum = 0;
-
-			if (sf::IntRect((float)playBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)playBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)playBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-			if (sf::IntRect((float)exitBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)exitBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)exitBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
-			if (sf::IntRect((float)optionBut.getSprite().getPosition().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getSprite().getPosition().y * ((float)windowSizeNew.y / (float)windowSize.y), (float)optionBut.getSize().x * ((float)windowSizeNew.x / (float)windowSize.x), (float)optionBut.getSize().y * ((float)windowSizeNew.y / (float)windowSize.y)).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
-
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
-			{
-				if (menuNum == 1) isMenu = false;  // если нажали первую кнопку, то выходим из меню
-				if (menuNum == 3) { window.close(); isMenu = false; }
-				if (menuNum == 4) {}  // add implementation of option
-
-			}
-
-			window.draw(menuBg);
-			window.draw(playBut.getSprite());
-			window.draw(optionBut.getSprite());
-			window.draw(exitBut.getSprite());
-			window.display();
-		}
-		*/
-	}

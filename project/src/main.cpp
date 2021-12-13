@@ -2,13 +2,14 @@
 #include "menu.hpp"
 
 
+
 int main() {
+    Flags flags;
+    Window window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
 
     sf::Clock clock;
     int menuNum = 0;
-    sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
 
-    Flags flags;
     Chess::startMenu(window, flags);
 
     std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
@@ -55,7 +56,7 @@ int main() {
 	// backSize.y = 53;
 	// sf::Vector2f backPos = back.getPosition();
 
-    // add board and figure 
+    // add board and figure
     float scale = SCALE_FACTOR;
     Chess::BoardTexture board_texture("images/boardTru.jpg");
     Chess::FigureTexture figures_testure;
@@ -145,17 +146,15 @@ int main() {
             }
             // берем новый размер окна, чтобы можно было задать новую рабочую зону для кнопок
             if (event.type == sf::Event::Resized) {
-				windowSizeNew = window.getSize();
-                windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-                windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
+				window.getSizeNew();
 		 	}
 
             menuNum = 0;
             exitBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
-            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitBut.getSize().x * windowRatio.x, (float)exitBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backBut.getSize().x * windowRatio.x, (float)backBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (sf::IntRect(exitPos.x * window.getRatio().x, exitPos.y * window.getRatio().y, (float)exitBut.getSize().x * window.getRatio().x, (float)exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (sf::IntRect(backPos.x * window.getRatio().x, backPos.y * window.getRatio().y, (float)backBut.getSize().x * window.getRatio().x, (float)backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
@@ -177,7 +176,7 @@ int main() {
             }
 
             // Chess::gamePlay(window);
-            
+
             //drag and drop
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.key.code == sf::Mouse::Left) {
@@ -201,7 +200,7 @@ int main() {
 
                     if (isCatch) {
                         curr_cage = getCurrCage(pos, playSpace);
-                        
+
                         if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
                             if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
                                 // for (size_t i = 0; i < 32; i++) {
@@ -230,7 +229,7 @@ int main() {
                                 packet.clear();
                                 enemy_turn = true;
                             }
-                            
+
                         } else {
                             curr_cage = board_logic.getFigurePosition();
                             figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
@@ -239,7 +238,7 @@ int main() {
                     }
                 }
             }
-            
+
         }
 
         window.clear();
@@ -249,19 +248,19 @@ int main() {
         window.draw(exitBut.getSprite());
         window.draw(backBut.getSprite());
 
-        
+
         k = 0;
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x++) {
                 figureName figure = board_logic(x, y);
-    
+
                 if (figure != EMPTY_CELL && k < 32) {
                     Chess::loadPieces(figures_arr[k], figure, x, y);
                     k++;
                 }
             }
         }
-        
+
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == n) {
                 figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
