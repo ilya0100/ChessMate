@@ -346,8 +346,6 @@ namespace Chess {
 
         	window.display();
 
-        	gameplay.recieveBoardState();
-
 		}  // while(isGame)
     
 	}  // strartGame

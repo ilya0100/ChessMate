@@ -52,16 +52,15 @@ namespace Chess {
             enemy_turn = true;
     	    setSide(BLACK);
         }
+        socket.setBlocking(false);
     }
 
     void Gameplay::play(sf::Event event, sf::Vector2i pos) {
 
-        // if (cur_side == BLACK) {
-        //     std::cout << "play: cur_side - BLACK" << std::endl;
-        // }
+        recieveBoardState();
 
         //drag and drop
-        if (event.type == sf::Event::MouseButtonPressed) {
+        if (!enemy_turn && event.type == sf::Event::MouseButtonPressed) {
             if (event.key.code == sf::Mouse::Left) {
                 for (size_t i = 0; i < 32; i++) {
                     if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
