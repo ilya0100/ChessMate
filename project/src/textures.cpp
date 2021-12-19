@@ -91,7 +91,7 @@ namespace Chess {
         if (name >= W_ROOK)
             side = WHITE;
 
-        switch (figure_name) {
+        switch (name) {
         case W_PAWN:
             sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;

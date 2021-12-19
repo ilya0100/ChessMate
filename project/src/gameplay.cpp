@@ -31,16 +31,13 @@ namespace Chess {
             for (int x = 0; x < 8; x++) {
                 figureName figure = board[y][x];
 
-                if (figure != EMPTY_CELL && k < 32) {
+                if (figure != EMPTY_CELL) {
                     loadPieces(figures_arr[k], figure, x, y);
                     k++;
                 }
             }
         }
-
-        // if (cur_side == BLACK) {
-        //     std::cout << "update: cur_side - BLACK" << std::endl;
-        // }
+        fig_count = k;
     }
 
     void Gameplay::setGameMode(GameMode new_mode) {
@@ -62,7 +59,7 @@ namespace Chess {
         //drag and drop
         if (!enemy_turn && event.type == sf::Event::MouseButtonPressed) {
             if (event.key.code == sf::Mouse::Left) {
-                for (size_t i = 0; i < 32; i++) {
+                for (size_t i = 0; i < fig_count; i++) {
                     if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
 
                         // std::cout << "cur_side: " << cur_side << std::endl;
@@ -88,14 +85,12 @@ namespace Chess {
                     curr_cage = getCurrCage(pos);
                         
                     if (isMoveFigure(curr_cage.x, curr_cage.y)) {
-                        // if (board[curr_cage.x][curr_cage.y] != EMPTY_CELL) {
-                            // for (size_t i = 0; i < 32; i++) {
-                            //     if (figures_arr[i].getFigurePos() == curr_cage) {
-                            //         figures_arr[i].setSpritePos(600 + TSPRITE_SIZE * eaten_count, 100);
-                            //         eaten_count++;
-                            //         break;
-                            //     }
-                            // }
+                        // for (size_t i = 0; i < fig_count - eaten_count; i++) {
+                        //     if (figures_arr[i].getFigurePos() == curr_cage) {
+                        //         // figures_arr[i].setSpritePos(600 + 2 * 3 * TSPRITE_SIZE * (eaten_count % 8), 100 * (eaten_count / 8));
+                        //         eaten_count++;
+                        //         break;
+                        //     }
                         // }
                         figures_arr[fig_num].setFigurePos(curr_cage.x, curr_cage.y);
 
@@ -117,11 +112,13 @@ namespace Chess {
     }
 
     void Gameplay::drawFigures(Window& window, sf::Vector2i pos) {
-        for (size_t i = 0; i < 32; i++) {
+        for (size_t i = 0; i < fig_count - eaten_count; i++) {
             if (isMove && i == fig_num) {
                 figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
             }
-            window.draw(figures_arr[i].getFigureSprite());
+            if (figures_arr[i].getName() != EMPTY_CELL) {
+                window.draw(figures_arr[i].getFigureSprite());
+            }
         }
     }
 
@@ -172,8 +169,8 @@ namespace Chess {
             break;
 
         case W_KNIGHT:
-          figure.setSprite(W_KNIGHT);
-           break;
+            figure.setSprite(W_KNIGHT);
+            break;
 
         case W_BISHOP:
             figure.setSprite(W_BISHOP);
@@ -210,6 +207,9 @@ namespace Chess {
         case B_KING:
             figure.setSprite(B_KING);
             break;
+
+        // case EMPTY_CELL:
+        //     return;
 
         default:
             break;

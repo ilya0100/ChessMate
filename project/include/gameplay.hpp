@@ -38,6 +38,7 @@ namespace Chess {
             float dy = 0;
             size_t fig_num = 0;
             int eaten_count = 0;
+            int fig_count = 0;
 
             void sendBoardState();
 
