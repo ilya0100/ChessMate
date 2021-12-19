@@ -14,7 +14,7 @@ namespace Chess {
     class Button {
             sf::Texture texture;
             sf::Sprite sprite;
-            sf::Vector2u size;
+            sf::Vector2f size;
             sf::Vector2f pos;
 
         public:
@@ -22,12 +22,12 @@ namespace Chess {
             Button(const std::string filename);
 
             void setButton(const std::string filename);
-            void setSize(size_t x, size_t y);
-            void setPosButton(float x, float y);
+            void setSize(float x, float y);
+            void setPosition(float x, float y);
 
             sf::Sprite& getSprite();
-            sf::Vector2u getSize();
-            sf::Vector2f getPosButton();
+            sf::Vector2f getSize();
+            sf::Vector2f getPosition();
     };
 
     class MenuTexture {
@@ -43,11 +43,11 @@ namespace Chess {
             sf::Sprite getSprite();
     };
 
-    void startMenu(sf::RenderWindow & window, Flags& flags);
+    void startMenu(Window & window, Flags& flags);
 
-    void selectMode(sf::RenderWindow& window, Flags& flags);
-    void selectH(sf::RenderWindow& window, Flags& flags);
+    void selectMode(Window& window, Flags& flags);
+    void selectH(Window& window, Flags& flags);
 
-
-    void startMenuN(Window & window);
+    void Test(Window & window, Flags& flags);
+    void startMenuN(Window & window, Flags& flags);
 }
