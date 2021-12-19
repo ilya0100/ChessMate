@@ -57,14 +57,22 @@ namespace Chess {
 			float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
 			clock.restart(); //перезагружает время
 			time = time / 120; //скорость игры
+
+			//красим кнопка обратно в белый цвет в цикле, если мышь не касается кнопки.
 			playBut.getSprite().setColor(sf::Color::White);
 			optionBut.getSprite().setColor(sf::Color::White);
 			exitBut.getSprite().setColor(sf::Color::White);
+
+			// приравниваем индикатор касания кнопки нулю
 			menuNum = 0;
 
-			if (sf::IntRect(playBut.getPosition().x * window.getRatio().x, playBut.getPosition().y * window.getRatio().y, playBut.getSize().x * window.getRatio().x, playBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-			if (sf::IntRect(optionBut.getPosition().x * window.getRatio().x, optionBut.getPosition().y * window.getRatio().y, optionBut.getSize().x * window.getRatio().x, optionBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
-			if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+			if (playBut.isTouch(window)) {playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+			if (optionBut.isTouch(window)) {optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+			if (exitBut.isTouch(window)) {exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+
+			//if (sf::IntRect(playBut.getPosition().x * window.getRatio().x, playBut.getPosition().y * window.getRatio().y, playBut.getSize().x * window.getRatio().x, playBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+			//if (sf::IntRect(optionBut.getPosition().x * window.getRatio().x, optionBut.getPosition().y * window.getRatio().y, optionBut.getSize().x * window.getRatio().x, optionBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+			//if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
 
 
 				if (event.type == sf::Event::MouseButtonReleased) {
@@ -139,9 +147,14 @@ namespace Chess {
 			backBut.getSprite().setColor(sf::Color::White);
 			menuNum = 0;
 
-			if (sf::IntRect(singlePlayBut.getPosition().x * window.getRatio().x, singlePlayBut.getPosition().y * window.getRatio().y, singlePlayBut.getSize().x * window.getRatio().x, singlePlayBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { singlePlayBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-			if (sf::IntRect(onlineGameBut.getPosition().x * window.getRatio().x, onlineGameBut.getPosition().y * window.getRatio().y, onlineGameBut.getSize().x * window.getRatio().x, onlineGameBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
-			if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+
+			if (singlePlayBut.isTouch(window)) {singlePlayBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+			if (onlineGameBut.isTouch(window)) {onlineGameBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+			if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+
+			//if (sf::IntRect(singlePlayBut.getPosition().x * window.getRatio().x, singlePlayBut.getPosition().y * window.getRatio().y, singlePlayBut.getSize().x * window.getRatio().x, singlePlayBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { singlePlayBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+			//if (sf::IntRect(onlineGameBut.getPosition().x * window.getRatio().x, onlineGameBut.getPosition().y * window.getRatio().y, onlineGameBut.getSize().x * window.getRatio().x, onlineGameBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { onlineGameBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+			//if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
 			//if (flags.isHost || flags.isClient) { isMenu = false; }
 
@@ -226,9 +239,14 @@ namespace Chess {
 				backBut.getSprite().setColor(sf::Color::White);
 				menuNum = 0;
 
-				if (sf::IntRect(createBut.getPosition().x * window.getRatio().x, createBut.getPosition().y * window.getRatio().y, createBut.getSize().x * window.getRatio().x, createBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
-				if (sf::IntRect(joinBut.getPosition().x * window.getRatio().x, joinBut.getPosition().y * window.getRatio().y, joinBut.getSize().x * window.getRatio().x, joinBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
-				if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+
+				if (createBut.isTouch(window)) {createBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+				if (joinBut.isTouch(window)) {joinBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+				if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+
+				//if (sf::IntRect(createBut.getPosition().x * window.getRatio().x, createBut.getPosition().y * window.getRatio().y, createBut.getSize().x * window.getRatio().x, createBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+				//if (sf::IntRect(joinBut.getPosition().x * window.getRatio().x, joinBut.getPosition().y * window.getRatio().y, joinBut.getSize().x * window.getRatio().x, joinBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+				//if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
 				if (event.type == sf::Event::MouseButtonReleased) {
 					if (menuNum == 1) {
@@ -310,7 +328,12 @@ namespace Chess {
         		menuNum = 0;
         		exitBut.getSprite().setColor(sf::Color::White);
         		backBut.getSprite().setColor(sf::Color::White);
-        		// изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
+
+        		// изначально соотношение размеров окон 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
+
+				if (exitBut.isTouch(window)) {exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+				if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+
         		if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
         		if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
         		// if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}

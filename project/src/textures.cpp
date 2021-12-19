@@ -62,6 +62,18 @@ namespace Chess {
     sf::Vector2f Button::getSize() { return size; }
     sf::Vector2f Button::getPosition() { return pos; }
 
+    bool Button::isTouch(Window& window) {
+
+        if (sf::IntRect(pos.x * window.getRatio().x,
+                    pos.y * window.getRatio().y,
+                        size.x * window.getRatio().x,
+                        size.y * window.getRatio().y).
+                            contains(sf::Mouse::getPosition(window)))
+            return true;
+        return false;
+
+    }
+
     ///////////////////////FigureTexture///////////////////////////////////////////
     FigureTexture::FigureTexture() {
         FigureTexture::texture.loadFromFile("images/piecesTru.png");
@@ -79,6 +91,7 @@ namespace Chess {
 
     Figures::Figures(figureName fn) {
         setSprite(fn);
+        name = fn;
     }
 
     PlaySide Figures::getSide() { return side;}

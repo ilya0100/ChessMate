@@ -35,6 +35,8 @@ namespace Chess {
             sf::Sprite& getSprite();
             sf::Vector2f getSize();
             sf::Vector2f getPosition();
+
+            bool isTouch(Window& window);
     };
 
     class MenuTexture {
