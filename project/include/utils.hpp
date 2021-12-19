@@ -5,6 +5,7 @@
 #include <string>
 #include <iostream>
 #include <sys/socket.h>
+#include <stdlib.h>
 
 // figures
 #define SPRITE_SIZE 264
@@ -98,11 +99,6 @@ public:
     }
 };
 
-// struct SocAndIP {
-//     sf::TcpSocket socket;
-//     sf::IpAddress ip;
-// };
-
 class Window: public sf::RenderWindow {
 
     protected:
@@ -115,16 +111,6 @@ class Window: public sf::RenderWindow {
         sf::Vector2u getSizeNew();
         sf::Vector2f getRatio();
 
-};
-
-class Flags {
-    public:
-        bool isOnePlayerMode;
-        bool isOnlineGame;
-        bool isHost;
-        bool isClient;
-
-        Flags(): isOnePlayerMode(false), isOnlineGame(false), isHost(false), isClient(false) {}
 };
 
 

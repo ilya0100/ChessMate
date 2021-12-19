@@ -1,7 +1,7 @@
 #include "menu.hpp"
 
 namespace Chess {
-	void startMenu(Window & window, Flags& flags) {
+	void startMenu(Window & window) {
 
 
 	    Chess::Button playBut("images/play.png");
@@ -69,19 +69,14 @@ namespace Chess {
 
 				if (event.type == sf::Event::MouseButtonReleased) {
                 	if (menuNum == 1) {
+						Chess::selectMode(window);
+					}
+					if (menuNum == 2) {}
+					if (menuNum == 3) {
+						window.close(); 
 						isMenu = false;
-						Chess::selectMode(window, flags);
-					}
-					if (menuNum == 2) {
-					}
-					if (menuNum == 3) { window.close(); isMenu = false;
 					}  //
             	}
-
-
-
-
-			if (flags.isClient || flags.isHost || flags.isOnePlayerMode) { isMenu = false; }
 
 			window.draw(menuBg);
 			window.draw(playBut.getSprite());
@@ -90,44 +85,8 @@ namespace Chess {
 			window.display();
 		}
 	}
-	////////////////////////////////////////////////////
-	////////////////////////////////////////////////////
-	////////////////////////////////////////////////////
-	////////////////////////////////////////////////////
 
-	// Buttons from menu
-    Button::Button(const std::string filename) {
-        texture.loadFromFile(filename);
-        sprite.setTexture(texture);
-    }
-
-    void Button::setButton(const std::string filename) {
-        texture.loadFromFile(filename);
-        sprite.setTexture(texture);
-    }
-
-    void Button::setSize(float x, float y) {
-        size.x = x;
-        size.y = y;
-    }
-
- 	void Button::setPosition(float x, float y) {
-		sprite.setPosition(x, y);
-		pos.x = x;
-    	pos.y = y;
-    }
-
-    sf::Sprite& Button::getSprite() { return sprite; }
-    sf::Vector2f Button::getSize() { return size; }
-    sf::Vector2f Button::getPosition() { return pos; }
-
-	////////////////////////////////////////////////////
-	////////////////////////////////////////////////////
-	////////////////////////////////////////////////////
-	////////////////////////////////////////////////////
-
-
-	void selectMode(Window& window, Flags& flags) {
+	void selectMode(Window& window) {
 
 		//  Загружаем фон
 		sf::Texture menuBackground;
@@ -189,16 +148,14 @@ namespace Chess {
 			if (event.type == sf::Event::MouseButtonReleased) {
 				if (menuNum == 1) {
 					isMenu = false;
-					flags.isOnePlayerMode = true;
+					startGame(window, ONE_PLAYER);
 				}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 2) {
 					isMenu = false;
-					flags.isOnlineGame = true;
-					Chess::selectH(window, flags);
+					Chess::selectH(window);
 				}
 				if (menuNum == 3) {
 					isMenu = false;
-					Chess::startMenu(window, flags);
 					// Chess::startMenu(window);
 				}  // add implementation of option
 
@@ -216,7 +173,7 @@ namespace Chess {
 	}
 
 
-	void selectH(Window& window, Flags& flags) {
+	void selectH(Window& window) {
 
 			//  Загружаем фон
 			sf::Texture menuBackground;
@@ -276,15 +233,14 @@ namespace Chess {
 				if (event.type == sf::Event::MouseButtonReleased) {
 					if (menuNum == 1) {
 						isMenu = false;
-						flags.isHost = true;
+						startGame(window, HOST);
 					}  // если нажали первую кнопку, то выходим из меню
 					if (menuNum == 2) {
 						isMenu = false;
-						flags.isClient = true;
+						startGame(window, CLIENT);
 					}
 					if (menuNum == 3) {
 						isMenu = false;
-						Chess::selectMode(window, flags);
 					}  // add implementation of option
 
 				}
@@ -297,6 +253,101 @@ namespace Chess {
 
 			}
 		}
-}
+
+    void startGame(Window& window, GameMode mode) {
+
+		sf::Clock clock;
+    	int menuNum = 0;
+		bool isGame = true;
+
+		// button exit through class Button
+    	Chess::Button exitBut("images/exit.png");
+    	exitBut.setSize(X_EXIT, Y_EXIT);
+    	exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    	// exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    	sf::Vector2f exitPos = exitBut.getSprite().getPosition();
+
+    	// кнопка назад
+    	Chess::Button backBut("images/back.png");
+    	backBut.setSize(X_BACK, Y_BACK);
+    	backBut.setPosition(100, Y_WINDOW - 100);
+    	sf::Vector2f backPos = backBut.getSprite().getPosition();
+
+    	// add board and figure
+    	float scale = SCALE_FACTOR;
+    	Chess::BoardTexture board_texture("images/boardTru.jpg");
+    	Chess::FigureTexture figures_testure;
+    	board_texture.setBoardScale(SCALE_FACTOR);
+
+    	sf::Vector2i playSpace;
+    	playSpace.x = X_PLAYSPACE;
+    	playSpace.y = Y_PLAYSPACE;
+    	board_texture.setPlaySpace(playSpace);
+
+    	Chess::Gameplay gameplay;
+		gameplay.setSide();
+		gameplay.setGameMode(mode);
+
+		gameplay.updateSprites();
+
+		while (isGame) {
+        	sf::Vector2i pos = sf::Mouse::getPosition(window);
+        	float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+			clock.restart(); //перезагружает время
+			time = time/120;
 
 
+        	sf::Event event;
+        	while (window.pollEvent(event)) {
+        		if (event.type == sf::Event::Closed) {
+        		    isGame = false;
+        		}
+        		// берем новый размер окна, чтобы можно было задать новую рабочую зону для кнопок
+        		if (event.type == sf::Event::Resized) {
+					window.getSizeNew();
+				}
+
+        		menuNum = 0;
+        		exitBut.getSprite().setColor(sf::Color::White);
+        		backBut.getSprite().setColor(sf::Color::White);
+        		// изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
+        		if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+        		if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+        		// if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
+
+        	    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
+        	    //     Chess::startMenu(window, flags);
+        	    // }
+        	    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+        	        window.close();
+        	    }
+
+        		if (event.type == sf::Event::MouseButtonReleased) {
+        		    if (menuNum == 1) {
+        		        isGame = false;
+        		    }
+        		    if (menuNum == 2)  {
+        		        isGame = false; 
+					}
+        		}
+
+        		gameplay.play(event, pos); // proveryaet hod
+        	}
+
+        	window.clear();
+        	window.clear(sf::Color(129, 181, 221));
+
+        	window.draw(board_texture.getSprite());
+        	window.draw(exitBut.getSprite());
+        	window.draw(backBut.getSprite());
+
+        	gameplay.updateSprites();
+        	gameplay.drawFigures(window, pos);
+
+        	window.display();
+
+		}  // while(isGame)
+    
+	}  // strartGame
+
+}  // namespace Chess

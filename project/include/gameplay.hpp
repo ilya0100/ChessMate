@@ -2,7 +2,6 @@
 
 #include "textures.hpp"
 #include "logic.hpp"
-#include "utils.hpp"
 
 namespace Chess {
 
@@ -51,7 +50,7 @@ namespace Chess {
 
             void play(sf::Event event, sf::Vector2i pos);
 
-            void drawFigures(sf::RenderWindow& window, sf::Vector2i pos);
+            void drawFigures(Window& window, sf::Vector2i pos);
     };
 
     void loadPieces(Figures& figure, figureName figure_name, size_t i, size_t j);
