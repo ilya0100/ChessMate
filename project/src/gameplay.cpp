@@ -25,10 +25,6 @@ namespace Chess {
         updateSprites();
     }
 
-    // void Gameplay::setToDefault(PlaySide side) {
-    //     setSide(side);
-    // }
-
     void Gameplay::updateSprites() {
         int k = 0;
         for (int y = 0; y < 8; y++) {
@@ -118,7 +114,6 @@ namespace Chess {
                 }
             }
         }
-        // updateSprites();
     }
 
     void Gameplay::drawFigures(sf::RenderWindow& window, sf::Vector2i pos) {
