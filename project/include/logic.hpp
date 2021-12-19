@@ -17,6 +17,7 @@ namespace Chess {
             void setFigurePosition(sf::Vector2u pos);
             void setSide(PlaySide side = WHITE);
             void upsideDown();
+            void changeSide();
 
             sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);

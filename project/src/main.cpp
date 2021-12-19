@@ -11,10 +11,6 @@ int main() {
     Flags flags;
     Chess::startMenu(window, flags);
 
-    // std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
-    // std::cout << "online    " << flags.isOnlineGame << std::endl;
-    // std::cout << "host  " << flags.isHost << std::endl;
-    // std::cout << "client    " << flags.isClient << std::endl;
 
     // размер окна для сохранения работоспособности при изменении размера
     sf::Vector2u windowSize = window.getSize();
@@ -132,14 +128,20 @@ int main() {
     // int eaten_count = 0;
     //////////////////Legacy///////////////////////////////////////////
 
+    std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
+    std::cout << "online    " << flags.isOnlineGame << std::endl;
+    std::cout << "host  " << flags.isHost << std::endl;
+    std::cout << "client    " << flags.isClient << std::endl;
+
     Chess::Gameplay gameplay;
     gameplay.setSide();
-    gameplay.updateSprites();
     if (flags.isHost) {
         gameplay.setGameMode(HOST);
     } else if (flags.isClient) {
         gameplay.setGameMode(CLIENT);
+        gameplay.setSide(BLACK);
     }
+    gameplay.updateSprites();
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);

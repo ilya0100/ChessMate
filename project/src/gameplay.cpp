@@ -41,6 +41,10 @@ namespace Chess {
                 }
             }
         }
+
+        // if (cur_side == BLACK) {
+        //     std::cout << "update: cur_side - BLACK" << std::endl;
+        // }
     }
 
     void Gameplay::setGameMode(GameMode new_mode) {
@@ -49,15 +53,25 @@ namespace Chess {
             host();
         } else if (mode == CLIENT) {
             client();
+            enemy_turn = true;
         }
     }
 
     void Gameplay::play(sf::Event event, sf::Vector2i pos) {
+
+        // if (cur_side == BLACK) {
+        //     std::cout << "play: cur_side - BLACK" << std::endl;
+        // }
+
         //drag and drop
         if (event.type == sf::Event::MouseButtonPressed) {
             if (event.key.code == sf::Mouse::Left) {
                 for (size_t i = 0; i < 32; i++) {
                     if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
+
+                        // std::cout << "cur_side: " << cur_side << std::endl;
+                        // std::cout << "fig_side: " << figures_arr[i].getSide() << std::endl;
+
                         if (cur_side == figures_arr[i].getSide()) {
                             isCatch = true;
                             isMove = true;
@@ -91,6 +105,7 @@ namespace Chess {
 
                         if (mode == ONE_PLAYER) {
                             upsideDown();
+                            changeSide();
                         }
 
                         sendBoardState();
@@ -125,6 +140,8 @@ namespace Chess {
             socket.send(packet);
             packet.clear();
             enemy_turn = true;
+
+            // std::cout << "sended" << std::endl;
         }
     }
 
@@ -139,8 +156,10 @@ namespace Chess {
                     }
                 }
                 packet.clear();
-                upsideDown();
                 enemy_turn = false;
+                upsideDown();
+
+                // std::cout << "recieved" << std::endl;
             }
         }
     }

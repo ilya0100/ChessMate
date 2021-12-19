@@ -12,6 +12,11 @@ namespace Chess {
 
     void BoardLogic::setSide(PlaySide side) {
         cur_side = side;
+
+        // if (cur_side == BLACK) {
+        //     std::cout << "set_side: cur_side - BLACK" << std::endl;
+        // }
+
         switch (side) {
         case WHITE:
             current_pos.x = 0;
@@ -104,7 +109,9 @@ namespace Chess {
                 board[i][j] = buffer[i][j];
             }
         }
+    }
 
+    void BoardLogic::changeSide() {
         if (cur_side == BLACK) {
             cur_side = WHITE;
         } else if (cur_side == WHITE) {
