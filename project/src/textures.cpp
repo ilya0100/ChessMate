@@ -64,13 +64,11 @@ namespace Chess {
 
     bool Button::isTouch(Window& window) {
 
-        if (sf::IntRect(pos.x * window.getRatio().x,
+        return sf::IntRect(pos.x * window.getRatio().x,
                     pos.y * window.getRatio().y,
                         size.x * window.getRatio().x,
                         size.y * window.getRatio().y).
-                            contains(sf::Mouse::getPosition(window)))
-            return true;
-        return false;
+                            contains(sf::Mouse::getPosition(window));
 
     }
 
@@ -209,5 +207,10 @@ namespace Chess {
     sf::Sprite Figures::getFigureSprite() const{
         return sprite;
     }
+
+    // Text entered
+
+
+
 
 }  // namespace Chess

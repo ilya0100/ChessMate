@@ -20,3 +20,6 @@ sf::Vector2f Window::getRatio() {
 	Ratio.y = ((float)SizeNew.y) / ((float)Size.y);
 	return Ratio;
 }
+
+
+
