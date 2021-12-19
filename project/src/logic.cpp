@@ -10,7 +10,8 @@ namespace Chess {
         }
     }
 
-    void BoardLogic::setSide(Figure_Side side) {
+    void BoardLogic::setSide(PlaySide side) {
+        cur_side = side;
         switch (side) {
         case WHITE:
             current_pos.x = 0;
@@ -102,6 +103,12 @@ namespace Chess {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = buffer[i][j];
             }
+        }
+
+        if (cur_side == BLACK) {
+            cur_side = WHITE;
+        } else if (cur_side == WHITE) {
+            cur_side = BLACK;
         }
     }
 
@@ -326,6 +333,7 @@ namespace Chess {
         return false;
     }
 
+    /*
     sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x ++) {
@@ -346,5 +354,6 @@ namespace Chess {
         }
         return packet;
     }
+    */
 
 }  // namespace Chess

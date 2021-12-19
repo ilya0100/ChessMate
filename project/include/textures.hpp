@@ -75,13 +75,13 @@ namespace Chess {
             sf::Vector2u figurePos;
 
             figureName name;
-            Figure_Side side;
+            PlaySide side;
             sf::Sprite sprite;
 
         public:
             Figures();
             Figures(figureName fn);
-            Figure_Side getSide();
+            PlaySide getSide();
 
             void setSprite(figureName figure_name);
             void setFigurePos(int i, int j);
@@ -97,7 +97,5 @@ namespace Chess {
             sf::Vector2f getSpritePos() const;
 
     };
-
-    void loadPieces(Figures& figure, figureName figure_name, size_t i, size_t j);
 
 }  // namespace Chess

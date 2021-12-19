@@ -4,23 +4,22 @@
 
 namespace Chess {
 
-    class FigureTexture;
-
     class BoardLogic {
-        figureName board[8][8];
 
-        sf::Vector2u current_pos;
+        protected:
+            sf::Vector2u current_pos;
+            PlaySide cur_side = WHITE;
+            figureName board[8][8];
         
         public:
             BoardLogic();
 
             void setFigurePosition(sf::Vector2u pos);
-            void setSide(Figure_Side side);
+            void setSide(PlaySide side = WHITE);
             void upsideDown();
 
             sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);
-            Figure_Side cur_side = WHITE;
             
             figureName operator()(int x, int y) const;
             figureName& operator()(int x, int y);
@@ -33,7 +32,7 @@ namespace Chess {
             bool isFigureOnDiagonal(int x, int y) const;
     };
 
-    sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board);
-    sf::Packet& operator>>(sf::Packet& packet, BoardLogic& board);
+    // sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board);
+    // sf::Packet& operator>>(sf::Packet& packet, BoardLogic& board);
 
 }  // namespace Chess
