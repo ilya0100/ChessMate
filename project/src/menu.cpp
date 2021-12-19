@@ -77,6 +77,7 @@ namespace Chess {
 
 				if (event.type == sf::Event::MouseButtonReleased) {
                 	if (menuNum == 1) {
+						isMenu = false;
 						Chess::selectMode(window);
 					}
 					if (menuNum == 2) {}
@@ -165,10 +166,11 @@ namespace Chess {
 				}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 2) {
 					isMenu = false;
-					Chess::selectH(window);
+					selectH(window);
 				}
 				if (menuNum == 3) {
 					isMenu = false;
+					startMenu(window);
 					// Chess::startMenu(window);
 				}  // add implementation of option
 
@@ -259,6 +261,7 @@ namespace Chess {
 					}
 					if (menuNum == 3) {
 						isMenu = false;
+						selectMode(window);
 					}  // add implementation of option
 
 				}
@@ -283,13 +286,11 @@ namespace Chess {
     	exitBut.setSize(X_EXIT, Y_EXIT);
     	exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     	// exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    	sf::Vector2f exitPos = exitBut.getSprite().getPosition();
 
     	// кнопка назад
     	Chess::Button backBut("images/back.png");
     	backBut.setSize(X_BACK, Y_BACK);
     	backBut.setPosition(100, Y_WINDOW - 100);
-    	sf::Vector2f backPos = backBut.getSprite().getPosition();
 
     	// add board and figure
     	float scale = SCALE_FACTOR;
@@ -334,8 +335,8 @@ namespace Chess {
 				if (exitBut.isTouch(window)) {exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
 				if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
 
-        		if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-        		if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+        		//if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+        		//if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
         		// if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
         	    // if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
@@ -348,9 +349,11 @@ namespace Chess {
         		if (event.type == sf::Event::MouseButtonReleased) {
         		    if (menuNum == 1) {
         		        isGame = false;
+						window.close();
         		    }
         		    if (menuNum == 2)  {
         		        isGame = false; 
+						selectMode(window);
 					}
         		}
 
