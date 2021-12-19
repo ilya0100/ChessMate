@@ -56,7 +56,7 @@ namespace Chess {
         setSprite(fn);
     }
 
-    Figure_Side Figures::getSide() { return side;}
+    PlaySide Figures::getSide() { return side;}
 
     void Figures::setSprite(figureName figure_name) {
         name = figure_name;
@@ -172,60 +172,4 @@ namespace Chess {
         return sprite;
     }
 
-
-    void loadPieces(Figures& figure, figureName figure_name, size_t i, size_t j) {
-        switch (figure_name) {
-        case W_PAWN:
-            figure.setSprite(W_PAWN);
-            break;
-
-        case W_ROOK:
-            figure.setSprite(W_ROOK);
-            break;
-
-        case W_KNIGHT:
-          figure.setSprite(W_KNIGHT);
-           break;
-
-        case W_BISHOP:
-            figure.setSprite(W_BISHOP);
-            break;
-
-        case W_QUEEN:
-            figure.setSprite(W_QUEEN);
-            break;
-
-        case W_KING:
-            figure.setSprite(W_KING);
-            break;
-
-        case B_PAWN:
-            figure.setSprite(B_PAWN);
-            break;
-
-        case B_ROOK:
-            figure.setSprite(B_ROOK);
-            break;
-
-        case B_KNIGHT:
-            figure.setSprite(B_KNIGHT);
-            break;
-
-        case B_BISHOP:
-            figure.setSprite(B_BISHOP);
-            break;
-
-        case B_QUEEN:
-            figure.setSprite(B_QUEEN);
-            break;
-
-        case B_KING:
-            figure.setSprite(B_KING);
-            break;
-
-        default:
-            break;
-        }
-        figure.setFigurePos(i, j);
-    }
 }  // namespace Chess

@@ -4,23 +4,21 @@
 
 
 int main() {
+    Flags flags;
+    Window window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
 
     sf::Clock clock;
     int menuNum = 0;
-    sf::RenderWindow window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
-    Chess::startMenu(window);
 
-    // размер окна для сохранения работоспособности при изменении размера
-    sf::Vector2u windowSize = window.getSize();
-	sf::Vector2u windowSizeNew = window.getSize();
-    sf::Vector2f windowRatio;
-    windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-    windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
+    Chess::startMenu(window, flags);
+
+
+
 
     // button exit through class Button
     Chess::Button exitBut("images/exit.png");
     exitBut.setSize(X_EXIT, Y_EXIT);
-    exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     sf::Vector2f exitPos = exitBut.getSprite().getPosition();
 
@@ -37,7 +35,7 @@ int main() {
     // кнопка назад
     Chess::Button backBut("images/back.png");
     backBut.setSize(X_BACK, Y_BACK);
-    backBut.getSprite().setPosition(100, Y_WINDOW - 100);
+    backBut.setPosition(100, Y_WINDOW - 100);
     sf::Vector2f backPos = backBut.getSprite().getPosition();
 
     // sf::Texture BackTexture;
@@ -49,14 +47,14 @@ int main() {
 	// backSize.y = 53;
 	// sf::Vector2f backPos = back.getPosition();
 
-    // add board and figure 
+    // add board and figure
     float scale = SCALE_FACTOR;
     Chess::BoardTexture board_texture("images/boardTru.jpg");
     Chess::FigureTexture figures_testure;
     board_texture.setBoardScale(SCALE_FACTOR);
 
-    Chess::BoardLogic board_logic;
-    Chess::Figures figures_arr[32];
+    // Chess::BoardLogic board_logic;
+    // Chess::Figures figures_arr[32];
 
     sf::Vector2i playSpace;
     playSpace.x = X_PLAYSPACE;
@@ -65,62 +63,81 @@ int main() {
 
 
     //////////////////////////Netcode/////////////////////////////////////
-    sf::TcpSocket socket;
-    sf::IpAddress ip = sf::IpAddress::getLocalAddress();
-
-    char type;
-
-    //std::cout << "Enter type connecting: [c] - client, [s] - server\n";
-    //std::cin  >> type;
-
-    if (type == 's') {
-        ReuseableListener listener;
-        listener.listen(8080);
-        listener.reuse();
-
-        if(listener.accept(socket) != sf::Socket::Done) {
-            std::cout << "Error!\n";
-        }
-    }
-    else if (type == 'c') {
-        if (socket.connect(ip, 8080) != sf::Socket::Done) {
-            std::cout << "Error!\n";
-        }
-    }
-
-    socket.setBlocking(true);
-
-    sf::Packet packet;
-
-    bool enemy_turn = false;
-    if (type == 'c') {
-        enemy_turn = true;
-        board_logic.setSide(BLACK);
-    } else {
-        board_logic.setSide(WHITE);
-    }
+    // sf::TcpSocket socket;
+    // sf::IpAddress ip = sf::IpAddress::getLocalAddress();
+    // 
+    // SocAndIP socIP;
+    // socIP.ip = sf::IpAddress::getLocalAddress();
+    // 
+    // char type;
+    // 
+    // std::cout << "Enter type connecting: [c] - client, [s] - server\n";
+    // std::cin  >> type;
+    // 
+    // if (flags.isHost) {
+    //     ReuseableListener listener;
+    //     listener.listen(8080);
+    //     listener.reuse();
+    // 
+    //     if(listener.accept(socIP.socket) != sf::Socket::Done) {
+    //         std::cout << "Error!\n";
+    //     }
+    // }
+    // else if (flags.isClient) {
+    //     if (socIP.socket.connect(socIP.ip, 8080) != sf::Socket::Done) {
+    //         std::cout << "Error!\n";
+    //     }
+    // }
+    // 
+    // socIP.socket.setBlocking(true);
+    // 
+    // sf::Packet packet;
+    // 
+    // bool enemy_turn = false;
+    // if (flags.isClient) {
+    //     enemy_turn = true;
+    //     board_logic.setSide(BLACK);
+    // } else {
+    //     board_logic.setSide(WHITE);
+    // }
     ////////////////////////////////////////////////////////////////////////////
 
 
-    int k = 0;
-    for (int y = 0; y < 8; y++) {
-        for (int x = 0; x < 8; x++) {
-            figureName figure = board_logic(x, y);
+    // int k = 0;
+    // for (int y = 0; y < 8; y++) {
+    //     for (int x = 0; x < 8; x++) {
+    //         figureName figure = board_logic(x, y);
+    // 
+    //         if (figure != EMPTY_CELL && k < 32) {
+    //             Chess::loadPieces(figures_arr[k], figure, x, y);
+    //             k++;
+    //         }
+    //     }
+    // }
+    //
+    // sf::Vector2u curr_cage;
+    // bool isMove = false;
+    // bool isCatch = false;
+    // float dx = 0;
+    // float dy = 0;
+    // size_t fig_num = 0;
+    // int eaten_count = 0;
+    //////////////////Legacy///////////////////////////////////////////
 
-            if (figure != EMPTY_CELL && k < 32) {
-                Chess::loadPieces(figures_arr[k], figure, x, y);
-                k++;
-            }
-        }
+    std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
+    std::cout << "online    " << flags.isOnlineGame << std::endl;
+    std::cout << "host  " << flags.isHost << std::endl;
+    std::cout << "client    " << flags.isClient << std::endl;
+
+    Chess::Gameplay gameplay;
+    gameplay.setSide();
+    if (flags.isHost) {
+        gameplay.setGameMode(HOST);
+    } else if (flags.isClient) {
+        gameplay.setGameMode(CLIENT);
+        gameplay.setSide(BLACK);
     }
-
-    sf::Vector2u curr_cage;
-    bool isMove = false;
-    bool isCatch = false;
-    float dx = 0;
-    float dy = 0;
-    size_t n = 0;
-    int eaten_count = 0;
+    gameplay.updateSprites();
 
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -136,90 +153,99 @@ int main() {
             }
             // берем новый размер окна, чтобы можно было задать новую рабочую зону для кнопок
             if (event.type == sf::Event::Resized) {
-				windowSizeNew = window.getSize();
-                windowRatio.x = (float)windowSizeNew.x/(float)windowSize.x;
-                windowRatio.y = (float)windowSizeNew.y/(float)windowSize.y;
+				window.getSizeNew();
 		 	}
 
             menuNum = 0;
             exitBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             // изначальноо соотношение размеров оконо 1:1, но после ресайза это отношение меняется, и мы по-прежнему можем нажимать на кнопки в зоне их расположения
-            if (sf::IntRect(exitPos.x * windowRatio.x, exitPos.y * windowRatio.y, (float)exitBut.getSize().x * windowRatio.x, (float)exitBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
-            if (sf::IntRect(backPos.x * windowRatio.x, backPos.y * windowRatio.y, (float)backBut.getSize().x * windowRatio.x, (float)backBut.getSize().y * windowRatio.y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 4; }
+            if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (sf::IntRect(backBut.getPosition().x * window.getRatio().x, backBut.getPosition().y * window.getRatio().y, backBut.getSize().x * window.getRatio().x, backBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { backBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             // if (sf::IntRect(pos.x * windowRatio.x, pos.y * windowRatio.y, (float)backSize.x * windowRatio.x, (float)backSize.y * windowRatio.y).contains(sf::Mouse::getPosition(window))) {}
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::BackSpace)) {
-                Chess::startMenu(window);
+                Chess::startMenu(window, flags);
             }
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                 window.close();
             }
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-                if (menuNum == 3)  { window.close(); }
-                if (menuNum == 4)  { Chess::startMenu(window); }
-            }
-
-            // Chess::gamePlay(window);
-            
-            //drag and drop
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.key.code == sf::Mouse::Left) {
-                    for (size_t i = 0; i < 32; i++) {
-                        if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
-                            if (board_logic.cur_side == figures_arr[i].getSide()) {
-                                isCatch = true;
-                                isMove = true;
-                                curr_cage = getCurrCage(pos, playSpace);
-                                board_logic.setFigurePosition(curr_cage);
-                                n = i;
-                            }
-                        }
-                    }
-                }
-            }
-
             if (event.type == sf::Event::MouseButtonReleased) {
-                if (event.key.code == sf::Mouse::Left) {
-                    isMove = false;
-
-                    if (isCatch) {
-                        curr_cage = getCurrCage(pos, playSpace);
-                        
-                        if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
-                            if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
-                                // for (size_t i = 0; i < 32; i++) {
-                                //     if (figures_arr[i].getFigurePos() == curr_cage) {
-                                //         figures_arr[i].setSpritePos(600 + TSPRITE_SIZE * eaten_count, 100);
-                                //         eaten_count++;
-                                //         break;
-                                //     }
-                                // }
-                            }
-                            
-                            board_logic.upsideDown();
-                            if (board_logic.cur_side == BLACK) {
-                                board_logic.cur_side = WHITE;
-                            } else if (board_logic.cur_side == WHITE) {
-                                board_logic.cur_side = BLACK;
-                            }
-
-                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
-
-                            packet << board_logic;
-                            socket.send(packet);
-                            packet.clear();
-                            enemy_turn = true;
-                            
-                        } else {
-                            curr_cage = board_logic.getFigurePosition();
-                            figures_arr[n].setFigurePos(curr_cage.x, curr_cage.y);
-                        }
-                        isCatch = false;
-                    }
+                if (menuNum == 1) {
+                    window.close();
                 }
+                if (menuNum == 2)  {
+                    flags.isClient = false;
+                    flags.isHost = false;
+                    flags.isOnePlayerMode = false;
+                    Chess::selectMode(window, flags); }
             }
+
+            gameplay.play(event, pos);
+            
+            // //drag and drop
+            // if (event.type == sf::Event::MouseButtonPressed) {
+            //     if (event.key.code == sf::Mouse::Left) {
+            //         for (size_t i = 0; i < 32; i++) {
+            //             if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
+            //                 if (board_logic.cur_side == figures_arr[i].getSide()) {
+            //                     isCatch = true;
+            //                     isMove = true;
+            //                     curr_cage = getCurrCage(pos, playSpace);
+            //                     board_logic.setFigurePosition(curr_cage);
+            //                     fig_num = i;
+            //                 }
+            //             }
+            //         }
+            //     }
+            // }
+            // 
+            // if (event.type == sf::Event::MouseButtonReleased) {
+            //     if (event.key.code == sf::Mouse::Left) {
+            //         isMove = false;
+            // 
+            //         if (isCatch) {
+            //             curr_cage = getCurrCage(pos, playSpace);
+            //             
+            //             if (board_logic.isMoveFigure(curr_cage.x, curr_cage.y)) {
+            //                 if (board_logic(curr_cage.x, curr_cage.y) != EMPTY_CELL) {
+            //                     // for (size_t i = 0; i < 32; i++) {
+            //                     //     if (figures_arr[i].getFigurePos() == curr_cage) {
+            //                     //         figures_arr[i].setSpritePos(600 + TSPRITE_SIZE * eaten_count, 100);
+            //                     //         eaten_count++;
+            //                     //         break;
+            //                     //     }
+            //                     // }
+            //                 }
+            //                 figures_arr[fig_num].setFigurePos(curr_cage.x, curr_cage.y);
+            // 
+            //                 if (flags.isOnePlayerMode) {
+            //                     board_logic.upsideDown();
+            //                 }
+            // 
+            //                 if (board_logic.cur_side == BLACK) {
+            //                     board_logic.cur_side = WHITE;
+            //                 } else if (board_logic.cur_side == WHITE) {
+            //                     board_logic.cur_side = BLACK;
+            //                 }
+            // 
+            //                 if (flags.isOnlineGame) {
+            //                     packet << board_logic;
+            //                     socIP.socket.send(packet);
+            //                     packet.clear();
+            //                     enemy_turn = true;
+            //                 }
+            //                 
+            //             } else {
+            //                 curr_cage = board_logic.getFigurePosition();
+            //                 figures_arr[fig_num].setFigurePos(curr_cage.x, curr_cage.y);
+            //             }
+            //             isCatch = false;
+            //         }
+            //     }
+            // }
+            ////////////////////////Legacy////////////////////////////////////////////////////
             
         }
 
@@ -230,42 +256,49 @@ int main() {
         window.draw(exitBut.getSprite());
         window.draw(backBut.getSprite());
 
+        gameplay.updateSprites();
+        gameplay.drawFigures(window, pos);
         
-        k = 0;
-        for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 8; x++) {
-                figureName figure = board_logic(x, y);
-    
-                if (figure != EMPTY_CELL && k < 32) {
-                    Chess::loadPieces(figures_arr[k], figure, x, y);
-                    k++;
-                }
-            }
-        }
-        
-        for (size_t i = 0; i < 32; i++) {
-            if (isMove && i == n) {
-                figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
-            }
-            window.draw(figures_arr[i].getFigureSprite());
-        }
+        // k = 0;
+        // for (int y = 0; y < 8; y++) {
+        //     for (int x = 0; x < 8; x++) {
+        //         figureName figure = board_logic(x, y);
+        // 
+        //         if (figure != EMPTY_CELL && k < 32) {
+        //             Chess::loadPieces(figures_arr[k], figure, x, y);
+        //             k++;
+        //         }
+        //     }
+        // }
+        // 
+        // for (size_t i = 0; i < 32; i++) {
+        //     if (isMove && i == fig_num) {
+        //         figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
+        //     }
+        //     window.draw(figures_arr[i].getFigureSprite());
+        // }
+        //////////////////////////////Legacy//////////////////////////////////////////////////////
 
         window.display();
 
-        if (enemy_turn) {
-                if(socket.receive(packet) == sf::Socket::Done) {
-                    packet >> board_logic;
-                    packet.clear();
-                    enemy_turn = false;
+        gameplay.recieveBoardState();
 
-                    if (board_logic.cur_side == BLACK) {
-                        board_logic.cur_side = WHITE;
-                    }
-                    else if (board_logic.cur_side == WHITE) {
-                        board_logic.cur_side = BLACK;
-                    }
-                }
-            }
+        // if (enemy_turn) {
+        //     if(socIP.socket.receive(packet) == sf::Socket::Done) {
+        //         packet >> board_logic;
+        //         packet.clear();
+        //         board_logic.upsideDown();
+        //         enemy_turn = false;
+        // 
+        //         if (board_logic.cur_side == BLACK) {
+        //             board_logic.cur_side = WHITE;
+        //         }
+        //         else if (board_logic.cur_side == WHITE) {
+        //             board_logic.cur_side = BLACK;
+        //         }
+        //     }
+        // }
+        //////////////////////////////Legacy//////////////////////////////////////////////////////
     }
 
     return 0;

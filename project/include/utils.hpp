@@ -13,6 +13,29 @@
 // scale
 #define SCALE_FACTOR 0.2
 
+// board parameters
+#define X_BOARD_SIZE 2400
+#define Y_BOARD_SIZE 2400
+#define X_PLAYSPACE (144 * SCALE_FACTOR)
+#define Y_PLAYSPACE (144 * SCALE_FACTOR)
+
+// window
+#define X_SCALE_W 2
+#define Y_SCALE_W 1.3
+#define X_WINDOW (X_BOARD_SIZE * X_SCALE_W * SCALE_FACTOR)
+#define Y_WINDOW (Y_BOARD_SIZE * Y_SCALE_W * SCALE_FACTOR)
+
+// buttons parameters
+#define X_EXIT 119
+#define Y_EXIT 43
+#define X_BACK 284
+#define Y_BACK 53
+
+// scale
+// #define SCALE_FACTOR 0.2
+
+#define TSPRITE_SIZE (SPRITE_SIZE * SCALE_FACTOR)
+
 typedef struct {
     int x;
     int y;
@@ -59,15 +82,26 @@ typedef enum {
 typedef enum {
     WHITE,
     BLACK
-} Figure_Side;
+} PlaySide;
+
+typedef enum {
+    ONE_PLAYER,
+    HOST,
+    CLIENT
+} GameMode;
 
 class ReuseableListener : public sf::TcpListener {
 public:
-        void reuse() {
-                char reuse = 1;
-                setsockopt(getHandle(), SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
-        }
+    void reuse() {
+        char reuse = 1;
+        setsockopt(getHandle(), SOL_SOCKET, SO_REUSEADDR, &reuse, sizeof(reuse));
+    }
 };
+
+// struct SocAndIP {
+//     sf::TcpSocket socket;
+//     sf::IpAddress ip;
+// };
 
 class Window: public sf::RenderWindow {
 
@@ -77,14 +111,24 @@ class Window: public sf::RenderWindow {
         sf::Vector2f Ratio;
 
     public:
-        Window(sf::VideoMode mode, const sf::String &title): sf::RenderWindow(mode, title) {Size = getSize();};
+        Window(sf::VideoMode mode, const sf::String &title): sf::RenderWindow(mode, title) {Size = getSize(); SizeNew = getSize();};
         sf::Vector2u getSizeNew();
         sf::Vector2f getRatio();
 
 };
 
+class Flags {
+    public:
+        bool isOnePlayerMode;
+        bool isOnlineGame;
+        bool isHost;
+        bool isClient;
 
+        Flags(): isOnePlayerMode(false), isOnlineGame(false), isHost(false), isClient(false) {}
+};
 
 
 void menu(sf::RenderWindow & window);
-sf::Vector2u getCurrCage(sf::Vector2i pos, sf::Vector2i playSpace);
+sf::Vector2u getCurrCage(sf::Vector2i pos /*sf::Vector2i playSpace*/);
+
+// static Flags flags;
