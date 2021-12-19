@@ -116,7 +116,7 @@ namespace Chess {
         }
     }
 
-    void Gameplay::drawFigures(sf::RenderWindow& window, sf::Vector2i pos) {
+    void Gameplay::drawFigures(Window& window, sf::Vector2i pos) {
         for (size_t i = 0; i < 32; i++) {
             if (isMove && i == fig_num) {
                 figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);

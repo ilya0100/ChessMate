@@ -1,61 +1,47 @@
-#include "gameplay.hpp"
 #include "menu.hpp"
 
 
 
 int main() {
-    Flags flags;
+
     Window window(sf::VideoMode(X_WINDOW, Y_WINDOW), "ChessMate!");
 
-    sf::Clock clock;
-    int menuNum = 0;
+    // sf::Clock clock;
+    // int menuNum = 0;
 
-    Chess::startMenu(window, flags);
+    Chess::startMenu(window);
 
-    // button exit through class Button
-    Chess::Button exitBut("images/exit.png");
-    exitBut.setSize(X_EXIT, Y_EXIT);
-    exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
-    sf::Vector2f exitPos = exitBut.getSprite().getPosition();
-
-    // кнопка назад
-    Chess::Button backBut("images/back.png");
-    backBut.setSize(X_BACK, Y_BACK);
-    backBut.setPosition(100, Y_WINDOW - 100);
-    sf::Vector2f backPos = backBut.getSprite().getPosition();
-
-    // add board and figure
-    float scale = SCALE_FACTOR;
-    Chess::BoardTexture board_texture("images/boardTru.jpg");
-    Chess::FigureTexture figures_testure;
-    board_texture.setBoardScale(SCALE_FACTOR);
-
-    sf::Vector2i playSpace;
-    playSpace.x = X_PLAYSPACE;
-    playSpace.y = Y_PLAYSPACE;
-    board_texture.setPlaySpace(playSpace);
+    // // button exit through class Button
+    // Chess::Button exitBut("images/exit.png");
+    // exitBut.setSize(X_EXIT, Y_EXIT);
+    // exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    // // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+    // sf::Vector2f exitPos = exitBut.getSprite().getPosition();
+    // 
+    // // кнопка назад
+    // Chess::Button backBut("images/back.png");
+    // backBut.setSize(X_BACK, Y_BACK);
+    // backBut.setPosition(100, Y_WINDOW - 100);
+    // sf::Vector2f backPos = backBut.getSprite().getPosition();
+    // 
+    // // add board and figure
+    // float scale = SCALE_FACTOR;
+    // Chess::BoardTexture board_texture("images/boardTru.jpg");
+    // Chess::FigureTexture figures_testure;
+    // board_texture.setBoardScale(SCALE_FACTOR);
+    // 
+    // sf::Vector2i playSpace;
+    // playSpace.x = X_PLAYSPACE;
+    // playSpace.y = Y_PLAYSPACE;
+    // board_texture.setPlaySpace(playSpace);
+    ////////////////Legacy////////////////////////////////////////////////////////
 
     // std::cout << "one player    " << flags.isOnePlayerMode << std::endl;
     // std::cout << "online    " << flags.isOnlineGame << std::endl;
     // std::cout << "host  " << flags.isHost << std::endl;
     // std::cout << "client    " << flags.isClient << std::endl;
 
-    // eto mojno sozdat v funkcii knopok
-    Chess::Gameplay gameplay;
-    gameplay.setSide();
-
-    // this should be moved to the appropriate buttons
-    if (flags.isHost) { 
-        gameplay.setGameMode(HOST);
-    } else if (flags.isClient) {
-        gameplay.setGameMode(CLIENT);
-        gameplay.setSide(BLACK);
-    }
-    /////////////////////////////////////////////////
-
-    gameplay.updateSprites(); // obnovlyaet massiv spritov v sootvetstvii s BoardLogic
-
+    /*
     while (window.isOpen()) {
         sf::Vector2i pos = sf::Mouse::getPosition(window);
         float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
@@ -116,6 +102,7 @@ int main() {
 
         gameplay.recieveBoardState();
     }
+    */
 
     return 0;
 }

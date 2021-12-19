@@ -1,7 +1,6 @@
 #pragma once
 
 #include "utils.hpp"
-#include "menu.hpp"
 
 namespace Chess {
 
@@ -19,40 +18,37 @@ namespace Chess {
             sf::Sprite getSprite();
     };
 
-    // class MenuTexture {
-    //         sf::Texture texture;
-    //         sf::Sprite sprite;
-    //         sf::Vector2i playSpace;
-// 
-    //     public:
-    //         MenuTexture(const std::string filename);
-// 
-    //         void setPlaySpace(sf::Vector2i pos);
-// 
-    //         sf::Sprite getSprite();
-    // };
+    class Button {
+            sf::Texture texture;
+            sf::Sprite sprite;
+            sf::Vector2f size;
+            sf::Vector2f pos;
 
-    // test class
-    // class Button {
-    //         sf::Texture texture;
-    //         sf::Sprite sprite;
-    //         sf::Vector2u size;
-    //         // sf::Vector2f pos;
-// 
-    //     public:
-    //         Button();
-    //         Button(const std::string filename);
-// 
-    //         void setButton(const std::string filename);
-    //         void setSize(size_t x, size_t y);
-    //         void setPosButton(float x, float y);
-// 
-    //         sf::Sprite& getSprite();
-    //         sf::Vector2u getSize();
-    //         // sf::Vector2f getPosButton();
-    //         // TODO: method setPos 
-// 
-    // };
+        public:
+            Button();
+            Button(const std::string filename);
+
+            void setButton(const std::string filename);
+            void setSize(float x, float y);
+            void setPosition(float x, float y);
+
+            sf::Sprite& getSprite();
+            sf::Vector2f getSize();
+            sf::Vector2f getPosition();
+    };
+
+    class MenuTexture {
+            sf::Texture texture;
+            sf::Sprite sprite;
+            sf::Vector2i playSpace;
+
+        public:
+            MenuTexture(const std::string filename);
+
+            void setPlaySpace(sf::Vector2i pos);
+
+            sf::Sprite getSprite();
+    };
 
     class FigureTexture {
             static sf::Texture texture;

@@ -7,7 +7,7 @@ namespace Chess {
     sf::Texture FigureTexture::texture;
     sf::Sprite FigureTexture::main_sprite;
 
-    // Board
+    ///////////////////Board//////////////////////////////////////////////
     BoardTexture::BoardTexture(const std::string filename) {
         texture.loadFromFile(filename, sf::IntRect(0, 0, X_BOARD_SIZE, X_BOARD_SIZE));
         sprite.setTexture(texture);
@@ -26,7 +26,7 @@ namespace Chess {
         return sprite;
     }
 
-    // Menu
+    //////////////////////////Menu//////////////////////////////////////////
     MenuTexture::MenuTexture(const std::string filename) {
         texture.loadFromFile(filename, sf::IntRect(0, 0, 590, 590));
         sprite.setTexture(texture);
@@ -36,8 +36,33 @@ namespace Chess {
         return sprite;
     }
 
+    ////////////////////////Buttons///////////////////////////////////////////
+    Button::Button(const std::string filename) {
+        texture.loadFromFile(filename);
+        sprite.setTexture(texture);
+    }
 
-    // FigureTexture
+    void Button::setButton(const std::string filename) {
+        texture.loadFromFile(filename);
+        sprite.setTexture(texture);
+    }
+
+    void Button::setSize(float x, float y) {
+        size.x = x;
+        size.y = y;
+    }
+
+ 	void Button::setPosition(float x, float y) {
+		sprite.setPosition(x, y);
+		pos.x = x;
+    	pos.y = y;
+    }
+
+    sf::Sprite& Button::getSprite() { return sprite; }
+    sf::Vector2f Button::getSize() { return size; }
+    sf::Vector2f Button::getPosition() { return pos; }
+
+    ///////////////////////FigureTexture///////////////////////////////////////////
     FigureTexture::FigureTexture() {
         FigureTexture::texture.loadFromFile("images/piecesTru.png");
         main_sprite.setTexture(texture);
@@ -47,7 +72,7 @@ namespace Chess {
         main_sprite.setScale(scale, scale);
     }
 
-    // Figures
+    ////////////////////////Figures///////////////////////////////////////////////////////
     Figures::Figures() {
         name = EMPTY_CELL;
     }
