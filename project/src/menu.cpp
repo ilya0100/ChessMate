@@ -364,7 +364,7 @@ namespace Chess {
         	window.draw(exitBut.getSprite());
         	window.draw(backBut.getSprite());
 
-        	gameplay.updateSprites();
+			gameplay.updateSprites();
         	gameplay.drawFigures(window, pos);
 
         	window.display();
