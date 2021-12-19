@@ -285,13 +285,8 @@ namespace Chess {
     	board_texture.setPlaySpace(playSpace);
 
     	Chess::Gameplay gameplay;
-    	gameplay.setSide(); 
-
-    	gameplay.setGameMode(mode);
-    	if (mode == CLIENT) {
-    	    gameplay.setGameMode(mode);
-    	    gameplay.setSide(BLACK);
-    	}
+		gameplay.setSide();
+		gameplay.setGameMode(mode);
 
 		gameplay.updateSprites();
 

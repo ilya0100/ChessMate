@@ -50,6 +50,7 @@ namespace Chess {
         } else if (mode == CLIENT) {
             client();
             enemy_turn = true;
+    	    setSide(BLACK);
         }
     }
 
