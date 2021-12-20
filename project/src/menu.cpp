@@ -206,6 +206,22 @@ namespace Chess {
 			createBut.setSize(268, 53);
 			createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, 200);
 
+			sf::IpAddress host_ip;
+			host_ip.getPublicAddress(sf::seconds(5.3f));
+			//host_ip.getLocalAddress();
+
+			// текст для вывода IP
+			sf::Font font;//шрифт
+			font.loadFromFile("Fonts/font.TTF");
+			sf::Text text(" ", font, 25);
+			text.setStyle(sf::Text::Bold | sf::Text::Underlined);
+			text.setFillColor(sf::Color::White);
+			text.setOutlineColor(sf::Color::Black);
+			text.setOutlineThickness(3);
+			std::string string_host_ip = host_ip.toString();
+			text.setString("Your IP address: " + string_host_ip);
+			text.setPosition(20, 20);
+
 
 			Chess::Button joinBut("images/joinGame.png");
 			joinBut.setSize(467, 53);
@@ -270,6 +286,7 @@ namespace Chess {
 				window.draw(createBut.getSprite());
 				window.draw(joinBut.getSprite());
 				window.draw(backBut.getSprite());
+				window.draw(text);
 				window.display();
 
 			}

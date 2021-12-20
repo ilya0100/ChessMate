@@ -114,7 +114,6 @@ class Window: public sf::RenderWindow {
 };
 
 
-void menu(sf::RenderWindow & window);
 sf::Vector2u getCurrCage(sf::Vector2i pos /*sf::Vector2i playSpace*/);
 
 // static Flags flags;

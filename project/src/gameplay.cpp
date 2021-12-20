@@ -60,7 +60,7 @@ namespace Chess {
         if (!enemy_turn && event.type == sf::Event::MouseButtonPressed) {
             if (event.key.code == sf::Mouse::Left) {
                 for (size_t i = 0; i < fig_count; i++) {
-                    if (figures_arr[i].getFigureSprite().getGlobalBounds().contains(pos.x, pos.y)) {
+                    if (sf::IntRect(figures_arr[i].getFigureSprite().getGlobalBounds().left, figures_arr[i].getFigureSprite().getGlobalBounds().top, figures_arr[i].getFigureSprite().getGlobalBounds().width, figures_arr[i].getFigureSprite().getGlobalBounds().height).contains(pos.x, pos.y)) {
 
                         // std::cout << "cur_side: " << cur_side << std::endl;
                         // std::cout << "fig_side: " << figures_arr[i].getSide() << std::endl;
