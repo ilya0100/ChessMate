@@ -212,14 +212,14 @@ namespace Chess {
 
 			// текст для вывода IP
 			sf::Font font;//шрифт
-			font.loadFromFile("project/Fonts/font.TTF");
+			font.loadFromFile("Fonts/font.TTF");
 			sf::Text text(" ", font, 25);
 			text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 			text.setFillColor(sf::Color::White);
 			text.setOutlineColor(sf::Color::Black);
 			text.setOutlineThickness(3);
 			std::string string_host_ip = host_ip.toString();
-			text.setString("Your IP adress: " + string_host_ip);
+			text.setString("Your IP address: " + string_host_ip);
 			text.setPosition(20, 20);
 
 
