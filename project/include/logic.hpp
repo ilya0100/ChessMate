@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils.hpp"
+#include "iomanip"
 
 namespace Chess {
 
@@ -11,8 +12,8 @@ namespace Chess {
             PlaySide cur_side = WHITE;
             figureName board[8][8];
 
-            sf::Vector2u previos_move[2];
-            figureName previos_fig;
+
+            void checkGameState();
         
         public:
             BoardLogic();
@@ -24,6 +25,7 @@ namespace Chess {
 
             sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);
+            bool isGameOver();
             
             figureName operator()(int x, int y) const;
             figureName& operator()(int x, int y);
@@ -32,9 +34,24 @@ namespace Chess {
             friend sf::Packet& operator>>(sf::Packet& packet, BoardLogic& board);
         
         private:
+            bool game_over = false;
+            bool check = false;
+
+            bool threat_map[8][8];
+
+            sf::Vector2u previos_move[2];
+            figureName previos_fig;
+
             bool isFigureOnLine(int x, int y) const;
             bool isFigureOnDiagonal(int x, int y) const;
             bool enPassant();
+
+            bool isValidCoords(int x, int y) const;
+            void setPawnThreat(int x, int y);
+            void setKingThreat(int x, int y);
+            void setKnightThreat(int x, int y);
+            void setLineThreat(int x, int y);
+            void setDiagonalThreat(int x, int y);
     };
 
     // sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board);

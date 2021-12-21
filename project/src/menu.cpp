@@ -375,6 +375,10 @@ namespace Chess {
         		}
 
         		gameplay.play(event, pos); // proveryaet hod
+				if (gameplay.isGameOver()) {
+        		    isGame = false; 
+					selectMode(window);
+				}
         	}
 
         	window.clear();

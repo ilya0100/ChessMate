@@ -6,6 +6,7 @@ namespace Chess {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = EMPTY_CELL;
+                threat_map[i][j] = false;
             }
         }
     }
@@ -292,6 +293,11 @@ namespace Chess {
         return flag;
     }
 
+    bool BoardLogic::isGameOver() {
+        checkGameState();
+        return game_over;
+    }
+
     bool BoardLogic::isFigureOnLine(int x, int y) const {
         if (x == current_pos.x && y != current_pos.y) {
             y < current_pos.y ? y++ : y--;
@@ -341,6 +347,214 @@ namespace Chess {
                 return true;
         }
         return false;
+    }
+
+    void BoardLogic::checkGameState() {
+        sf::Vector2u king_pos[2];
+        int k = 0;
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++)  {
+                threat_map[y][x] = false;
+                if (board[y][x] == W_KING) {
+                    king_pos[0].x = x;
+                    king_pos[0].y = y;
+                    board[y][x] = EMPTY_CELL;
+                    k++;
+                }
+                if (board[y][x] == B_KING) {
+                    king_pos[1].x = x;
+                    king_pos[1].y = y;
+                    board[y][x] = EMPTY_CELL;
+                    k++;
+                }
+            }
+        }
+        if (k != 2) {
+            game_over = true;
+            return;
+        }
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (cur_side == BLACK) {
+                    switch (board[y][x]) {
+                    case W_PAWN:
+                        setPawnThreat(x, y);
+                        break;
+
+                    case W_KING:
+                        setKingThreat(x, y);
+                        break;
+
+                    case W_KNIGHT:
+                        setKnightThreat(x, y);
+                        break;
+
+                    case W_ROOK:
+                        setLineThreat(x, y);
+                        break;
+
+                    case W_BISHOP:
+                        setDiagonalThreat(x, y);
+                        break;
+
+                    case W_QUEEN:
+                        setDiagonalThreat(x, y);
+                        setLineThreat(x, y);
+                        break;
+
+                    default:
+                        break;
+                    }
+                } else {
+                    switch (board[y][x]) {
+                    case B_PAWN:
+                        setPawnThreat(x, y);
+                        break;
+
+                    case B_KING:
+                        setKingThreat(x, y);
+                        break;
+
+                    case B_KNIGHT:
+                        setKnightThreat(x, y);
+                        break;
+
+                    case B_ROOK:
+                        setLineThreat(x, y);
+                        break;
+
+                    case B_BISHOP:
+                        setDiagonalThreat(x, y);
+                        break;
+
+                    case B_QUEEN:
+                        setDiagonalThreat(x, y);
+                        setLineThreat(x, y);
+                        break;
+
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
+        board[king_pos[0].y][king_pos[0].x] = W_KING;
+        board[king_pos[1].y][king_pos[1].x] = B_KING;
+
+        check = false;
+        if (threat_map[king_pos[0].y][king_pos[0].x] == true && cur_side == WHITE) {
+            check = true;
+        } else if (threat_map[king_pos[1].y][king_pos[1].x] == true && cur_side == BLACK) {
+            check = true;
+        }
+    }
+
+    bool BoardLogic::isValidCoords(int x, int y) const {
+        if (x < 0 || y < 0 || x > 7 || y > 7) {
+            return false;
+        }
+        return true;
+    }
+
+
+    void BoardLogic::setPawnThreat(int x, int y) {
+        if (board[y + 1][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y + 1)) {
+            threat_map[y + 1][x + 1] = true;
+        }
+        if (board[y + 1][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y + 1)) {
+            threat_map[y + 1][x - 1] = true;
+        }
+    }
+
+    void BoardLogic::setKingThreat(int x, int y) {
+        for (int i = - 1; i < 2; i++) {
+            if (board[y + 1][x + i] == EMPTY_CELL && isValidCoords(x + i, y + 1)) {
+                threat_map[y + 1][x + i] = true;
+            }
+            if (board[y - 1][x + i] == EMPTY_CELL && isValidCoords(x + i, y - 1)) {
+                threat_map[y - 1][x + i] = true;
+            }
+        }
+        if (board[y][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y)) {
+            threat_map[y][x + 1] = true;
+        }
+        if (board[y][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y)) {
+            threat_map[y][x - 1] = true;
+        }
+    }
+    
+    void BoardLogic::setKnightThreat(int x, int y) {
+        if (board[y + 2][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y + 2)) {
+            threat_map[y + 2][x + 1] = true;
+        }
+        if (board[y + 2][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y + 2)) {
+            threat_map[y + 2][x - 1] = true;
+        }
+        if (board[y - 2][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y - 2)) {
+            threat_map[y - 2][x + 1] = true;
+        }
+        if (board[y - 2][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y - 2)) {
+            threat_map[y - 2][x - 1] = true;
+        }
+        if (board[y + 1][x + 2] == EMPTY_CELL && isValidCoords(x + 2, y + 1)) {
+            threat_map[y + 1][x + 2] = true;
+        }
+        if (board[y + 1][x - 2] == EMPTY_CELL && isValidCoords(x - 2, y + 1)) {
+            threat_map[y + 1][x - 2] = true;
+        }
+        if (board[y - 1][x + 2] == EMPTY_CELL && isValidCoords(x + 2, y - 1)) {
+            threat_map[y + 1][x + 2] = true;
+        }
+        if (board[y - 1][x - 2] == EMPTY_CELL && isValidCoords(x - 2, y - 1)) {
+            threat_map[y - 1][x - 2] = true;
+        }
+    }
+    
+    void BoardLogic::setLineThreat(int x, int y) {
+        int i = 1;
+        while (board[y][x + i] == EMPTY_CELL && isValidCoords(x + i, y)) {
+            threat_map[y][x + i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y][x - i] == EMPTY_CELL && isValidCoords(x - i, y)) {
+            threat_map[y][x - i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y + i][x] == EMPTY_CELL && isValidCoords(x, y + i)) {
+            threat_map[y + i][x] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y - i][x] == EMPTY_CELL && isValidCoords(x, y - i)) {
+            threat_map[y - i][x] = true;
+            i++;
+        }
+    }
+    
+    void BoardLogic::setDiagonalThreat(int x, int y) {
+        int i = 1;
+        while (board[y + i][x + i] == EMPTY_CELL && isValidCoords(x + i, y + i)) {
+            threat_map[y + i][x + i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y + i][x - i] == EMPTY_CELL && isValidCoords(x - i, y + i)) {
+            threat_map[y + i][x - i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y - i][x + i] == EMPTY_CELL && isValidCoords(x + i, y - i)) {
+            threat_map[y - i][x + i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y - i][x - i] == EMPTY_CELL && isValidCoords(x - i, y - i)) {
+            threat_map[y - i][x - i] = true;
+            i++;
+        }
     }
 
     /*
