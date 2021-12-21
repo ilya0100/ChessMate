@@ -4,17 +4,17 @@ namespace Chess {
 	void startMenu(Window & window) {
 
 
-	    Chess::Button playBut("images/play.png");
+	    Chess::Button playBut("./images/play.png");
 	    playBut.setSize(250, 53);
 	    playBut.setPosition(X_WINDOW/2 - playBut.getSize().x/2, 200);
 
 
-		Chess::Button optionBut("images/option.png");
+		Chess::Button optionBut("./images/option.png");
 		optionBut.setSize(231, 53);
 		optionBut.setPosition(X_WINDOW/2 - optionBut.getSize().x/2, 290);
 
 
-		Chess::Button exitBut("images/exit.png");
+		Chess::Button exitBut("./images/exit.png");
 		exitBut.setSize(149, 53);
 		exitBut.setPosition(X_WINDOW/2 - exitBut.getSize().x/2, 380);
 
@@ -22,7 +22,7 @@ namespace Chess {
 
 
 		sf::Texture menuBackground;
-		menuBackground.loadFromFile("images/menu.png");
+		menuBackground.loadFromFile("./images/menu.png");
 		sf::Sprite menuBg(menuBackground);
 		menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
 
@@ -99,7 +99,7 @@ namespace Chess {
 
 		//  Загружаем фон
 		sf::Texture menuBackground;
-		menuBackground.loadFromFile("images/menu.png");
+		menuBackground.loadFromFile("./images/menu.png");
 		sf::Sprite menuBg(menuBackground);
 		menuBg.setPosition(0, 0);
 
@@ -109,16 +109,16 @@ namespace Chess {
 
 		//  кнопки
 
-		Chess::Button singlePlayBut("images/singlePlay.png");
+		Chess::Button singlePlayBut("./images/singlePlay.png");
 	    singlePlayBut.setSize(561, 53);
 	    singlePlayBut.setPosition(X_WINDOW/2 - singlePlayBut.getSize().x/2, 200);
 
 
-		Chess::Button onlineGameBut("images/online_game.png");
+		Chess::Button onlineGameBut("./images/online_game.png");
 	    onlineGameBut.setSize(270, 53);
 	    onlineGameBut.setPosition(X_WINDOW/2 - onlineGameBut.getSize().x/2, 286);
 
-		Chess::Button backBut("images/backk.png");
+		Chess::Button backBut("./images/backk.png");
 	    backBut.setSize(141, 53);
 	    backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, 372);
 
@@ -192,7 +192,7 @@ namespace Chess {
 
 			//  Загружаем фон
 			sf::Texture menuBackground;
-			menuBackground.loadFromFile("images/menu.png");
+			menuBackground.loadFromFile("./images/menu.png");
 			sf::Sprite menuBg(menuBackground);
 			menuBg.setPosition(0, 0);
 
@@ -202,7 +202,7 @@ namespace Chess {
 
 			//  кнопки
 
-			Chess::Button createBut("images/createGame.png");
+			Chess::Button createBut("./images/createGame.png");
 			createBut.setSize(268, 53);
 			createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, 200);
 
@@ -212,7 +212,7 @@ namespace Chess {
 
 			// текст для вывода IP
 			sf::Font font;//шрифт
-			font.loadFromFile("Fonts/font.TTF");
+			font.loadFromFile("./Fonts/font.TTF");
 			sf::Text text(" ", font, 25);
 			text.setStyle(sf::Text::Bold | sf::Text::Underlined);
 			text.setFillColor(sf::Color::White);
@@ -223,11 +223,11 @@ namespace Chess {
 			text.setPosition(20, 20);
 
 
-			Chess::Button joinBut("images/joinGame.png");
+			Chess::Button joinBut("./images/joinGame.png");
 			joinBut.setSize(467, 53);
 			joinBut.setPosition(X_WINDOW/2 - joinBut.getSize().x / 2, 286);
 
-			Chess::Button backBut("images/backk.png");
+			Chess::Button backBut("./images/backk.png");
 			backBut.setSize(141, 53);
 			backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, 372);
 
@@ -299,19 +299,19 @@ namespace Chess {
 		bool isGame = true;
 
 		// button exit through class Button
-    	Chess::Button exitBut("images/exit.png");
+    	Chess::Button exitBut("./images/exit.png");
     	exitBut.setSize(X_EXIT, Y_EXIT);
     	exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
     	// exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
 
     	// кнопка назад
-    	Chess::Button backBut("images/back.png");
+    	Chess::Button backBut("./images/back.png");
     	backBut.setSize(X_BACK, Y_BACK);
     	backBut.setPosition(100, Y_WINDOW - 100);
 
     	// add board and figure
     	float scale = SCALE_FACTOR;
-    	Chess::BoardTexture board_texture("images/boardTru.jpg");
+    	Chess::BoardTexture board_texture("./images/boardTru.jpg");
     	Chess::FigureTexture figures_testure;
     	board_texture.setBoardScale(SCALE_FACTOR);
 

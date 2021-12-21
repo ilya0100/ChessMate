@@ -10,6 +10,9 @@ namespace Chess {
             sf::Vector2u current_pos;
             PlaySide cur_side = WHITE;
             figureName board[8][8];
+
+            sf::Vector2u previos_move[2];
+            figureName previos_fig;
         
         public:
             BoardLogic();
@@ -31,6 +34,7 @@ namespace Chess {
         private:
             bool isFigureOnLine(int x, int y) const;
             bool isFigureOnDiagonal(int x, int y) const;
+            bool enPassant();
     };
 
     // sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board);

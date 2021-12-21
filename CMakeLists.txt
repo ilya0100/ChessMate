@@ -9,4 +9,9 @@ find_package(SFML 2.5 COMPONENTS graphics audio network REQUIRED)
 
 add_executable(${PROJECT_NAME} project/src/logic.cpp project/src/main.cpp project/src/textures.cpp project/src/utils.cpp project/src/menu.cpp project/src/gameplay.cpp)
 
+FILE(
+    COPY "${CMAKE_CURRENT_SOURCE_DIR}/images"
+    DESTINATION "${CMAKE_CURRENT_BINARY_DIR}"
+)
+
 target_link_libraries(ChessMate.out sfml-graphics sfml-audio sfml-network)

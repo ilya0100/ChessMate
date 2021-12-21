@@ -138,13 +138,12 @@ namespace Chess {
     }
 
     bool BoardLogic::isMoveFigure(int x, int y) {
-        figureName figure = board[current_pos.y][current_pos.x];
-
         if (x == current_pos.x && y == current_pos.y) {
             return false;
         }
 
-        switch (figure) {
+        bool flag = false;
+        switch (board[current_pos.y][current_pos.x]) {
 
             case B_PAWN:
                 if (board[y][x] <= B_PAWN) {
@@ -153,12 +152,11 @@ namespace Chess {
                 if (y - current_pos.y == - 1 && (x == current_pos.x && 
                     board[y][x] == EMPTY_CELL ||
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
-                    board[y][x] != EMPTY_CELL) ||
+                    (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
                     current_pos.y == 6) {
                         board[y][x] = B_PAWN;
-                        board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                        flag = true;
                 }
                 break;
 
@@ -169,12 +167,11 @@ namespace Chess {
                 if (y - current_pos.y == - 1 && (x == current_pos.x && 
                     board[y][x] == EMPTY_CELL ||
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
-                    board[y][x] != EMPTY_CELL) ||
+                    (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
                     current_pos.y == 6) {
                         board[y][x] = W_PAWN;
-                        board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                        flag = true;
                 }
                 break;
 
@@ -184,9 +181,8 @@ namespace Chess {
                 }
                 if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
                     (y - current_pos.y) * (y - current_pos.y) <= 1) {
-                    board[y][x] = B_KING;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                        board[y][x] = B_KING;
+                        flag = true;
                 }
                 break;
 
@@ -196,9 +192,8 @@ namespace Chess {
                 }
                 if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
                     (y - current_pos.y) * (y - current_pos.y) <= 1) {
-                    board[y][x] = W_KING;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                        board[y][x] = W_KING;
+                        flag = true;
                 }
                 break;
 
@@ -208,8 +203,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y) || isFigureOnLine(x, y)) {
                     board[y][x] = B_QUEEN;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -219,8 +213,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y) || isFigureOnLine(x, y)) {
                     board[y][x] = W_QUEEN;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -230,8 +223,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y)) {
                     board[y][x] = B_BISHOP;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -241,8 +233,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y)) {
                     board[y][x] = W_BISHOP;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -253,8 +244,7 @@ namespace Chess {
                 if ((x - current_pos.x) * (x - current_pos.x) +
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = B_KNIGHT;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -265,8 +255,7 @@ namespace Chess {
                 if ((x - current_pos.x) * (x - current_pos.x) +
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = W_KNIGHT;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -276,8 +265,7 @@ namespace Chess {
                 }
                 if (isFigureOnLine(x, y)) {
                     board[y][x] = B_ROOK;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -287,15 +275,21 @@ namespace Chess {
                 }
                 if (isFigureOnLine(x, y)) {
                     board[y][x] = W_ROOK;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
             default:
                 break;
         }
-        return false;
+        if (flag) {
+            board[current_pos.y][current_pos.x] = EMPTY_CELL;
+            previos_fig = board[y][x];
+            previos_move[0] = current_pos;
+            previos_move[1].x = x;
+            previos_move[1].y = y;
+        }
+        return flag;
     }
 
     bool BoardLogic::isFigureOnLine(int x, int y) const {
@@ -335,6 +329,15 @@ namespace Chess {
                     y < current_pos.y ? y++ : y--;
                     x < current_pos.x ? x++ : x--;
                 }
+                return true;
+        }
+        return false;
+    }
+
+    bool BoardLogic::enPassant() {
+        if (previos_fig == B_PAWN || previos_fig == W_PAWN &&
+            current_pos.y == (7 - previos_move[1].y) && (previos_move[0].y - previos_move[1].y) == 2) {
+                board[7 - previos_move[1].y][previos_move[1].x] = EMPTY_CELL;
                 return true;
         }
         return false;
