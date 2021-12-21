@@ -54,8 +54,6 @@ namespace Chess {
 
     void Gameplay::play(sf::Event event, sf::Vector2i pos) {
 
-        recieveBoardState();
-
         //drag and drop
         if (!enemy_turn && event.type == sf::Event::MouseButtonPressed) {
             if (event.key.code == sf::Mouse::Left) {

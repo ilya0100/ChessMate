@@ -375,11 +375,12 @@ namespace Chess {
         		}
 
         		gameplay.play(event, pos); // proveryaet hod
-				if (gameplay.isGameOver()) {
-        		    isGame = false; 
-					selectMode(window);
-				}
         	}
+			if (gameplay.isGameOver()) {
+        	    isGame = false; 
+				selectMode(window);
+			}
+			gameplay.recieveBoardState();
 
         	window.clear();
         	window.clear(sf::Color(129, 181, 221));
