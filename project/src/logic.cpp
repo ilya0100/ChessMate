@@ -14,10 +14,6 @@ namespace Chess {
     void BoardLogic::setSide(PlaySide side) {
         cur_side = side;
 
-        // if (cur_side == BLACK) {
-        //     std::cout << "set_side: cur_side - BLACK" << std::endl;
-        // }
-
         switch (side) {
         case WHITE:
             current_pos.x = 0;
@@ -557,7 +553,6 @@ namespace Chess {
         }
     }
 
-    /*
     sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
         for (int y = 0; y < 8; y++) {
             for (int x = 0; x < 8; x ++) {
@@ -578,6 +573,5 @@ namespace Chess {
         }
         return packet;
     }
-    */
 
 }  // namespace Chess

@@ -54,7 +54,7 @@ namespace Chess {
             void setDiagonalThreat(int x, int y);
     };
 
-    // sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board);
-    // sf::Packet& operator>>(sf::Packet& packet, BoardLogic& board);
+    sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board);
+    sf::Packet& operator>>(sf::Packet& packet, BoardLogic& board);
 
 }  // namespace Chess

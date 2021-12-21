@@ -37,12 +37,10 @@ namespace Chess {
 			sf::Event event;
 	 		while (window.pollEvent(event)) {
 	 			if (event.type == sf::Event::Closed) {
-	 				window.close();
-					isMenu = false;
+	 				std::exit(0);
 			 		}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-						window.close();
-						isMenu = false;
+						std::exit(0);
 				}
 				//на будущее
 				/*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -77,13 +75,13 @@ namespace Chess {
 
 				if (event.type == sf::Event::MouseButtonReleased) {
                 	if (menuNum == 1) {
-						isMenu = false;
+						// isMenu = false;
 						Chess::selectMode(window);
+						event.type = {};
 					}
 					if (menuNum == 2) {}
 					if (menuNum == 3) {
-						window.close(); 
-						isMenu = false;
+						std::exit(0);
 					}  //
             	}
 
@@ -128,12 +126,10 @@ namespace Chess {
 			sf::Event event;
 			while (window.pollEvent(event)) {
 				if (event.type == sf::Event::Closed) {
-					window.close();
-					isMenu = false;
+					std::exit(0);
 				}
 				if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-					window.close();
-					isMenu = false;
+					std::exit(0);
 				}
 				if (event.type == sf::Event::Resized) {
 					window.getSizeNew();
@@ -161,16 +157,19 @@ namespace Chess {
 
 			if (event.type == sf::Event::MouseButtonReleased) {
 				if (menuNum == 1) {
-					isMenu = false;
+					// isMenu = false;
 					startGame(window, ONE_PLAYER);
+					event.type = {};
 				}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 2) {
-					isMenu = false;
+					// isMenu = false;
 					selectH(window);
+					event.type = {};
 				}
 				if (menuNum == 3) {
 					isMenu = false;
-					startMenu(window);
+					event.type = {};
+					// startMenu(window);
 					// Chess::startMenu(window);
 				}  // add implementation of option
 
@@ -237,12 +236,10 @@ namespace Chess {
 				sf::Event event;
 				while (window.pollEvent(event)) {
 					if (event.type == sf::Event::Closed) {
-						window.close();
-						isMenu = false;
+						std::exit(0);
 					}
 					if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
-							window.close();
-							isMenu = false;
+						std::exit(0);
 					}
 					if (event.type == sf::Event::Resized) {
 						window.getSizeNew();
@@ -268,16 +265,19 @@ namespace Chess {
 
 				if (event.type == sf::Event::MouseButtonReleased) {
 					if (menuNum == 1) {
-						isMenu = false;
+						// isMenu = false;
 						startGame(window, HOST);
+						event.type = {};
 					}  // если нажали первую кнопку, то выходим из меню
 					if (menuNum == 2) {
-						isMenu = false;
+						// isMenu = false;
 						startGame(window, CLIENT);
+						event.type = {};
 					}
 					if (menuNum == 3) {
 						isMenu = false;
-						selectMode(window);
+						event.type = {};
+						// selectMode(window);
 					}  // add implementation of option
 
 				}
@@ -336,7 +336,7 @@ namespace Chess {
         	sf::Event event;
         	while (window.pollEvent(event)) {
         		if (event.type == sf::Event::Closed) {
-        		    isGame = false;
+        		    std::exit(0);
         		}
         		// берем новый размер окна, чтобы можно было задать новую рабочую зону для кнопок
         		if (event.type == sf::Event::Resized) {
@@ -361,24 +361,24 @@ namespace Chess {
         	    // }
         	    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
         	        window.close();
+					std::exit(0);
         	    }
 
         		if (event.type == sf::Event::MouseButtonReleased) {
         		    if (menuNum == 1) {
-        		        isGame = false;
-						window.close();
+						std::exit(0);
         		    }
         		    if (menuNum == 2)  {
-        		        isGame = false; 
-						selectMode(window);
+        		        isGame = false;
+						event.type = {};
+						// selectMode(window);
 					}
         		}
 
         		gameplay.play(event, pos); // proveryaet hod
         	}
 			if (gameplay.isGameOver()) {
-        	    isGame = false; 
-				selectMode(window);
+        	    isGame = false;
 			}
 			gameplay.recieveBoardState();
 
