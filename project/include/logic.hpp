@@ -12,6 +12,13 @@ namespace Chess {
             PlaySide cur_side = WHITE;
             figureName board[8][8];
 
+            bool wshort_castling = true;  // need to send
+            bool wlong_castling = true;  // need to send
+            bool bshort_castling = true;  // need to send
+            bool blong_castling = true;  // need to send
+
+            sf::Vector2u previos_move[2];  // need to send
+            figureName previos_fig;  // need to send
 
             void checkGameState();
         
@@ -39,12 +46,10 @@ namespace Chess {
 
             bool threat_map[8][8];
 
-            sf::Vector2u previos_move[2];
-            figureName previos_fig;
-
             bool isFigureOnLine(int x, int y) const;
             bool isFigureOnDiagonal(int x, int y) const;
             bool enPassant();
+            bool castling(int x, int y);
 
             bool isValidCoords(int x, int y) const;
             void setPawnThreat(int x, int y);

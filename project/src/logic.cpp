@@ -176,8 +176,10 @@ namespace Chess {
                 if (board[y][x] <= B_PAWN) {
                     return false;
                 }
-                if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
-                    (y - current_pos.y) * (y - current_pos.y) <= 1) {
+                if (((x - current_pos.x) * (x - current_pos.x) <= 1 &&
+                    (y - current_pos.y) * (y - current_pos.y) <= 1) || castling(x, y)) {
+                        bshort_castling = false;
+                        blong_castling = false;
                         board[y][x] = B_KING;
                         flag = true;
                 }
@@ -187,8 +189,10 @@ namespace Chess {
                 if (board[y][x] >= W_ROOK) {
                     return false;
                 }
-                if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
-                    (y - current_pos.y) * (y - current_pos.y) <= 1) {
+                if (((x - current_pos.x) * (x - current_pos.x) <= 1 &&
+                    (y - current_pos.y) * (y - current_pos.y) <= 1) || castling(x, y)) {
+                        wshort_castling = false;
+                        wlong_castling = false;
                         board[y][x] = W_KING;
                         flag = true;
                 }
@@ -261,6 +265,11 @@ namespace Chess {
                     return false;
                 }
                 if (isFigureOnLine(x, y)) {
+                    if (current_pos.x == 0 && current_pos.y == 7) {
+                        blong_castling = false;
+                    } else if (current_pos.x == 7 && current_pos.y == 7) {
+                        bshort_castling = false;
+                    }
                     board[y][x] = B_ROOK;
                     flag = true;
                 }
@@ -271,6 +280,11 @@ namespace Chess {
                     return false;
                 }
                 if (isFigureOnLine(x, y)) {
+                    if (current_pos.x == 0 && current_pos.y == 7) {
+                        wlong_castling = false;
+                    } else if (current_pos.x == 7 && current_pos.y == 7) {
+                        wshort_castling = false;
+                    }
                     board[y][x] = W_ROOK;
                     flag = true;
                 }
@@ -340,6 +354,22 @@ namespace Chess {
         if (previos_fig == B_PAWN || previos_fig == W_PAWN &&
             current_pos.y == (7 - previos_move[1].y) && (previos_move[0].y - previos_move[1].y) == 2) {
                 board[7 - previos_move[1].y][previos_move[1].x] = EMPTY_CELL;
+                return true;
+        }
+        return false;
+    }
+
+    bool BoardLogic::castling(int x, int y) {
+        if ((wshort_castling || bshort_castling) && x == 6 && y == 7 &&
+            !threat_map[y][x - 1] && !threat_map[y][x] && !check) {
+                board[7][5] = board[7][7];
+                board[7][7] = EMPTY_CELL;
+                return true;
+        }
+        if ((wlong_castling || blong_castling) && x == 2 && y == 7 &&
+            !threat_map[y][x + 1] && !threat_map[y][x] && !check) {
+                board[7][3] = board[7][0];
+                board[7][0] = EMPTY_CELL;
                 return true;
         }
         return false;
@@ -554,7 +584,7 @@ namespace Chess {
     }
 
     sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
-        for (int y = 0; y < 8; y++) {
+        for (int y = 7; y >= 0; y--) {
             for (int x = 0; x < 8; x ++) {
                 packet << board(x, y);
             }
