@@ -10,7 +10,7 @@ namespace Chess {
         protected:
             sf::Vector2u current_pos;
             PlaySide cur_side = WHITE;
-            figureName board[8][8];
+            figureName board[8][8];  // need to send
 
             bool wshort_castling = true;  // need to send
             bool wlong_castling = true;  // need to send
@@ -33,6 +33,7 @@ namespace Chess {
             sf::Vector2u getFigurePosition() const;
             bool isMoveFigure(int x, int y);
             bool isGameOver();
+            bool isCheck();
             
             figureName operator()(int x, int y) const;
             figureName& operator()(int x, int y);
@@ -43,6 +44,7 @@ namespace Chess {
         private:
             bool game_over = false;
             bool check = false;
+            figureName eaten_fig = EMPTY_CELL;
 
             bool threat_map[8][8];
 

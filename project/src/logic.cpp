@@ -140,6 +140,7 @@ namespace Chess {
         }
 
         bool flag = false;
+        eaten_fig = board[y][x];
         switch (board[current_pos.y][current_pos.x]) {
 
             case B_PAWN:
@@ -299,6 +300,8 @@ namespace Chess {
             previos_move[0] = current_pos;
             previos_move[1].x = x;
             previos_move[1].y = y;
+        } else {
+            eaten_fig = EMPTY_CELL;
         }
         return flag;
     }
@@ -306,6 +309,16 @@ namespace Chess {
     bool BoardLogic::isGameOver() {
         checkGameState();
         return game_over;
+    }
+
+    bool BoardLogic::isCheck() {
+        checkGameState();
+        if (check) {
+            board[previos_move[0].y][previos_move[0].x] = board[previos_move[1].y][previos_move[1].x];
+            board[previos_move[1].y][previos_move[1].x] = eaten_fig;
+            return true;
+        }
+        return false;
     }
 
     bool BoardLogic::isFigureOnLine(int x, int y) const {

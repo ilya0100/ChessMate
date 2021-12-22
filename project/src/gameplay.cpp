@@ -82,7 +82,7 @@ namespace Chess {
                 if (isCatch) {
                     curr_cage = getCurrCage(pos);
                         
-                    if (isMoveFigure(curr_cage.x, curr_cage.y)) {
+                    if (isMoveFigure(curr_cage.x, curr_cage.y) && !isCheck()) {
                         // for (size_t i = 0; i < fig_count - eaten_count; i++) {
                         //     if (figures_arr[i].getFigurePos() == curr_cage) {
                         //         // figures_arr[i].setSpritePos(600 + 2 * 3 * TSPRITE_SIZE * (eaten_count % 8), 100 * (eaten_count / 8));
@@ -90,18 +90,13 @@ namespace Chess {
                         //         break;
                         //     }
                         // }
-                        figures_arr[fig_num].setFigurePos(curr_cage.x, curr_cage.y);
 
                         if (mode == ONE_PLAYER) {
                             upsideDown();
                             changeSide();
                         }
 
-                        sendBoardState();
-                            
-                    } else {
-                        curr_cage = getFigurePosition();
-                        figures_arr[fig_num].setFigurePos(curr_cage.x, curr_cage.y);
+                        sendBoardState();       
                     }
                     isCatch = false;
                 }
