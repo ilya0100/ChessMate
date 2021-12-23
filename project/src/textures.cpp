@@ -113,7 +113,7 @@ namespace Chess {
 
     ///////////////////////FigureTexture///////////////////////////////////////////
     FigureTexture::FigureTexture() {
-        FigureTexture::texture.loadFromFile("images/piecesTru.png");
+        FigureTexture::texture.loadFromFile("./images/piecesTru.png");
         main_sprite.setTexture(texture);
     }
 

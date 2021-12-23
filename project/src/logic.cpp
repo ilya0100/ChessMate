@@ -6,16 +6,13 @@ namespace Chess {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = EMPTY_CELL;
+                threat_map[i][j] = false;
             }
         }
     }
 
     void BoardLogic::setSide(PlaySide side) {
         cur_side = side;
-
-        // if (cur_side == BLACK) {
-        //     std::cout << "set_side: cur_side - BLACK" << std::endl;
-        // }
 
         switch (side) {
         case WHITE:
@@ -138,13 +135,13 @@ namespace Chess {
     }
 
     bool BoardLogic::isMoveFigure(int x, int y) {
-        figureName figure = board[current_pos.y][current_pos.x];
-
         if (x == current_pos.x && y == current_pos.y) {
             return false;
         }
 
-        switch (figure) {
+        bool flag = false;
+        eaten_fig = board[y][x];
+        switch (board[current_pos.y][current_pos.x]) {
 
             case B_PAWN:
                 if (board[y][x] <= B_PAWN) {
@@ -153,12 +150,11 @@ namespace Chess {
                 if (y - current_pos.y == - 1 && (x == current_pos.x && 
                     board[y][x] == EMPTY_CELL ||
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
-                    board[y][x] != EMPTY_CELL) ||
+                    (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
                     current_pos.y == 6) {
                         board[y][x] = B_PAWN;
-                        board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                        flag = true;
                 }
                 break;
 
@@ -169,12 +165,11 @@ namespace Chess {
                 if (y - current_pos.y == - 1 && (x == current_pos.x && 
                     board[y][x] == EMPTY_CELL ||
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
-                    board[y][x] != EMPTY_CELL) ||
+                    (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
                     current_pos.y == 6) {
                         board[y][x] = W_PAWN;
-                        board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                        flag = true;
                 }
                 break;
 
@@ -182,11 +177,12 @@ namespace Chess {
                 if (board[y][x] <= B_PAWN) {
                     return false;
                 }
-                if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
-                    (y - current_pos.y) * (y - current_pos.y) <= 1) {
-                    board[y][x] = B_KING;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                if (((x - current_pos.x) * (x - current_pos.x) <= 1 &&
+                    (y - current_pos.y) * (y - current_pos.y) <= 1) || castling(x, y)) {
+                        bshort_castling = false;
+                        blong_castling = false;
+                        board[y][x] = B_KING;
+                        flag = true;
                 }
                 break;
 
@@ -194,11 +190,12 @@ namespace Chess {
                 if (board[y][x] >= W_ROOK) {
                     return false;
                 }
-                if ((x - current_pos.x) * (x - current_pos.x) <= 1 &&
-                    (y - current_pos.y) * (y - current_pos.y) <= 1) {
-                    board[y][x] = W_KING;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                if (((x - current_pos.x) * (x - current_pos.x) <= 1 &&
+                    (y - current_pos.y) * (y - current_pos.y) <= 1) || castling(x, y)) {
+                        wshort_castling = false;
+                        wlong_castling = false;
+                        board[y][x] = W_KING;
+                        flag = true;
                 }
                 break;
 
@@ -208,8 +205,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y) || isFigureOnLine(x, y)) {
                     board[y][x] = B_QUEEN;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -219,8 +215,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y) || isFigureOnLine(x, y)) {
                     board[y][x] = W_QUEEN;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -230,8 +225,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y)) {
                     board[y][x] = B_BISHOP;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -241,8 +235,7 @@ namespace Chess {
                 }
                 if (isFigureOnDiagonal(x, y)) {
                     board[y][x] = W_BISHOP;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -253,8 +246,7 @@ namespace Chess {
                 if ((x - current_pos.x) * (x - current_pos.x) +
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = B_KNIGHT;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -265,8 +257,7 @@ namespace Chess {
                 if ((x - current_pos.x) * (x - current_pos.x) +
                     (y - current_pos.y) * (y - current_pos.y) == 5) {
                     board[y][x] = W_KNIGHT;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -275,9 +266,13 @@ namespace Chess {
                     return false;
                 }
                 if (isFigureOnLine(x, y)) {
+                    if (current_pos.x == 0 && current_pos.y == 7) {
+                        blong_castling = false;
+                    } else if (current_pos.x == 7 && current_pos.y == 7) {
+                        bshort_castling = false;
+                    }
                     board[y][x] = B_ROOK;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
@@ -286,14 +281,42 @@ namespace Chess {
                     return false;
                 }
                 if (isFigureOnLine(x, y)) {
+                    if (current_pos.x == 0 && current_pos.y == 7) {
+                        wlong_castling = false;
+                    } else if (current_pos.x == 7 && current_pos.y == 7) {
+                        wshort_castling = false;
+                    }
                     board[y][x] = W_ROOK;
-                    board[current_pos.y][current_pos.x] = EMPTY_CELL;
-                    return true;
+                    flag = true;
                 }
                 break;
 
             default:
                 break;
+        }
+        if (flag) {
+            board[current_pos.y][current_pos.x] = EMPTY_CELL;
+            previos_fig = board[y][x];
+            previos_move[0] = current_pos;
+            previos_move[1].x = x;
+            previos_move[1].y = y;
+        } else {
+            eaten_fig = EMPTY_CELL;
+        }
+        return flag;
+    }
+
+    bool BoardLogic::isGameOver() {
+        checkGameState();
+        return game_over;
+    }
+
+    bool BoardLogic::isCheck() {
+        checkGameState();
+        if (check) {
+            board[previos_move[0].y][previos_move[0].x] = board[previos_move[1].y][previos_move[1].x];
+            board[previos_move[1].y][previos_move[1].x] = eaten_fig;
+            return true;
         }
         return false;
     }
@@ -340,9 +363,241 @@ namespace Chess {
         return false;
     }
 
-    /*
-    sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
+    bool BoardLogic::enPassant() {
+        if (previos_fig == B_PAWN || previos_fig == W_PAWN &&
+            current_pos.y == (7 - previos_move[1].y) && (previos_move[0].y - previos_move[1].y) == 2) {
+                board[7 - previos_move[1].y][previos_move[1].x] = EMPTY_CELL;
+                return true;
+        }
+        return false;
+    }
+
+    bool BoardLogic::castling(int x, int y) {
+        if ((wshort_castling || bshort_castling) && x == 6 && y == 7 &&
+            !threat_map[y][x - 1] && !threat_map[y][x] && !check) {
+                board[7][5] = board[7][7];
+                board[7][7] = EMPTY_CELL;
+                return true;
+        }
+        if ((wlong_castling || blong_castling) && x == 2 && y == 7 &&
+            !threat_map[y][x + 1] && !threat_map[y][x] && !check) {
+                board[7][3] = board[7][0];
+                board[7][0] = EMPTY_CELL;
+                return true;
+        }
+        return false;
+    }
+
+    void BoardLogic::checkGameState() {
+        sf::Vector2u king_pos[2];
+        int k = 0;
         for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++)  {
+                threat_map[y][x] = false;
+                if (board[y][x] == W_KING) {
+                    king_pos[0].x = x;
+                    king_pos[0].y = y;
+                    board[y][x] = EMPTY_CELL;
+                    k++;
+                }
+                if (board[y][x] == B_KING) {
+                    king_pos[1].x = x;
+                    king_pos[1].y = y;
+                    board[y][x] = EMPTY_CELL;
+                    k++;
+                }
+            }
+        }
+        if (k != 2) {
+            game_over = true;
+            return;
+        }
+
+        for (int y = 0; y < 8; y++) {
+            for (int x = 0; x < 8; x++) {
+                if (cur_side == BLACK) {
+                    switch (board[y][x]) {
+                    case W_PAWN:
+                        setPawnThreat(x, y);
+                        break;
+
+                    case W_KING:
+                        setKingThreat(x, y);
+                        break;
+
+                    case W_KNIGHT:
+                        setKnightThreat(x, y);
+                        break;
+
+                    case W_ROOK:
+                        setLineThreat(x, y);
+                        break;
+
+                    case W_BISHOP:
+                        setDiagonalThreat(x, y);
+                        break;
+
+                    case W_QUEEN:
+                        setDiagonalThreat(x, y);
+                        setLineThreat(x, y);
+                        break;
+
+                    default:
+                        break;
+                    }
+                } else {
+                    switch (board[y][x]) {
+                    case B_PAWN:
+                        setPawnThreat(x, y);
+                        break;
+
+                    case B_KING:
+                        setKingThreat(x, y);
+                        break;
+
+                    case B_KNIGHT:
+                        setKnightThreat(x, y);
+                        break;
+
+                    case B_ROOK:
+                        setLineThreat(x, y);
+                        break;
+
+                    case B_BISHOP:
+                        setDiagonalThreat(x, y);
+                        break;
+
+                    case B_QUEEN:
+                        setDiagonalThreat(x, y);
+                        setLineThreat(x, y);
+                        break;
+
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
+        board[king_pos[0].y][king_pos[0].x] = W_KING;
+        board[king_pos[1].y][king_pos[1].x] = B_KING;
+
+        check = false;
+        if (threat_map[king_pos[0].y][king_pos[0].x] == true && cur_side == WHITE) {
+            check = true;
+        } else if (threat_map[king_pos[1].y][king_pos[1].x] == true && cur_side == BLACK) {
+            check = true;
+        }
+    }
+
+    bool BoardLogic::isValidCoords(int x, int y) const {
+        if (x < 0 || y < 0 || x > 7 || y > 7) {
+            return false;
+        }
+        return true;
+    }
+
+
+    void BoardLogic::setPawnThreat(int x, int y) {
+        if (board[y + 1][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y + 1)) {
+            threat_map[y + 1][x + 1] = true;
+        }
+        if (board[y + 1][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y + 1)) {
+            threat_map[y + 1][x - 1] = true;
+        }
+    }
+
+    void BoardLogic::setKingThreat(int x, int y) {
+        for (int i = - 1; i < 2; i++) {
+            if (board[y + 1][x + i] == EMPTY_CELL && isValidCoords(x + i, y + 1)) {
+                threat_map[y + 1][x + i] = true;
+            }
+            if (board[y - 1][x + i] == EMPTY_CELL && isValidCoords(x + i, y - 1)) {
+                threat_map[y - 1][x + i] = true;
+            }
+        }
+        if (board[y][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y)) {
+            threat_map[y][x + 1] = true;
+        }
+        if (board[y][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y)) {
+            threat_map[y][x - 1] = true;
+        }
+    }
+    
+    void BoardLogic::setKnightThreat(int x, int y) {
+        if (board[y + 2][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y + 2)) {
+            threat_map[y + 2][x + 1] = true;
+        }
+        if (board[y + 2][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y + 2)) {
+            threat_map[y + 2][x - 1] = true;
+        }
+        if (board[y - 2][x + 1] == EMPTY_CELL && isValidCoords(x + 1, y - 2)) {
+            threat_map[y - 2][x + 1] = true;
+        }
+        if (board[y - 2][x - 1] == EMPTY_CELL && isValidCoords(x - 1, y - 2)) {
+            threat_map[y - 2][x - 1] = true;
+        }
+        if (board[y + 1][x + 2] == EMPTY_CELL && isValidCoords(x + 2, y + 1)) {
+            threat_map[y + 1][x + 2] = true;
+        }
+        if (board[y + 1][x - 2] == EMPTY_CELL && isValidCoords(x - 2, y + 1)) {
+            threat_map[y + 1][x - 2] = true;
+        }
+        if (board[y - 1][x + 2] == EMPTY_CELL && isValidCoords(x + 2, y - 1)) {
+            threat_map[y + 1][x + 2] = true;
+        }
+        if (board[y - 1][x - 2] == EMPTY_CELL && isValidCoords(x - 2, y - 1)) {
+            threat_map[y - 1][x - 2] = true;
+        }
+    }
+    
+    void BoardLogic::setLineThreat(int x, int y) {
+        int i = 1;
+        while (board[y][x + i] == EMPTY_CELL && isValidCoords(x + i, y)) {
+            threat_map[y][x + i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y][x - i] == EMPTY_CELL && isValidCoords(x - i, y)) {
+            threat_map[y][x - i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y + i][x] == EMPTY_CELL && isValidCoords(x, y + i)) {
+            threat_map[y + i][x] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y - i][x] == EMPTY_CELL && isValidCoords(x, y - i)) {
+            threat_map[y - i][x] = true;
+            i++;
+        }
+    }
+    
+    void BoardLogic::setDiagonalThreat(int x, int y) {
+        int i = 1;
+        while (board[y + i][x + i] == EMPTY_CELL && isValidCoords(x + i, y + i)) {
+            threat_map[y + i][x + i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y + i][x - i] == EMPTY_CELL && isValidCoords(x - i, y + i)) {
+            threat_map[y + i][x - i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y - i][x + i] == EMPTY_CELL && isValidCoords(x + i, y - i)) {
+            threat_map[y - i][x + i] = true;
+            i++;
+        }
+        i = 1;
+        while (board[y - i][x - i] == EMPTY_CELL && isValidCoords(x - i, y - i)) {
+            threat_map[y - i][x - i] = true;
+            i++;
+        }
+    }
+
+    sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
+        for (int y = 7; y >= 0; y--) {
             for (int x = 0; x < 8; x ++) {
                 packet << board(x, y);
             }
@@ -361,6 +616,5 @@ namespace Chess {
         }
         return packet;
     }
-    */
 
 }  // namespace Chess

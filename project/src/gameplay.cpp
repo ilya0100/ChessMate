@@ -54,8 +54,6 @@ namespace Chess {
 
     void Gameplay::play(sf::Event event, sf::Vector2i pos) {
 
-        recieveBoardState();
-
         //drag and drop
         if (!enemy_turn && event.type == sf::Event::MouseButtonPressed) {
             if (event.key.code == sf::Mouse::Left) {
@@ -84,7 +82,7 @@ namespace Chess {
                 if (isCatch) {
                     curr_cage = getCurrCage(pos);
                         
-                    if (isMoveFigure(curr_cage.x, curr_cage.y)) {
+                    if (isMoveFigure(curr_cage.x, curr_cage.y) && !isCheck()) {
                         // for (size_t i = 0; i < fig_count - eaten_count; i++) {
                         //     if (figures_arr[i].getFigurePos() == curr_cage) {
                         //         // figures_arr[i].setSpritePos(600 + 2 * 3 * TSPRITE_SIZE * (eaten_count % 8), 100 * (eaten_count / 8));
@@ -92,18 +90,13 @@ namespace Chess {
                         //         break;
                         //     }
                         // }
-                        figures_arr[fig_num].setFigurePos(curr_cage.x, curr_cage.y);
 
                         if (mode == ONE_PLAYER) {
                             upsideDown();
                             changeSide();
                         }
 
-                        sendBoardState();
-                            
-                    } else {
-                        curr_cage = getFigurePosition();
-                        figures_arr[fig_num].setFigurePos(curr_cage.x, curr_cage.y);
+                        sendBoardState();       
                     }
                     isCatch = false;
                 }
@@ -124,34 +117,35 @@ namespace Chess {
 
     void Gameplay::sendBoardState() {
         if (mode == HOST || mode == CLIENT) {
-            for (int y = 0; y < 8; y++) {
-                for (int x = 0; x < 8; x ++) {
-                    packet << board[y][x];
-                }
+            packet << *this;
+            packet << previos_fig;
+            for (int i = 0; i < 2; i++) {
+                packet << previos_move[i].x;
+                packet << previos_move[i].y;
             }
+            packet << wshort_castling << wlong_castling << bshort_castling << blong_castling;
+
             socket.send(packet);
             packet.clear();
             enemy_turn = true;
-
-            // std::cout << "sended" << std::endl;
         }
     }
 
     void Gameplay::recieveBoardState() {
         if (enemy_turn && (mode == HOST || mode == CLIENT)) {
             if(socket.receive(packet) == sf::Socket::Done) {
-                for (int y = 0; y < 8; y++) {
-                    for (int x = 0; x < 8; x ++) {
-                        int buffer;
-                        packet >> buffer;
-                        board[y][x] = (figureName)buffer;
-                    }
+                packet >> *this;
+                int buffer;
+                packet >> buffer;
+                previos_fig = (figureName)buffer;
+                for (int i = 0; i < 2; i++) {
+                    packet >> previos_move[i].x;
+                    packet >> previos_move[i].y;
                 }
+                packet >> wshort_castling >> wlong_castling >> bshort_castling >> blong_castling;
+
                 packet.clear();
                 enemy_turn = false;
-                upsideDown();
-
-                // std::cout << "recieved" << std::endl;
             }
         }
     }
