@@ -35,6 +35,7 @@ namespace Chess {
 		//////////////////////////////МЕНЮ///////////////////
 		while (isMenu) {
 			sf::Event event;
+			sf::Event::EventType temp;
 	 		while (window.pollEvent(event)) {
 	 			if (event.type == sf::Event::Closed) {
 	 				std::exit(0);
@@ -75,9 +76,9 @@ namespace Chess {
 
 				if (event.type == sf::Event::MouseButtonReleased) {
                 	if (menuNum == 1) {
-						// isMenu = false;
+						isMenu = false;
 						Chess::selectMode(window);
-						event.type = {};
+						event.type = temp;
 					}
 					if (menuNum == 2) {}
 					if (menuNum == 3) {
@@ -124,6 +125,7 @@ namespace Chess {
 
 		while (isMenu) {
 			sf::Event event;
+			sf::Event::EventType temp;
 			while (window.pollEvent(event)) {
 				if (event.type == sf::Event::Closed) {
 					std::exit(0);
@@ -159,17 +161,17 @@ namespace Chess {
 				if (menuNum == 1) {
 					// isMenu = false;
 					startGame(window, ONE_PLAYER);
-					event.type = {};
+					event.type = temp;
 				}  // если нажали первую кнопку, то выходим из меню
 				if (menuNum == 2) {
 					// isMenu = false;
 					selectH(window);
-					event.type = {};
+					event.type = temp;
 				}
 				if (menuNum == 3) {
 					isMenu = false;
-					event.type = {};
-					// startMenu(window);
+					event.type = temp;
+					startMenu(window);
 					// Chess::startMenu(window);
 				}  // add implementation of option
 
@@ -234,6 +236,7 @@ namespace Chess {
 
 			while (isMenu) {
 				sf::Event event;
+				sf::Event::EventType temp;
 				while (window.pollEvent(event)) {
 					if (event.type == sf::Event::Closed) {
 						std::exit(0);
@@ -267,16 +270,16 @@ namespace Chess {
 					if (menuNum == 1) {
 						// isMenu = false;
 						startGame(window, HOST);
-						event.type = {};
+						event.type = temp;
 					}  // если нажали первую кнопку, то выходим из меню
 					if (menuNum == 2) {
 						// isMenu = false;
 						startGame(window, CLIENT);
-						event.type = {};
+						event.type = temp;
 					}
 					if (menuNum == 3) {
 						isMenu = false;
-						event.type = {};
+						event.type = temp;
 						// selectMode(window);
 					}  // add implementation of option
 
@@ -334,6 +337,7 @@ namespace Chess {
 
 
         	sf::Event event;
+			sf::Event::EventType temp;
         	while (window.pollEvent(event)) {
         		if (event.type == sf::Event::Closed) {
         		    std::exit(0);
@@ -370,7 +374,7 @@ namespace Chess {
         		    }
         		    if (menuNum == 2)  {
         		        isGame = false;
-						event.type = {};
+						event.type = temp;
 						// selectMode(window);
 					}
         		}
