@@ -483,9 +483,9 @@ namespace Chess {
 
         check = false;
         if (threat_map[king_pos[0].y][king_pos[0].x] == true && cur_side == WHITE) {
-            check = true;
+            check = false;
         } else if (threat_map[king_pos[1].y][king_pos[1].x] == true && cur_side == BLACK) {
-            check = true;
+            check = false;
         }
     }
 

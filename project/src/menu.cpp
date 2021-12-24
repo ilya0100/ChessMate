@@ -25,11 +25,12 @@ namespace Chess {
 		menuBackground.loadFromFile("./images/menu.png");
 		sf::Sprite menuBg(menuBackground);
 		menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+		menuBg.setPosition(0, 0);
 
 		bool isMenu = 1;
 		int menuNum = 0;
 
-		menuBg.setPosition(0, 0);
+
 
 		sf::Clock clock;
 		//////////////////////////////МЕНЮ///////////////////
@@ -299,6 +300,19 @@ namespace Chess {
 		sf::Clock clock;
     	int menuNum = 0;
 		bool isGame = true;
+		bool GameOver = false;
+
+		// GameOverBG
+		//sf::Texture endGameBg;
+		//endGameBg.loadFromFile("./images/endgame.png");
+		//sf::Sprite endGameBgSprite(endGameBg);
+		//endGameBgSprite.setPosition(0, 0);
+		sf::Texture menuBackground;
+		menuBackground.loadFromFile("./images/end.png");
+		sf::Sprite menuBg(menuBackground);
+		menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+		menuBg.setPosition(0, 0);
+
 
 		// button exit through class Button
     	Chess::Button exitBut("./images/exit.png");
@@ -384,13 +398,17 @@ namespace Chess {
         	window.clear();
         	window.clear(sf::Color(129, 181, 221));
 
-        	window.draw(board_texture.getSprite());
-        	window.draw(exitBut.getSprite());
-        	window.draw(backBut.getSprite());
+
 
 			if (gameplay.isGameOver()) {
-        	    isGame = false;
+				GameOver = true;
+				isGame = false;
+
 			} else {
+				menuNum = 0;
+				window.draw(board_texture.getSprite());
+        		window.draw(exitBut.getSprite());
+        		window.draw(backBut.getSprite());
 				gameplay.recieveBoardState();
 				gameplay.updateSprites();
 				gameplay.drawFigures(window, pos);
@@ -398,7 +416,28 @@ namespace Chess {
 
         	window.display();
 
-		}  // while(isGame)
+		} // while(isGame)
+
+		while (GameOver) {
+
+			sf::Event event;
+				sf::Event::EventType temp;
+				while (window.pollEvent(event)) {
+					if (event.type == sf::Event::Closed) {
+						std::exit(0);
+					}
+					if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+						std::exit(0);
+					}
+					if (event.type == sf::Event::Resized) {
+						window.getSizeNew();
+					}
+				}
+			window.clear();
+			window.draw(menuBg);
+			window.display();
+		}
+
     
 	}  // strartGame
 
