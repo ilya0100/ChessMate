@@ -208,8 +208,8 @@ namespace Chess {
 			createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, 200);
 
 			sf::IpAddress host_ip;
-			host_ip.getPublicAddress(sf::seconds(5.3f));
-			//host_ip.getLocalAddress();
+			// host_ip.getPublicAddress(sf::seconds(5.3f));
+			host_ip.getLocalAddress();
 
 			// текст для вывода IP
 			sf::Font font;//шрифт
@@ -219,8 +219,7 @@ namespace Chess {
 			text.setFillColor(sf::Color::White);
 			text.setOutlineColor(sf::Color::Black);
 			text.setOutlineThickness(3);
-			std::string string_host_ip = host_ip.toString();
-			text.setString("Your IP address: " + string_host_ip);
+			text.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
 			text.setPosition(20, 20);
 
 
@@ -381,10 +380,6 @@ namespace Chess {
 
         		gameplay.play(event, pos); // proveryaet hod
         	}
-			if (gameplay.isGameOver()) {
-        	    isGame = false;
-			}
-			gameplay.recieveBoardState();
 
         	window.clear();
         	window.clear(sf::Color(129, 181, 221));
@@ -393,8 +388,13 @@ namespace Chess {
         	window.draw(exitBut.getSprite());
         	window.draw(backBut.getSprite());
 
-			gameplay.updateSprites();
-        	gameplay.drawFigures(window, pos);
+			if (gameplay.isGameOver()) {
+        	    isGame = false;
+			} else {
+				gameplay.recieveBoardState();
+				gameplay.updateSprites();
+				gameplay.drawFigures(window, pos);
+			}
 
         	window.display();
 
