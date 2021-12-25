@@ -427,10 +427,10 @@ namespace Chess {
 
 	void joinGameMenu(Window& window) {  // add connection + space to enter ip_text
 		//  Загружаем фон
-            sf::Texture menuBackground;
-            menuBackground.loadFromFile("./images/menu.png");
-            sf::Sprite menuBg(menuBackground);
-            menuBg.setPosition(0, 0);
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setPosition(0, 0);
 
         //
         bool isMenu = 1;  // пока меню открыто
@@ -443,9 +443,20 @@ namespace Chess {
 
 		sf::Clock clock;
 
+        // input text
+        sf::Font font;
+        font.loadFromFile("./Fonts/font.TTF");
+        sf::String playerInput;
+        sf::Text playerText("", font, 25);
+        playerText.setPosition(60,300);
+        playerText.setColor(sf::Color::Red);
+
         while (isMenu) {
             sf::Event event;
             sf::Event::EventType temp;
+
+
+
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) {
                     std::exit(0);
@@ -456,6 +467,13 @@ namespace Chess {
                 if (event.type == sf::Event::Resized) {
                     window.getSizeNew();
                 }
+                if (event.type == sf::Event::TextEntered) {
+                    if (event.text.unicode < 128) {
+                            playerInput +=event.text.unicode;
+                            playerText.setString(playerInput);
+                    }
+                }
+                // window.draw(playerText);
             }
 
             float time = clock.getElapsedTime().asMicroseconds();  // дать прошедшее время в микросекундах
@@ -487,9 +505,10 @@ namespace Chess {
                         // selectMode(window);
                     }  // add implementation of option
                 }
-
             }
 
+             
+            window.draw(playerText);
             window.draw(menuBg);
             window.draw(backBut.getSprite());
             window.display();
