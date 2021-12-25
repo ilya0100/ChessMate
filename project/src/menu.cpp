@@ -66,11 +66,16 @@ namespace Chess {
                     if (event.type == sf::Event::MouseButtonReleased) {
                         if (menuNum == 1) {
                             //isMenu = false;
+
                             Chess::selectMode(window);
                             event.type = temp;
+                            pressed = false;
                         }
-                        if (menuNum == 2) {}
+                        if (menuNum == 2) {
+                            pressed = false;
+                        }
                         if (menuNum == 3) {
+                            pressed = false;
                             std::exit(0);
                         }  //
                     }
@@ -81,7 +86,7 @@ namespace Chess {
 
             float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
             clock.restart(); //перезагружает время
-            time = time / 120; //скорость игры
+            time = time / 8000; //скорость игры
 
             //красим кнопка обратно в белый цвет в цикле, если мышь не касается кнопки.
             playBut.getSprite().setColor(sf::Color::White);
@@ -156,7 +161,7 @@ namespace Chess {
 
             float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
             clock.restart(); //перезагружает время
-            time = time / 120; //скорость игры
+            time = time / 8000; //скорость игры
             singlePlayBut.getSprite().setColor(sf::Color::White);
             onlineGameBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
@@ -177,17 +182,22 @@ namespace Chess {
                 if (event.type == sf::Event::MouseButtonReleased) {
                     if (menuNum == 1) {
                         // isMenu = false;
+
                         startGame(window, ONE_PLAYER);
                         event.type = temp;
+                        pressed = false;
                     }
                     if (menuNum == 2) {
                         // isMenu = false;
+
                         selectH(window);
                         event.type = temp;
+                        pressed = false;
                     }
                     if (menuNum == 3) {
                         isMenu = false;
                         event.type = temp;
+                        pressed = false;
                         //startMenu(window);
                         // Chess::startMenu(window);
                     }
@@ -269,7 +279,7 @@ namespace Chess {
 
                 float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
                 clock.restart(); //перезагружает время
-                time = time / 120; //скорость игры
+                time = time / 8000; //скорость игры
                 createBut.getSprite().setColor(sf::Color::White);
                 joinBut.getSprite().setColor(sf::Color::White);
                 backBut.getSprite().setColor(sf::Color::White);
@@ -290,17 +300,23 @@ namespace Chess {
                     if (event.type == sf::Event::MouseButtonReleased) {
                         if (menuNum == 1) {
                             // isMenu = false;
+
                             startGame(window, HOST);
                             event.type = temp;
+                            pressed = false;
                         }  // если нажали первую кнопку, то выходим из меню
                         if (menuNum == 2) {
                             // isMenu = false;
+
                             startGame(window, CLIENT);
                             event.type = temp;
+                            pressed = false;
                         }
                         if (menuNum == 3) {
-                            event.type = temp;
                             isMenu = false;
+                            event.type = temp;
+                            pressed = false;
+
                             // selectMode(window);
                         }  // add implementation of option
                     }
@@ -370,7 +386,7 @@ namespace Chess {
             sf::Vector2i pos = sf::Mouse::getPosition(window);
             float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
             clock.restart(); //перезагружает время
-            time = time/120;
+            time = time / 8000;
 
 
             sf::Event event;
@@ -401,11 +417,15 @@ namespace Chess {
                 if (pressed) {
                     if (event.type == sf::Event::MouseButtonReleased) {
                         if (menuNum == 1) {
+
                             std::exit(0);
+                            pressed = false;
                         }
                         if (menuNum == 2)  {
+
                             isGame = false;
                             event.type = temp;
+                            pressed = false;
                             // selectMode(window);
                         }
                     }
@@ -442,7 +462,7 @@ namespace Chess {
 
             float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
             clock.restart(); //перезагружает время
-            time = time/120;
+            time = time / 8000;
 
             sf::Event event;
             sf::Event::EventType temp;
@@ -472,9 +492,11 @@ namespace Chess {
                 if (pressed) {
                     if (event.type == sf::Event::MouseButtonReleased) {
                         if (menuNum == 1) {
+                            pressed = false;
                             std::exit(0);
                         }
                         if (menuNum == 2)  {
+                            pressed = false;
                             GameOver = false;
                             event.type = temp;
                             // selectMode(window);
