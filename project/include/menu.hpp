@@ -16,6 +16,10 @@ namespace Chess {
     void selectMode(Window& window);
     void selectH(Window& window);
 
+    // create and join menu's
+    void createGameMenu(Window & window);
+    void joinGameMenu(Window& window);
+
     void Test(Window & window);
     void startMenuN(Window & window);
 
