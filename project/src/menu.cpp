@@ -443,20 +443,22 @@ namespace Chess {
 
 		sf::Clock clock;
 
+        Chess::TextField plInput(15);
+        plInput.setPosition(30, 30);
+
         // input text
         sf::Font font;
         font.loadFromFile("./Fonts/font.TTF");
-        sf::String playerInput;
+        std::string playerInput;
         sf::Text playerText("", font, 25);
         playerText.setPosition(60,300);
         playerText.setColor(sf::Color::Red);
+        playerText.setOutlineThickness(2);
 
-        window.draw(menuBg);
+
         while (isMenu) {
             sf::Event event;
             sf::Event::EventType temp;
-
-
 
             while (window.pollEvent(event)) {
                 if (event.type == sf::Event::Closed) {
@@ -470,8 +472,12 @@ namespace Chess {
                 }
                 if (event.type == sf::Event::TextEntered) {
                     if (event.text.unicode < 128) {
+                        if (event.text.unicode == 8) {
+                            playerInput = playerInput.substr(0, playerInput.size() - 1);
+                        } else {
                             playerInput += event.text.unicode;
-                            playerText.setString(playerInput);
+                        }
+                        playerText.setString(playerInput);
                     }
                 }
                 window.draw(playerText);
@@ -509,8 +515,9 @@ namespace Chess {
             }
 
             
-            // window.draw(playerText);
-            // window.draw(menuBg);
+            
+            window.draw(menuBg);
+            window.draw(playerText);
             window.draw(backBut.getSprite());
             window.display();
 
@@ -698,6 +705,45 @@ namespace Chess {
         }
 
     
-    }  // strartGame
+    }  // startGame
 
 }  // namespace Chess
+
+
+// input ip 
+const std::string Chess::TextField::getText() const{
+    return m_text;
+}
+
+void Chess::TextField::setPosition(float x, float y){
+    sf::Transformable::setPosition(x, y);
+    m_rect.setPosition(x, y);
+}
+
+bool Chess::TextField::contains(sf::Vector2f point) const{
+    return m_rect.getGlobalBounds().contains(point);
+}
+
+void Chess::TextField::setFocus(bool focus){
+    m_hasfocus = focus;
+    if (focus){
+        m_rect.setOutlineColor(sf::Color::Blue);
+    }
+    else{
+        m_rect.setOutlineColor(sf::Color(127, 127, 127)); // Gray color
+    }
+}
+
+void Chess::TextField::handleInput(sf::Event event) {
+    if (!m_hasfocus || event.type == sf::Event::TextEntered) {
+        if (event.text.unicode == 8){   // Delete key
+            m_text = m_text.substr(0, m_text.size() - 1);
+        } else if (m_text.size() < m_size){
+            m_text += event.text.unicode;
+        }
+    }
+}
+
+void Chess::TextField::draw(sf::Text text) {
+    
+}
