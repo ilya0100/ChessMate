@@ -443,8 +443,8 @@ namespace Chess {
 
 		sf::Clock clock;
 
-        Chess::TextField plInput(15);
-        plInput.setPosition(30, 30);
+        // Chess::TextField plInput(15);
+        // plInput.setPosition(30, 30);
 
         // input text
         sf::Font font;
@@ -500,11 +500,11 @@ namespace Chess {
 
             if (pressed) {
                 if (event.type == sf::Event::MouseButtonReleased) {
-                    if (menuNum == 1) {
-                        startGame(window, CLIENT);
-                        event.type = temp;
-                        pressed = false;
-                    }  // if connected, then start game
+                    // if (menuNum == 1) {
+                    //     startGame(window, CLIENT);
+                    //     event.type = temp;
+                    //     pressed = false;
+                    // }  // if connected, then start game
                     if (menuNum == 3) {
                         isMenu = false;
                         event.type = temp;
@@ -709,7 +709,7 @@ namespace Chess {
 
 }  // namespace Chess
 
-
+/*
 // input ip 
 const std::string Chess::TextField::getText() const{
     return m_text;
@@ -745,5 +745,5 @@ void Chess::TextField::handleInput(sf::Event event) {
 }
 
 void Chess::TextField::draw(sf::Text text) {
-    
-}
+
+}*/

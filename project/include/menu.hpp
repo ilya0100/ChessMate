@@ -25,7 +25,7 @@ namespace Chess {
 
     void startGame(Window& window, GameMode mode);
 
-    class TextField : public sf::Transformable, public sf::Drawable {
+    /*class TextField : public sf::Transformable, public sf::Drawable {
         private:
             size_t m_size;
             sf::Font m_font;
@@ -51,9 +51,9 @@ namespace Chess {
             void setFocus(bool focus);
             void handleInput(sf::Event event);
 
-            void draw(sf::Text text) override;
+            // void draw(sf::Text text) override;
 
 
-    };
+    };*/
 
 }  // namespace Chess
