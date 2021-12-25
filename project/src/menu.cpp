@@ -451,6 +451,7 @@ namespace Chess {
         playerText.setPosition(60,300);
         playerText.setColor(sf::Color::Red);
 
+        window.draw(menuBg);
         while (isMenu) {
             sf::Event event;
             sf::Event::EventType temp;
@@ -469,11 +470,11 @@ namespace Chess {
                 }
                 if (event.type == sf::Event::TextEntered) {
                     if (event.text.unicode < 128) {
-                            playerInput +=event.text.unicode;
+                            playerInput += event.text.unicode;
                             playerText.setString(playerInput);
                     }
                 }
-                // window.draw(playerText);
+                window.draw(playerText);
             }
 
             float time = clock.getElapsedTime().asMicroseconds();  // дать прошедшее время в микросекундах
@@ -507,9 +508,9 @@ namespace Chess {
                 }
             }
 
-             
-            window.draw(playerText);
-            window.draw(menuBg);
+            
+            // window.draw(playerText);
+            // window.draw(menuBg);
             window.draw(backBut.getSprite());
             window.display();
 
