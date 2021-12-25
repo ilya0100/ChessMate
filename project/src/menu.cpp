@@ -33,7 +33,6 @@ namespace Chess {
         bool pressed = 0;
 
 
-
         sf::Clock clock;
         //////////////////////////////МЕНЮ///////////////////
         while (isMenu) {
@@ -43,14 +42,17 @@ namespace Chess {
                  if (event.type == sf::Event::Closed) {
                      std::exit(0);
                      }
+
                 if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
                         std::exit(0);
                 }
+
                 //на будущее
                 /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
                     rectS.move(0, -1);
                     rectPos = rectS.getPosition();
                     */
+
                 if (event.type == sf::Event::Resized) {
                     window.getSizeNew();
                  }
@@ -60,7 +62,6 @@ namespace Chess {
                         pressed = true;
                 } else if (menuNum == 0)
                     {pressed = false;}
-
 
                 if (pressed) {
                     if (event.type == sf::Event::MouseButtonReleased) {
@@ -252,6 +253,15 @@ namespace Chess {
             text.setPosition(20, 20);
 
 
+/* это нужно перенести в функцию для ввода IP
+            sf::String playerInput;
+            sf::Text playerText("", font, 25);
+            playerText.setPosition(60,300);
+            playerText.setColor(sf::Color::Red);
+
+это нужно перенести в функцию для ввода IP */
+
+
             Chess::Button joinBut("./images/joinGame.png");
             joinBut.setSize(467, 53);
             joinBut.setPosition(X_WINDOW/2 - joinBut.getSize().x / 2, 286);
@@ -275,7 +285,14 @@ namespace Chess {
                     if (event.type == sf::Event::Resized) {
                         window.getSizeNew();
                     }
+
+                /* это нужно перенести в функцию для ввода IP
+                    if (event.type == sf::Event::TextEntered) {
+                        playerInput +=event.text.unicode;
+                        playerText.setString(playerInput);
+                    }
                 }
+                это нужно перенести в функцию для ввода IP */
 
                 float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
                 clock.restart(); //перезагружает время
@@ -328,6 +345,9 @@ namespace Chess {
                 window.draw(joinBut.getSprite());
                 window.draw(backBut.getSprite());
                 window.draw(text);
+                /* это нужно перенести в функцию для ввода IP */
+                //window.draw(playerText);
+                //
                 window.display();
 
             }
