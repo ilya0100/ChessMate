@@ -79,6 +79,7 @@ namespace Chess {
                             isCatch = true;
                             isMove = true;
                             curr_cage = getCurrCage(pos);
+                            // std::cout << "curr_cage x: " << curr_cage.x << " y: " << curr_cage.y << std::endl;
                             setFigurePosition(curr_cage);
                             fig_num = i;
                         }

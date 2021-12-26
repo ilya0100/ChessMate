@@ -126,6 +126,7 @@ namespace Chess {
 
     void BoardLogic::setFigurePosition(sf::Vector2u pos) {
         current_pos = pos;
+        // std::cout << "current_pos x: " << current_pos.x << " y: " << current_pos.y << std::endl;
     }
 
     sf::Vector2u BoardLogic::getFigurePosition() const {
@@ -309,7 +310,9 @@ namespace Chess {
     bool BoardLogic::isGameOver() {
         checkGameState();
         if (check && !game_over) {
+            sf::Vector2u temp = current_pos;
             game_over = isMate();
+            setFigurePosition(temp);
         }
         // for (int y = 0; y < 8; ++y) {
         //     for (int x = 0; x < 8; ++x) {
