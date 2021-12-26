@@ -24,6 +24,7 @@ namespace Chess {
         
         public:
             BoardLogic();
+            PlaySide getSide() {return cur_side;}
 
             void setFigurePosition(sf::Vector2u pos);
             void setSide(PlaySide side = WHITE);
