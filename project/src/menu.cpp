@@ -569,7 +569,7 @@ namespace Chess {
                 isGame = false;
             }
         }
-        
+
         gameplay.updateSprites();
 
         // GameOverBG
@@ -737,13 +737,13 @@ namespace Chess {
             window.display();
         }
 
-    
+
     }  // startGame
 
 }  // namespace Chess
 
 /*
-// input ip 
+// input ip
 const std::string Chess::TextField::getText() const{
     return m_text;
 }

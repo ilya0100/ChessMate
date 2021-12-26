@@ -18,7 +18,8 @@ namespace Chess {
 
     bool NetWork::client(std::string adress) {
         std::cout << "ip: " << adress << std::endl;
-        if (socket.connect(adress, 8080) != sf::Socket::Done) {
+        sf::IpAddress host(adress);
+        if (socket.connect(host, 8080) != sf::Socket::Done) {
             std::cout << "Error!\n";
             return false;
         }
