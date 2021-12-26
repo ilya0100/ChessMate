@@ -4,22 +4,26 @@ namespace Chess {
 
 //////////////////////////NetWork//////////////////////////////////
 
-    void NetWork::host() {
+    bool NetWork::host() {
         listener.listen(8080);
         listener.reuse();
     
         if(listener.accept(socket) != sf::Socket::Done) {
             std::cout << "Error!\n";
+            return false;
         }
         socket.setBlocking(false);
+        return true;
     }
 
-    void NetWork::client(std::string adress) {
+    bool NetWork::client(std::string adress) {
         std::cout << "ip: " << adress << std::endl;
-        if (socket.connect(sf::IpAddress::getLocalAddress(), 8080) != sf::Socket::Done) {
+        if (socket.connect(adress, 8080) != sf::Socket::Done) {
             std::cout << "Error!\n";
+            return false;
         }
         socket.setBlocking(false);
+        return true;
     }
 
 //////////////////////////Gameplay////////////////////////////////

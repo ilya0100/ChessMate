@@ -467,7 +467,7 @@ namespace Chess {
     }
 
     bool BoardLogic::enPassant() {
-        if (previos_fig == B_PAWN || previos_fig == W_PAWN &&
+        if (((previos_fig == B_PAWN && cur_side == WHITE) || (previos_fig == W_PAWN && cur_side == BLACK)) &&
             current_pos.y == (7 - previos_move[1].y) && (previos_move[0].y - previos_move[1].y) == 2) {
                 board[7 - previos_move[1].y][previos_move[1].x] = EMPTY_CELL;
                 return true;

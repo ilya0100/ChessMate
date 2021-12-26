@@ -18,8 +18,8 @@ namespace Chess {
         public:
             NetWork() = default;
 
-            void host();
-            void client(std::string adress);
+            bool host();
+            bool client(std::string adress);
 
             void setIP(sf::IpAddress ip);
             void getIP() const;
