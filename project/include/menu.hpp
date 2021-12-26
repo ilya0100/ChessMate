@@ -1,6 +1,8 @@
 #pragma once
 
 #include "gameplay.hpp"
+#include <cstring>
+#include <iostream>
 
 // figures
 // #define SPRITE_SIZE 264

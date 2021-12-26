@@ -565,20 +565,19 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/endgameBg.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(0.5, 0.5);
+        menuBg.setScale(SCALE_FACTOR * 0.5 / 0.2, SCALE_FACTOR * 0.5 / 0.2);
         menuBg.setPosition(0, 0);
-
 
         // button exit through class Button
         Chess::Button exitBut("./images/exit.png");
         exitBut.setSize(X_EXIT, Y_EXIT);
-        exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+        exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100 * SCALE_FACTOR / 0.2);
         // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
 
         // кнопка назад
         Chess::Button backBut("./images/back.png");
         backBut.setSize(X_BACK, Y_BACK);
-        backBut.setPosition(100, Y_WINDOW - 100);
+        backBut.setPosition(100, Y_WINDOW - 100 * SCALE_FACTOR / 0.2);
 
         // add board and figure
         float scale = SCALE_FACTOR;
@@ -665,18 +664,19 @@ namespace Chess {
 
         } // while(isGame)
 
-        backBut.setPosition(X_WINDOW / 2 - backBut.getSize().x / 2, 285);
-        exitBut.setPosition(X_WINDOW / 2 - exitBut.getSize().x / 2, 388);
+        backBut.setPosition(X_WINDOW / 2 - backBut.getSize().x / 2, 285 * SCALE_FACTOR / 0.2);
+        exitBut.setPosition(X_WINDOW / 2 - exitBut.getSize().x / 2, 388 * SCALE_FACTOR / 0.2);
         setlocale(LC_ALL,"Rus");
 
         sf::Font font;
         font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
-        sf::Text winnerText("", font, 40);
+        size_t font_size = 50 * SCALE_FACTOR / 0.2;
+        sf::Text winnerText("", font, font_size);
 
         wchar_t* whites = L"Победитель – белые";
         wchar_t* blacks = L"Победитель – черные";
 
-        winnerText.setPosition(X_WINDOW / 2 - backBut.getSize().x, 200);
+        winnerText.setPosition(X_WINDOW / 2 - wcslen(whites) * font_size / 4, 200 * SCALE_FACTOR / 0.2);
         winnerText.setColor(sf::Color::White);
         winnerText.setOutlineThickness(2);
 
