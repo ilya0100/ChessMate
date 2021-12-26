@@ -6,17 +6,17 @@ namespace Chess {
 
         Chess::Button playBut("./images/play.png");
         playBut.setSize(250, 53);
-        playBut.setPosition(X_WINDOW/2 - playBut.getSize().x/2, 200);
+        playBut.setPosition(X_WINDOW/2 - playBut.getSize().x/2, Y_WINDOW*4/13);
 
 
         Chess::Button optionBut("./images/option.png");
         optionBut.setSize(231, 53);
-        optionBut.setPosition(X_WINDOW/2 - optionBut.getSize().x/2, 290);
+        optionBut.setPosition(X_WINDOW/2 - optionBut.getSize().x/2, Y_WINDOW*6/13);
 
 
         Chess::Button exitBut("./images/exit.png");
         exitBut.setSize(149, 53);
-        exitBut.setPosition(X_WINDOW/2 - exitBut.getSize().x/2, 380);
+        exitBut.setPosition(X_WINDOW/2 - exitBut.getSize().x/2, Y_WINDOW*8/13);
 
 
 
@@ -119,6 +119,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
         menuBg.setPosition(0, 0);
 
         //
@@ -131,16 +132,16 @@ namespace Chess {
 
         Chess::Button singlePlayBut("./images/singlePlay.png");
         singlePlayBut.setSize(561, 53);
-        singlePlayBut.setPosition(X_WINDOW/2 - singlePlayBut.getSize().x/2, 200);
+        singlePlayBut.setPosition(X_WINDOW/2 - singlePlayBut.getSize().x/2, Y_WINDOW*4/13);
 
 
         Chess::Button onlineGameBut("./images/online_game.png");
         onlineGameBut.setSize(270, 53);
-        onlineGameBut.setPosition(X_WINDOW/2 - onlineGameBut.getSize().x/2, 286);
+        onlineGameBut.setPosition(X_WINDOW/2 - onlineGameBut.getSize().x/2, Y_WINDOW*6/13);
 
         Chess::Button backBut("./images/backk.png");
         backBut.setSize(141, 53);
-        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, 372);
+        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, Y_WINDOW*8/13);
 
         sf::Clock clock;
 
@@ -223,6 +224,7 @@ namespace Chess {
             sf::Texture menuBackground;
             menuBackground.loadFromFile("./images/menu.png");
             sf::Sprite menuBg(menuBackground);
+            menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
             menuBg.setPosition(0, 0);
 
             //
@@ -234,7 +236,7 @@ namespace Chess {
 
             Chess::Button createBut("./images/createGame.png");
             createBut.setSize(268, 53);
-            createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, 200);
+            createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, Y_WINDOW*4/13);
 
             // sf::IpAddress host_ip;
             /* host_ip.getPublicAddress(sf::seconds(5.3f)); */
@@ -243,22 +245,22 @@ namespace Chess {
             // текст для вывода IP
             // sf::Font font;//шрифт
             // font.loadFromFile("./Fonts/font.TTF");
-            // sf::Text ip_text(" ", font, 25);
-            // ip_text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-            // ip_text.setFillColor(sf::Color::White);
-            // ip_text.setOutlineColor(sf::Color::Black);
-            // ip_text.setOutlineThickness(3);
-            // ip_text.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
-            // ip_text.setPosition(20, 20);
+            // sf::Text ipTxt(" ", font, 25);
+            // ipTxt.setStyle(sf::Text::Bold | sf::Text::Underlined);
+            // ipTxt.setFillColor(sf::Color::White);
+            // ipTxt.setOutlineColor(sf::Color::Black);
+            // ipTxt.setOutlineThickness(3);
+            // ipTxt.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
+            // ipTxt.setPosition(20, 20);
 
 
             Chess::Button joinBut("./images/joinGame.png");
             joinBut.setSize(467, 53);
-            joinBut.setPosition(X_WINDOW/2 - joinBut.getSize().x / 2, 286);
+            joinBut.setPosition(X_WINDOW/2 - joinBut.getSize().x / 2, Y_WINDOW*6/13);
 
             Chess::Button backBut("./images/backk.png");
             backBut.setSize(141, 53);
-            backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, 372);
+            backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, Y_WINDOW*8/13);
 
             sf::Clock clock;
 
@@ -329,7 +331,7 @@ namespace Chess {
                 window.draw(createBut.getSprite());
                 window.draw(joinBut.getSprite());
                 window.draw(backBut.getSprite());
-                // window.draw(ip_text);
+                // window.draw(ipTxt);
                 window.display();
 
             }
@@ -337,10 +339,11 @@ namespace Chess {
 
 	void createGameMenu(Window& window) {
 		//  Загружаем фон
-            sf::Texture menuBackground;
-            menuBackground.loadFromFile("./images/menu.png");
-            sf::Sprite menuBg(menuBackground);
-            menuBg.setPosition(0, 0);
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+        menuBg.setPosition(0, 0);
 
         //
         bool isMenu = 1;  // пока меню открыто
@@ -354,17 +357,24 @@ namespace Chess {
         // текст для вывода IP
         sf::Font font;//шрифт
         font.loadFromFile("./Fonts/font.TTF");
-        sf::Text ip_text(" ", font, 40);
-        ip_text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-        ip_text.setFillColor(sf::Color::White);
-        ip_text.setOutlineColor(sf::Color::Black);
-        ip_text.setOutlineThickness(3);
-        ip_text.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
-        ip_text.setPosition(20, Y_WINDOW/4);
+        sf::Text ipTxt(" ", font, 40);
+        ipTxt.setStyle(sf::Text::Bold);
+        ipTxt.setFillColor(sf::Color::White);
+        ipTxt.setOutlineColor(sf::Color::Black);
+        ipTxt.setOutlineThickness(2);
+        ipTxt.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
+        ipTxt.setPosition(X_WINDOW/4, Y_WINDOW*6/13);
+
+        sf::Text inviteTxt("Report your IP to friend:", font, 40);
+        inviteTxt.setStyle(sf::Text::Bold);
+        inviteTxt.setFillColor(sf::Color::White);
+        inviteTxt.setOutlineColor(sf::Color::Black);
+        inviteTxt.setOutlineThickness(2);
+        inviteTxt.setPosition(X_WINDOW/4, Y_WINDOW*4/13);
 
 		Chess::Button backBut("./images/backk.png");
     	backBut.setSize(141, 53);
-    	backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, 372);
+    	backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, Y_WINDOW*8/13);
 
         // Chess::TextField inputText(15);
 
@@ -419,17 +429,19 @@ namespace Chess {
 
             window.draw(menuBg);
             window.draw(backBut.getSprite());
-            window.draw(ip_text);
+            window.draw(ipTxt);
+            window.draw(inviteTxt);
             window.display();
 
         }
 	}
 
-	void joinGameMenu(Window& window) {  // add connection + space to enter ip_text
+	void joinGameMenu(Window& window) {  // add connection + space to enter ipTxt
 		//  Загружаем фон
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
         menuBg.setPosition(0, 0);
 
         //
@@ -439,7 +451,7 @@ namespace Chess {
 
 		Chess::Button backBut("./images/backk.png");
     	backBut.setSize(141, 53);
-    	backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, 372);
+    	backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, Y_WINDOW*8/13);
 
 		sf::Clock clock;
 
@@ -450,10 +462,15 @@ namespace Chess {
         sf::Font font;
         font.loadFromFile("./Fonts/font.TTF");
         std::string playerInput;
-        sf::Text playerText("", font, 25);
-        playerText.setPosition(60,300);
-        playerText.setColor(sf::Color::Red);
+        sf::Text playerText("", font, 40);
+        playerText.setPosition(X_WINDOW/4, Y_WINDOW*6/13);
+        playerText.setColor(sf::Color::White);
         playerText.setOutlineThickness(2);
+
+        sf::Text joinTxt("Enter friend's IP here:", font, 40);
+        joinTxt.setPosition(X_WINDOW/4, Y_WINDOW*4/13);
+        joinTxt.setColor(sf::Color::White);
+        joinTxt.setOutlineThickness(2);
 
 
         while (isMenu) {
@@ -518,6 +535,7 @@ namespace Chess {
             
             window.draw(menuBg);
             window.draw(playerText);
+            window.draw(joinTxt);
             window.draw(backBut.getSprite());
             window.display();
 
@@ -541,7 +559,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/endgameBg.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(X_WINDOW / 960 / 2, Y_WINDOW / 624 / 2);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
         menuBg.setPosition(0, 0);
 
 
