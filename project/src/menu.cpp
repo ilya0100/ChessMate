@@ -433,7 +433,7 @@ namespace Chess {
             window.draw(inviteTxt);
             window.display();
 
-            gameplay.host(); 
+            gameplay.host();
             isMenu = false;
         }
 	}
@@ -564,7 +564,7 @@ namespace Chess {
         } else if (mode == CLIENT) {
             gameplay.client(joinGameMenu(window));
         }
-        
+
         gameplay.updateSprites();
 
         // GameOverBG
@@ -732,13 +732,13 @@ namespace Chess {
             window.display();
         }
 
-    
+
     }  // startGame
 
 }  // namespace Chess
 
 /*
-// input ip 
+// input ip
 const std::string Chess::TextField::getText() const{
     return m_text;
 }

@@ -16,7 +16,8 @@ namespace Chess {
 
     void NetWork::client(std::string adress) {
         std::cout << "ip: " << adress << std::endl;
-        if (socket.connect(sf::IpAddress::getLocalAddress(), 8080) != sf::Socket::Done) {
+        sf::IpAddress host(adress);
+        if (socket.connect(host, 8080) != sf::Socket::Done) {
             std::cout << "Error!\n";
         }
         socket.setBlocking(false);
