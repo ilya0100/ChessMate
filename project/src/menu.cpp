@@ -238,21 +238,6 @@ namespace Chess {
             createBut.setSize(268, 53);
             createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, Y_WINDOW*4/13);
 
-            // sf::IpAddress host_ip;
-            /* host_ip.getPublicAddress(sf::seconds(5.3f)); */
-            // host_ip.getLocalAddress();
-
-            // текст для вывода IP
-            // sf::Font font;//шрифт
-            // font.loadFromFile("./Fonts/font.TTF");
-            // sf::Text ipTxt(" ", font, 25);
-            // ipTxt.setStyle(sf::Text::Bold | sf::Text::Underlined);
-            // ipTxt.setFillColor(sf::Color::White);
-            // ipTxt.setOutlineColor(sf::Color::Black);
-            // ipTxt.setOutlineThickness(3);
-            // ipTxt.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
-            // ipTxt.setPosition(20, 20);
-
 
             Chess::Button joinBut("./images/joinGame.png");
             joinBut.setSize(467, 53);
@@ -356,7 +341,7 @@ namespace Chess {
 
         // текст для вывода IP
         sf::Font font;//шрифт
-        font.loadFromFile("./Fonts/font.TTF");
+        font.loadFromFile("./Fonts/Montserrat.TTF");
         sf::Text ipTxt(" ", font, 40);
         ipTxt.setStyle(sf::Text::Bold);
         ipTxt.setFillColor(sf::Color::White);
@@ -462,7 +447,7 @@ namespace Chess {
 
         // input text
         sf::Font font;
-        font.loadFromFile("./Fonts/font.TTF");
+        font.loadFromFile("./Fonts/Montserrat.TTF");
         std::string playerInput;
         sf::Text playerText("", font, 40);
         playerText.setPosition(X_WINDOW/4, Y_WINDOW*6/13);
@@ -580,7 +565,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/endgameBg.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+        menuBg.setScale(0.5, 0.5);
         menuBg.setPosition(0, 0);
 
 
@@ -682,6 +667,37 @@ namespace Chess {
 
         backBut.setPosition(X_WINDOW / 2 - backBut.getSize().x / 2, 285);
         exitBut.setPosition(X_WINDOW / 2 - exitBut.getSize().x / 2, 388);
+        setlocale(LC_ALL,"Rus");
+
+        sf::Font font;
+        font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
+        sf::Text winnerText("", font, 40);
+
+        wchar_t* whites = L"Победитель – белые";
+        wchar_t* blacks = L"Победитель – черные";
+
+        winnerText.setPosition(X_WINDOW / 2 - backBut.getSize().x, 200);
+        winnerText.setColor(sf::Color::White);
+        winnerText.setOutlineThickness(2);
+
+
+        if (gameplay.getSide() == BLACK) {
+            sf::String winner = sf::String(whites);
+            winnerText.setString(winner);
+        } else {
+            sf::String winner = sf::String(blacks);
+            winnerText.setString(winner);
+        }
+
+
+
+
+
+
+
+
+
+
         while (GameOver) {
 
             float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
@@ -734,6 +750,7 @@ namespace Chess {
             window.draw(menuBg);
             window.draw(exitBut.getSprite());
             window.draw(backBut.getSprite());
+            window.draw(winnerText);
             window.display();
         }
 
