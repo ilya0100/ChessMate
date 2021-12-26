@@ -11,12 +11,15 @@ namespace Chess {
         if(listener.accept(socket) != sf::Socket::Done) {
             std::cout << "Error!\n";
         }
+        socket.setBlocking(false);
     }
 
-    void NetWork::client() {
-        if (socket.connect(ip, 8080) != sf::Socket::Done) {
+    void NetWork::client(std::string adress) {
+        std::cout << "ip: " << adress << std::endl;
+        if (socket.connect(sf::IpAddress::getLocalAddress(), 8080) != sf::Socket::Done) {
             std::cout << "Error!\n";
         }
+        socket.setBlocking(false);
     }
 
 //////////////////////////Gameplay////////////////////////////////
@@ -42,14 +45,18 @@ namespace Chess {
 
     void Gameplay::setGameMode(GameMode new_mode) {
         mode = new_mode;
-        if (mode == HOST) {
-            host();
-        } else if (mode == CLIENT) {
-            client();
+        if (mode == CLIENT) {
             enemy_turn = true;
     	    setSide(BLACK);
         }
-        socket.setBlocking(false);
+        // if (mode == HOST) {
+        //     host();
+        // } else if (mode == CLIENT) {
+        //     client();
+        //     enemy_turn = true;
+    	//     setSide(BLACK);
+        // }
+        // socket.setBlocking(false);
     }
 
     void Gameplay::play(sf::Event event, sf::Vector2i pos) {

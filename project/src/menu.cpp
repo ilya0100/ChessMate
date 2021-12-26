@@ -6,17 +6,17 @@ namespace Chess {
 
         Chess::Button playBut("./images/play.png");
         playBut.setSize(250, 53);
-        playBut.setPosition(X_WINDOW/2 - playBut.getSize().x/2, 200);
+        playBut.setPosition(X_WINDOW/2 - playBut.getSize().x/2, Y_WINDOW*4/13);
 
 
         Chess::Button optionBut("./images/option.png");
         optionBut.setSize(231, 53);
-        optionBut.setPosition(X_WINDOW/2 - optionBut.getSize().x/2, 290);
+        optionBut.setPosition(X_WINDOW/2 - optionBut.getSize().x/2, Y_WINDOW*6/13);
 
 
         Chess::Button exitBut("./images/exit.png");
         exitBut.setSize(149, 53);
-        exitBut.setPosition(X_WINDOW/2 - exitBut.getSize().x/2, 380);
+        exitBut.setPosition(X_WINDOW/2 - exitBut.getSize().x/2, Y_WINDOW*8/13);
 
 
 
@@ -67,7 +67,7 @@ namespace Chess {
                         if (menuNum == 1) {
                             //isMenu = false;
 
-                            Chess::selectMode(window);
+                            selectMode(window);
                             event.type = temp;
                             pressed = false;
                         }
@@ -119,6 +119,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
         menuBg.setPosition(0, 0);
 
         //
@@ -131,16 +132,16 @@ namespace Chess {
 
         Chess::Button singlePlayBut("./images/singlePlay.png");
         singlePlayBut.setSize(561, 53);
-        singlePlayBut.setPosition(X_WINDOW/2 - singlePlayBut.getSize().x/2, 200);
+        singlePlayBut.setPosition(X_WINDOW/2 - singlePlayBut.getSize().x/2, Y_WINDOW*4/13);
 
 
         Chess::Button onlineGameBut("./images/online_game.png");
         onlineGameBut.setSize(270, 53);
-        onlineGameBut.setPosition(X_WINDOW/2 - onlineGameBut.getSize().x/2, 286);
+        onlineGameBut.setPosition(X_WINDOW/2 - onlineGameBut.getSize().x/2, Y_WINDOW*6/13);
 
         Chess::Button backBut("./images/backk.png");
         backBut.setSize(141, 53);
-        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, 372);
+        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, Y_WINDOW*8/13);
 
         sf::Clock clock;
 
@@ -198,8 +199,8 @@ namespace Chess {
                         isMenu = false;
                         event.type = temp;
                         pressed = false;
-                        //startMenu(window);
-                        // Chess::startMenu(window);
+                        // startMenu(window);
+                        // startMenu(window);
                     }
                 }
 
@@ -223,6 +224,7 @@ namespace Chess {
             sf::Texture menuBackground;
             menuBackground.loadFromFile("./images/menu.png");
             sf::Sprite menuBg(menuBackground);
+            menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
             menuBg.setPosition(0, 0);
 
             //
@@ -234,31 +236,31 @@ namespace Chess {
 
             Chess::Button createBut("./images/createGame.png");
             createBut.setSize(268, 53);
-            createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, 200);
+            createBut.setPosition(X_WINDOW/2 - createBut.getSize().x / 2, Y_WINDOW*4/13);
 
-            sf::IpAddress host_ip;
-            // host_ip.getPublicAddress(sf::seconds(5.3f));
-            host_ip.getLocalAddress();
+            // sf::IpAddress host_ip;
+            /* host_ip.getPublicAddress(sf::seconds(5.3f)); */
+            // host_ip.getLocalAddress();
 
             // текст для вывода IP
-            sf::Font font;//шрифт
-            font.loadFromFile("./Fonts/font.TTF");
-            sf::Text text(" ", font, 25);
-            text.setStyle(sf::Text::Bold | sf::Text::Underlined);
-            text.setFillColor(sf::Color::White);
-            text.setOutlineColor(sf::Color::Black);
-            text.setOutlineThickness(3);
-            text.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
-            text.setPosition(20, 20);
+            // sf::Font font;//шрифт
+            // font.loadFromFile("./Fonts/font.TTF");
+            // sf::Text ipTxt(" ", font, 25);
+            // ipTxt.setStyle(sf::Text::Bold | sf::Text::Underlined);
+            // ipTxt.setFillColor(sf::Color::White);
+            // ipTxt.setOutlineColor(sf::Color::Black);
+            // ipTxt.setOutlineThickness(3);
+            // ipTxt.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
+            // ipTxt.setPosition(20, 20);
 
 
             Chess::Button joinBut("./images/joinGame.png");
             joinBut.setSize(467, 53);
-            joinBut.setPosition(X_WINDOW/2 - joinBut.getSize().x / 2, 286);
+            joinBut.setPosition(X_WINDOW/2 - joinBut.getSize().x / 2, Y_WINDOW*6/13);
 
             Chess::Button backBut("./images/backk.png");
             backBut.setSize(141, 53);
-            backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, 372);
+            backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, Y_WINDOW*8/13);
 
             sf::Clock clock;
 
@@ -277,18 +279,18 @@ namespace Chess {
                     }
                 }
 
-                float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
-                clock.restart(); //перезагружает время
-                time = time / 8000; //скорость игры
+                float time = clock.getElapsedTime().asMicroseconds();  // дать прошедшее время в микросекундах
+                clock.restart();  // перезагружает время
+                time = time / 8000;  // скорость игры
                 createBut.getSprite().setColor(sf::Color::White);
                 joinBut.getSprite().setColor(sf::Color::White);
                 backBut.getSprite().setColor(sf::Color::White);
                 menuNum = 0;
 
 
-                if (createBut.isTouch(window)) {createBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-                if (joinBut.isTouch(window)) {joinBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
-                if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+                if (createBut.isTouch(window)) { createBut.getSprite().setColor(sf::Color::Blue); menuNum = 1; }
+                if (joinBut.isTouch(window)) { joinBut.getSprite().setColor(sf::Color::Blue); menuNum = 2; }
+                if (backBut.isTouch(window)) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
 
                 if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
                     if (event.mouseButton.button == sf::Mouse::Left)
@@ -299,14 +301,16 @@ namespace Chess {
                 if (pressed) {
                     if (event.type == sf::Event::MouseButtonReleased) {
                         if (menuNum == 1) {
-                            // isMenu = false;
+                            // add create menu
+							// createGameMenu(window);
 
                             startGame(window, HOST);
                             event.type = temp;
                             pressed = false;
                         }  // если нажали первую кнопку, то выходим из меню
                         if (menuNum == 2) {
-                            // isMenu = false;
+                            // add join menu
+							// joinGameMenu(window);
 
                             startGame(window, CLIENT);
                             event.type = temp;
@@ -327,11 +331,220 @@ namespace Chess {
                 window.draw(createBut.getSprite());
                 window.draw(joinBut.getSprite());
                 window.draw(backBut.getSprite());
-                window.draw(text);
+                // window.draw(ipTxt);
                 window.display();
 
             }
         }
+
+	void createGameMenu(Window& window, Gameplay& gameplay) {
+		//  Загружаем фон
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+        menuBg.setPosition(0, 0);
+
+        //
+        bool isMenu = 1;  // пока меню открыто
+        int menuNum = 0;  // для номеров кнопок
+        bool pressed = 0;
+
+		sf::IpAddress host_ip;
+        // host_ip.getPublicAddress(sf::seconds(5.3f));
+        host_ip.getLocalAddress();
+
+        // текст для вывода IP
+        sf::Font font;//шрифт
+        font.loadFromFile("./Fonts/font.TTF");
+        sf::Text ipTxt(" ", font, 40);
+        ipTxt.setStyle(sf::Text::Bold);
+        ipTxt.setFillColor(sf::Color::White);
+        ipTxt.setOutlineColor(sf::Color::Black);
+        ipTxt.setOutlineThickness(2);
+        ipTxt.setString("Your IP address: " + sf::IpAddress::getLocalAddress().toString());
+        ipTxt.setPosition(X_WINDOW/4, Y_WINDOW*6/13);
+
+        sf::Text inviteTxt("Report your IP to friend", font, 40);
+        inviteTxt.setStyle(sf::Text::Bold);
+        inviteTxt.setFillColor(sf::Color::White);
+        inviteTxt.setOutlineColor(sf::Color::Black);
+        inviteTxt.setOutlineThickness(2);
+        inviteTxt.setPosition(X_WINDOW/4, Y_WINDOW*4/13);
+
+		Chess::Button backBut("./images/backk.png");
+    	backBut.setSize(141, 53);
+    	backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, Y_WINDOW*8/13);
+
+        // Chess::TextField inputText(15);
+
+		sf::Clock clock;
+
+        while (isMenu) {
+            sf::Event event;
+            sf::Event::EventType temp;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    std::exit(0);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                    std::exit(0);
+                }
+                if (event.type == sf::Event::Resized) {
+                    window.getSizeNew();
+                }
+            }
+
+            float time = clock.getElapsedTime().asMicroseconds();  // дать прошедшее время в микросекундах
+            clock.restart();  // перезагружает время
+            time = time / 8000;  // скорость игры
+            backBut.getSprite().setColor(sf::Color::White);
+            menuNum = 0;
+
+
+            if (backBut.isTouch(window)) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+
+            if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    pressed = true;
+            } else if (menuNum == 0)
+                {pressed = false;}
+
+            if (pressed) {
+                if (event.type == sf::Event::MouseButtonReleased) {
+                    // if (menuNum == 1) {
+                    //     startGame(window, HOST);
+                    //     event.type = temp;
+                    //     pressed = false;
+                    // }  // if connected, then start game
+                    if (menuNum == 3) {
+                        isMenu = false;
+                        event.type = temp;
+                        pressed = false;
+                        // selectMode(window);
+                    }  // add implementation of option
+                }
+
+            }
+
+            window.draw(menuBg);
+            window.draw(backBut.getSprite());
+            window.draw(ipTxt);
+            window.draw(inviteTxt);
+            window.display();
+
+            gameplay.host(); 
+            isMenu = false;
+        }
+	}
+
+	std::string joinGameMenu(Window& window) {  // add connection + space to enter ipTxt
+		//  Загружаем фон
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+        menuBg.setPosition(0, 0);
+
+        //
+        bool isMenu = 1;  // пока меню открыто
+        int menuNum = 0;  // для номеров кнопок
+        bool pressed = 0;
+
+		Chess::Button backBut("./images/backk.png");
+    	backBut.setSize(141, 53);
+    	backBut.setPosition(X_WINDOW/2 - backBut.getSize().x / 2, Y_WINDOW*8/13);
+
+		sf::Clock clock;
+
+        // Chess::TextField plInput(15);
+        // plInput.setPosition(30, 30);
+
+        // input text
+        sf::Font font;
+        font.loadFromFile("./Fonts/font.TTF");
+        std::string playerInput;
+        sf::Text playerText("", font, 40);
+        playerText.setPosition(X_WINDOW/4, Y_WINDOW*6/13);
+        playerText.setColor(sf::Color::White);
+        playerText.setOutlineThickness(2);
+
+        sf::Text joinTxt("Enter friend's IP here:", font, 40);
+        joinTxt.setPosition(X_WINDOW/4, Y_WINDOW*4/13);
+        joinTxt.setColor(sf::Color::White);
+        joinTxt.setOutlineThickness(2);
+
+
+        while (isMenu) {
+            sf::Event event;
+            sf::Event::EventType temp;
+
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    std::exit(0);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                    std::exit(0);
+                }
+                if (event.type == sf::Event::Resized) {
+                    window.getSizeNew();
+                }
+                if (event.type == sf::Event::TextEntered) {
+                    if (event.text.unicode < 128) {
+                        if (event.text.unicode == 8) {
+                            playerInput = playerInput.substr(0, playerInput.size() - 1);
+                        } else if ((event.text.unicode >= '0' && event.text.unicode <= '9') || event.text.unicode == '.') {
+                            playerInput += event.text.unicode;
+                        }
+                        playerText.setString(playerInput);
+                    }
+                }
+                window.draw(playerText);
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                    isMenu = false;
+                }
+            }
+
+            float time = clock.getElapsedTime().asMicroseconds();  // дать прошедшее время в микросекундах
+            clock.restart();  // перезагружает время
+            time = time / 8000;  // скорость игры
+            backBut.getSprite().setColor(sf::Color::White);
+            menuNum = 0;
+
+
+            if (backBut.isTouch(window)) { backBut.getSprite().setColor(sf::Color::Blue); menuNum = 3; }
+
+            if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    pressed = true;
+            } else if (menuNum == 0)
+                {pressed = false;}
+
+            if (pressed) {
+                if (event.type == sf::Event::MouseButtonReleased) {
+                    // if (menuNum == 1) {
+                    //     startGame(window, CLIENT);
+                    //     event.type = temp;
+                    //     pressed = false;
+                    // }  // if connected, then start game
+                    if (menuNum == 3) {
+                        isMenu = false;
+                        event.type = temp;
+                        pressed = false;
+                        // selectMode(window);
+                    }  // add implementation of option
+                }
+            }
+
+            window.draw(menuBg);
+            window.draw(playerText);
+            window.draw(joinTxt);
+            window.draw(backBut.getSprite());
+            window.display();
+
+        }
+        return playerInput;
+	}
 
     void startGame(Window& window, GameMode mode) {
 
@@ -342,6 +555,18 @@ namespace Chess {
 
         bool pressed = 0;
 
+        Chess::Gameplay gameplay;
+        gameplay.setSide();
+        gameplay.setGameMode(mode);
+
+        if (mode == HOST) {
+            createGameMenu(window, gameplay);
+        } else if (mode == CLIENT) {
+            gameplay.client(joinGameMenu(window));
+        }
+        
+        gameplay.updateSprites();
+
         // GameOverBG
         //sf::Texture endGameBg;
         //endGameBg.loadFromFile("./images/endgame.png");
@@ -350,7 +575,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/endgameBg.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(X_WINDOW / 960 / 2, Y_WINDOW / 624 / 2);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
         menuBg.setPosition(0, 0);
 
 
@@ -375,12 +600,6 @@ namespace Chess {
         playSpace.x = X_PLAYSPACE;
         playSpace.y = Y_PLAYSPACE;
         board_texture.setPlaySpace(playSpace);
-
-        Chess::Gameplay gameplay;
-        gameplay.setSide();
-        gameplay.setGameMode(mode);
-
-        gameplay.updateSprites();
 
         while (isGame) {
             sf::Vector2i pos = sf::Mouse::getPosition(window);
@@ -514,6 +733,45 @@ namespace Chess {
         }
 
     
-    }  // strartGame
+    }  // startGame
 
 }  // namespace Chess
+
+/*
+// input ip 
+const std::string Chess::TextField::getText() const{
+    return m_text;
+}
+
+void Chess::TextField::setPosition(float x, float y){
+    sf::Transformable::setPosition(x, y);
+    m_rect.setPosition(x, y);
+}
+
+bool Chess::TextField::contains(sf::Vector2f point) const{
+    return m_rect.getGlobalBounds().contains(point);
+}
+
+void Chess::TextField::setFocus(bool focus){
+    m_hasfocus = focus;
+    if (focus){
+        m_rect.setOutlineColor(sf::Color::Blue);
+    }
+    else{
+        m_rect.setOutlineColor(sf::Color(127, 127, 127)); // Gray color
+    }
+}
+
+void Chess::TextField::handleInput(sf::Event event) {
+    if (!m_hasfocus || event.type == sf::Event::TextEntered) {
+        if (event.text.unicode == 8){   // Delete key
+            m_text = m_text.substr(0, m_text.size() - 1);
+        } else if (m_text.size() < m_size){
+            m_text += event.text.unicode;
+        }
+    }
+}
+
+void Chess::TextField::draw(sf::Text text) {
+
+}*/

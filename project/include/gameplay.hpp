@@ -19,7 +19,7 @@ namespace Chess {
             NetWork() = default;
 
             void host();
-            void client();
+            void client(std::string adress);
 
             void setIP(sf::IpAddress ip);
             void getIP() const;
