@@ -365,7 +365,7 @@ namespace Chess {
         ipTxt.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
         ipTxt.setPosition(X_WINDOW/4, Y_WINDOW*6/13);
 
-        sf::Text inviteTxt("Report your IP to friend:", font, 40);
+        sf::Text inviteTxt("Report your IP to friend", font, 40);
         inviteTxt.setStyle(sf::Text::Bold);
         inviteTxt.setFillColor(sf::Color::White);
         inviteTxt.setOutlineColor(sf::Color::Black);
@@ -491,7 +491,7 @@ namespace Chess {
                     if (event.text.unicode < 128) {
                         if (event.text.unicode == 8) {
                             playerInput = playerInput.substr(0, playerInput.size() - 1);
-                        } else {
+                        } else if ((event.text.unicode >= '0' && event.text.unicode <= '9') || event.text.unicode == '.') {
                             playerInput += event.text.unicode;
                         }
                         playerText.setString(playerInput);
