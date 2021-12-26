@@ -17,8 +17,8 @@ namespace Chess {
     void selectH(Window& window);
 
     // create and join menu's
-    void createGameMenu(Window & window);
-    void joinGameMenu(Window& window);
+    void createGameMenu(Window & window, Gameplay& gameplay);
+    std::string joinGameMenu(Window& window);
 
     void Test(Window & window);
     void startMenuN(Window & window);

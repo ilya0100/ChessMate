@@ -302,17 +302,17 @@ namespace Chess {
                     if (event.type == sf::Event::MouseButtonReleased) {
                         if (menuNum == 1) {
                             // add create menu
-							createGameMenu(window);
+							// createGameMenu(window);
 
-                            // startGame(window, HOST);
+                            startGame(window, HOST);
                             event.type = temp;
                             pressed = false;
                         }  // если нажали первую кнопку, то выходим из меню
                         if (menuNum == 2) {
                             // add join menu
-							joinGameMenu(window);
+							// joinGameMenu(window);
 
-                            // startGame(window, CLIENT);
+                            startGame(window, CLIENT);
                             event.type = temp;
                             pressed = false;
                         }
@@ -337,7 +337,7 @@ namespace Chess {
             }
         }
 
-	void createGameMenu(Window& window) {
+	void createGameMenu(Window& window, Gameplay& gameplay) {
 		//  Загружаем фон
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
@@ -362,7 +362,7 @@ namespace Chess {
         ipTxt.setFillColor(sf::Color::White);
         ipTxt.setOutlineColor(sf::Color::Black);
         ipTxt.setOutlineThickness(2);
-        ipTxt.setString("Your IP address: " + sf::IpAddress::getPublicAddress().toString());
+        ipTxt.setString("Your IP address: " + sf::IpAddress::getLocalAddress().toString());
         ipTxt.setPosition(X_WINDOW/4, Y_WINDOW*6/13);
 
         sf::Text inviteTxt("Report your IP to friend", font, 40);
@@ -433,10 +433,12 @@ namespace Chess {
             window.draw(inviteTxt);
             window.display();
 
+            gameplay.host(); 
+            isMenu = false;
         }
 	}
 
-	void joinGameMenu(Window& window) {  // add connection + space to enter ipTxt
+	std::string joinGameMenu(Window& window) {  // add connection + space to enter ipTxt
 		//  Загружаем фон
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
@@ -498,6 +500,9 @@ namespace Chess {
                     }
                 }
                 window.draw(playerText);
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Enter)) {
+                    isMenu = false;
+                }
             }
 
             float time = clock.getElapsedTime().asMicroseconds();  // дать прошедшее время в микросекундах
@@ -531,8 +536,6 @@ namespace Chess {
                 }
             }
 
-            
-            
             window.draw(menuBg);
             window.draw(playerText);
             window.draw(joinTxt);
@@ -540,6 +543,7 @@ namespace Chess {
             window.display();
 
         }
+        return playerInput;
 	}
 
     void startGame(Window& window, GameMode mode) {
@@ -550,6 +554,18 @@ namespace Chess {
         bool GameOver = false;
 
         bool pressed = 0;
+
+        Chess::Gameplay gameplay;
+        gameplay.setSide();
+        gameplay.setGameMode(mode);
+
+        if (mode == HOST) {
+            createGameMenu(window, gameplay);
+        } else if (mode == CLIENT) {
+            gameplay.client(joinGameMenu(window));
+        }
+        
+        gameplay.updateSprites();
 
         // GameOverBG
         //sf::Texture endGameBg;
@@ -584,12 +600,6 @@ namespace Chess {
         playSpace.x = X_PLAYSPACE;
         playSpace.y = Y_PLAYSPACE;
         board_texture.setPlaySpace(playSpace);
-
-        Chess::Gameplay gameplay;
-        gameplay.setSide();
-        gameplay.setGameMode(mode);
-
-        gameplay.updateSprites();
 
         while (isGame) {
             sf::Vector2i pos = sf::Mouse::getPosition(window);
