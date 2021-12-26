@@ -152,7 +152,7 @@ namespace Chess {
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
                     (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
-                    current_pos.y == 6) {
+                    current_pos.y == 6 && board[y][x] == EMPTY_CELL) {
                         board[y][x] = B_PAWN;
                         flag = true;
                 }
@@ -167,7 +167,7 @@ namespace Chess {
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
                     (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
-                    current_pos.y == 6) {
+                    current_pos.y == 6 && board[y][x] == EMPTY_CELL) {
                         board[y][x] = W_PAWN;
                         flag = true;
                 }
@@ -308,17 +308,120 @@ namespace Chess {
 
     bool BoardLogic::isGameOver() {
         checkGameState();
+        if (check && !game_over) {
+            game_over = isMate();
+        }
+        // for (int y = 0; y < 8; ++y) {
+        //     for (int x = 0; x < 8; ++x) {
+        //         std::cout << threat_map[y][x] << " ";
+        //     }
+        //     std::cout << std::endl;
+        // }
+        // std::cout << std::endl;
         return game_over;
     }
 
     bool BoardLogic::isCheck() {
         checkGameState();
         if (check) {
-            board[previos_move[0].y][previos_move[0].x] = board[previos_move[1].y][previos_move[1].x];
-            board[previos_move[1].y][previos_move[1].x] = eaten_fig;
+            cancelMove();
             return true;
         }
         return false;
+    }
+
+    bool BoardLogic::isMate() {
+        for (int y = 0; y < 8; ++y) {
+            for (int x = 0; x < 8; ++x) {
+                current_pos.x = x;
+                current_pos.y = y;
+
+                if (cur_side == WHITE) {
+                    switch (board[y][x]) {
+                    case W_PAWN:
+                        if (pawnTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case W_KING:
+                        if (kingTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case W_KNIGHT:
+                        if (knightTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case W_ROOK:
+                        if (lineTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case W_BISHOP:
+                        if (diagonalTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case W_QUEEN:
+                        if (lineTestMove(x, y) || diagonalTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    default:
+                        break;
+                    }
+                } else {
+                    switch (board[y][x]) {
+                    case B_PAWN:
+                        if (pawnTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case B_KING:
+                        if (kingTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case B_KNIGHT:
+                        if (knightTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case B_ROOK:
+                        if (lineTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case B_BISHOP:
+                        if (diagonalTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    case B_QUEEN:
+                        if (lineTestMove(x, y) || diagonalTestMove(x, y)) {
+                            return false;
+                        }
+                        break;
+
+                    default:
+                        break;
+                    }
+                }
+            }
+        }
+        return true;
     }
 
     bool BoardLogic::isFigureOnLine(int x, int y) const {
@@ -364,7 +467,7 @@ namespace Chess {
     }
 
     bool BoardLogic::enPassant() {
-        if (previos_fig == B_PAWN || previos_fig == W_PAWN &&
+        if (((previos_fig == B_PAWN && cur_side == WHITE) || (previos_fig == W_PAWN && cur_side == BLACK)) &&
             current_pos.y == (7 - previos_move[1].y) && (previos_move[0].y - previos_move[1].y) == 2) {
                 board[7 - previos_move[1].y][previos_move[1].x] = EMPTY_CELL;
                 return true;
@@ -395,16 +498,20 @@ namespace Chess {
             for (int x = 0; x < 8; x++)  {
                 threat_map[y][x] = false;
                 if (board[y][x] == W_KING) {
-                    king_pos[0].x = x;
-                    king_pos[0].y = y;
-                    board[y][x] = EMPTY_CELL;
                     k++;
+                    if (cur_side == WHITE) {
+                        king_pos[0].x = x;
+                        king_pos[0].y = y;
+                        board[y][x] = EMPTY_CELL;
+                    }
                 }
                 if (board[y][x] == B_KING) {
+                    k++;
+                    if (cur_side == BLACK) {
                     king_pos[1].x = x;
                     king_pos[1].y = y;
                     board[y][x] = EMPTY_CELL;
-                    k++;
+                    }
                 }
             }
         }
@@ -478,8 +585,11 @@ namespace Chess {
                 }
             }
         }
-        board[king_pos[0].y][king_pos[0].x] = W_KING;
-        board[king_pos[1].y][king_pos[1].x] = B_KING;
+        if (cur_side == WHITE) {
+            board[king_pos[0].y][king_pos[0].x] = W_KING;
+        } else if (cur_side == BLACK) {
+            board[king_pos[1].y][king_pos[1].x] = B_KING;
+        }
 
         check = false;
         if (threat_map[king_pos[0].y][king_pos[0].x] == true && cur_side == WHITE) {
@@ -543,7 +653,7 @@ namespace Chess {
             threat_map[y + 1][x - 2] = true;
         }
         if (board[y - 1][x + 2] == EMPTY_CELL && isValidCoords(x + 2, y - 1)) {
-            threat_map[y + 1][x + 2] = true;
+            threat_map[y - 1][x + 2] = true;
         }
         if (board[y - 1][x - 2] == EMPTY_CELL && isValidCoords(x - 2, y - 1)) {
             threat_map[y - 1][x - 2] = true;
@@ -595,6 +705,145 @@ namespace Chess {
             i++;
         }
     }
+
+    bool BoardLogic::testMove(int x, int y) {
+        if (isValidCoords(x, y) && isMoveFigure(x, y)) {
+            checkGameState();
+            cancelMove();
+            if (!check) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void BoardLogic::cancelMove() {
+        board[previos_move[0].y][previos_move[0].x] = board[previos_move[1].y][previos_move[1].x];
+        board[previos_move[1].y][previos_move[1].x] = eaten_fig;
+    }
+
+    bool BoardLogic::pawnTestMove(int x, int y) {
+        for (int i = -1; i < 2; ++i) {
+            if (testMove(x + i, y - 1)) {
+                return true;
+            }
+        }
+        if (testMove(x, y - 2)) {
+            return true;
+        }
+        return false;
+    }
+
+    bool BoardLogic::kingTestMove(int x, int y) {
+        for (int i = - 1; i < 2; i++) {
+            if (testMove(x + i, y + 1)) {
+                return true;
+            }
+            if (testMove(x + i, y - 1)) {
+                return true;
+            }
+        }
+        if (testMove(x + 1, y)) {
+            return true;
+        }
+        if (testMove(x - 1, y)) {
+            return true;
+        }
+        return false;
+    }
+
+    bool BoardLogic::knightTestMove(int x, int y) {
+        if (testMove(x + 1, y + 2)) {
+            return true;
+        }
+        if (testMove(x - 1, y + 2)) {
+            return true;
+        }
+        if (testMove(x + 1, y - 2)) {
+            return true;
+        }
+        if (testMove(x - 1, y - 2)) {
+            return true;
+        }
+        if (testMove(x + 2, y + 1)) {
+            return true;
+        }
+        if (testMove(x - 2, y + 1)) {
+            return true;
+        }
+        if (testMove(x + 2, y - 1)) {
+            return true;
+        }
+        if (testMove(x - 2, y - 1)) {
+            return true;
+        }
+        return false;
+    }
+
+    bool BoardLogic::lineTestMove(int x, int y) {
+        int i = 1;
+        while (x + i < 8) {
+            if (testMove(x + i, y)) {
+                return true;
+            }
+            i++;
+        }
+        i = 1;
+        while (x - i >= 0) {
+            if (testMove(x - i, y)) {
+                return true;
+            }
+            i++;
+        }
+        i = 1;
+        while (y + i < 8) {
+            if (testMove(x, y + i)) {
+                return true;
+            }
+            i++;
+        }
+        i = 1;
+        while (y - i >= 0) {
+            if (testMove(x, y - i)) {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
+    bool BoardLogic::diagonalTestMove(int x, int y) {
+        int i = 1;
+        while (x + i < 8 && y + i < 8) {
+            if (testMove(x + i, y + i)) {
+                return true;
+            }
+            i++;
+        }
+        i = 1;
+        while (x - i >= 0 && y + i < 8) {
+            if (testMove(x - i, y + i)) {
+                return true;
+            }
+            i++;
+        }
+        i = 1;
+        while (x + i < 8 && y - i >= 0) {
+            if (testMove(x + i, y - i)) {
+                return true;
+            }
+            i++;
+        }
+        i = 1;
+        while (x - i >= 0 && y - i >= 0) {
+            if (testMove(x - i, y - i)) {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
 
     sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board) {
         for (int y = 7; y >= 0; y--) {

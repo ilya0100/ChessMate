@@ -433,7 +433,7 @@ namespace Chess {
             window.draw(inviteTxt);
             window.display();
 
-            gameplay.host();
+            // gameplay.host();
             isMenu = false;
         }
 	}
@@ -561,8 +561,13 @@ namespace Chess {
 
         if (mode == HOST) {
             createGameMenu(window, gameplay);
+            if (!gameplay.host()) {
+                isGame = false;
+            }
         } else if (mode == CLIENT) {
-            gameplay.client(joinGameMenu(window));
+            if (!gameplay.client(joinGameMenu(window))) {
+                isGame = false;
+            }
         }
 
         gameplay.updateSprites();
