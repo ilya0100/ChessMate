@@ -34,6 +34,7 @@ namespace Chess {
             bool isMoveFigure(int x, int y);
             bool isGameOver();
             bool isCheck();
+            bool isMate();
             
             figureName operator()(int x, int y) const;
             figureName& operator()(int x, int y);
@@ -59,6 +60,16 @@ namespace Chess {
             void setKnightThreat(int x, int y);
             void setLineThreat(int x, int y);
             void setDiagonalThreat(int x, int y);
+
+            bool testMove(int x, int y);
+            void cancelMove();
+            
+            bool pawnTestMove(int x, int y);
+            bool kingTestMove(int x, int y);
+            bool knightTestMove(int x, int y);
+            bool lineTestMove(int x, int y);
+            bool diagonalTestMove(int x, int y);
+
     };
 
     sf::Packet& operator<<(sf::Packet& packet, const BoardLogic& board);
