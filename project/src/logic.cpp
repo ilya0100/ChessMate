@@ -152,7 +152,7 @@ namespace Chess {
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
                     (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
-                    current_pos.y == 6) {
+                    current_pos.y == 6 && board[y][x] == EMPTY_CELL) {
                         board[y][x] = B_PAWN;
                         flag = true;
                 }
@@ -167,7 +167,7 @@ namespace Chess {
                     (x - current_pos.x == -1 || x - current_pos.x == 1) &&
                     (board[y][x] != EMPTY_CELL || enPassant())) ||
                     y - current_pos.y == -2 && x == current_pos.x &&
-                    current_pos.y == 6) {
+                    current_pos.y == 6 && board[y][x] == EMPTY_CELL) {
                         board[y][x] = W_PAWN;
                         flag = true;
                 }
@@ -841,6 +841,7 @@ namespace Chess {
             }
             i++;
         }
+        return false;
     }
 
 
