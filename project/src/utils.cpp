@@ -1,6 +1,6 @@
 #include "utils.hpp"
 
-	float settings::scale_factor = 0.2;
+	float settings::scale_factor = 0.5;
 	float settings::cell_size = settings::sprite_size * settings::scale_factor;
 	float settings::sprite_size = 264;
 	float settings::x_board_size = 2400;
@@ -22,8 +22,8 @@
 // detect number of current cage
 sf::Vector2u getCurrCage(sf::Vector2i pos /*sf::Vector2i playSpace*/) {
     sf::Vector2u cage;
-    cage.x = (pos.x - settings::x_playspace ) / (settings::cell_size);
-    cage.y = (pos.y - settings::y_playspace ) / (settings::cell_size);
+    cage.x = (pos.x - settings::getPsX() ) / (settings::getCs());
+    cage.y = (pos.y - settings::getPsY() ) / (settings::getCs());
     return cage;
 }
 

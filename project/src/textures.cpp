@@ -192,14 +192,14 @@ namespace Chess {
         default:
             break;
         }
-        sprite.setScale(settings::scale_factor , settings::scale_factor );
+        sprite.setScale(settings::getSf() , settings::getSf() );
     }
 
     void Figures::setFigurePos(int i, int j) {
-        spritePos.x = settings::x_playspace + settings::scale_factor  * settings::sprite_size * i;
-        spritePos.y = settings::y_playspace + settings::scale_factor  * settings::sprite_size * j;
-        // spritePos.x = settings::scale_factor  * (X_PLAYSPACE + settings::sprite_size * i);
-        // spritePos.y = settings::scale_factor  * (Y_PLAYSPACE + settings::sprite_size * j);
+        spritePos.x = settings::getPsX() + settings::getSf()  * settings::sprite_size * i;
+        spritePos.y = settings::getPsY() + settings::getSf()  * settings::sprite_size * j;
+        // spritePos.x = settings::getSf()  * (X_PLAYSPACE + settings::sprite_size * i);
+        // spritePos.y = settings::getSf()  * (Y_PLAYSPACE + settings::sprite_size * j);
         sprite.setPosition(spritePos.x, spritePos.y);
 
         figurePos.x = i;
@@ -216,8 +216,8 @@ namespace Chess {
     void Figures::setFigurePos(Letter_Position lp, Digit_Position dp) {
         letterPos = lp;
         digitPos = dp;
-        spritePos.x = settings::scale_factor  * (X_PLAYSPACE + settings::sprite_size * (float)lp);
-        spritePos.y = settings::scale_factor  * (Y_PLAYSPACE + settings::sprite_size * (float)dp);
+        spritePos.x = settings::getSf()  * (X_PLAYSPACE + settings::sprite_size * (float)lp);
+        spritePos.y = settings::getSf()  * (Y_PLAYSPACE + settings::sprite_size * (float)dp);
         sprite.setPosition(spritePos.x, spritePos.y);
     }
     */

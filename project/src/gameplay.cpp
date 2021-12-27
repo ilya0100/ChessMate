@@ -119,7 +119,7 @@ namespace Chess {
     void Gameplay::drawFigures(Window& window, sf::Vector2i pos) {
         for (size_t i = 0; i < fig_count - eaten_count; i++) {
             if (isMove && i == fig_num) {
-                figures_arr[i].moveFigure(pos.x - settings::tsprite_size / 2, pos.y - settings::tsprite_size / 2);
+                figures_arr[i].moveFigure(pos.x - settings::getTSs() / 2, pos.y - settings::getTSs() / 2);
             }
             if (figures_arr[i].getName() != EMPTY_CELL) {
                 window.draw(figures_arr[i].getFigureSprite());

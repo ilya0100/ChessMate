@@ -6,17 +6,17 @@ namespace Chess {
 
         Chess::Button playBut("./images/play.png");
         playBut.setSize(250, 53);
-        playBut.setPosition(settings::x_window/2 - playBut.getSize().x/2, settings::y_window *4/13);
+        playBut.setPosition(settings::getXw()/2 - playBut.getSize().x/2, settings::getYw() *4/13);
 
 
         Chess::Button optionBut("./images/option.png");
         optionBut.setSize(231, 53);
-        optionBut.setPosition(settings::x_window/2 - optionBut.getSize().x/2, settings::y_window *6/13);
+        optionBut.setPosition(settings::getXw()/2 - optionBut.getSize().x/2, settings::getYw() *6/13);
 
 
         Chess::Button exitBut("./images/exit.png");
         exitBut.setSize(149, 53);
-        exitBut.setPosition(settings::x_window / 2 - exitBut.getSize().x/2, settings::y_window *8/13);
+        exitBut.setPosition(settings::getXw() / 2 - exitBut.getSize().x/2, settings::getYw() *8/13);
 
 
 
@@ -24,7 +24,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(settings::x_window/ 1333, settings::y_window  / 751);
+        menuBg.setScale(settings::getXw()/ 1333, settings::getYw()  / 751);
         menuBg.setPosition(0, 0);
 
         bool isMenu = 1;
@@ -113,17 +113,17 @@ namespace Chess {
     void options(Window& window) {
         Chess::Button setTexture("./images/TextureOptions.png");
         setTexture.setSize(360, 53);
-        setTexture.setPosition(settings::x_window /2 - setTexture.getSize().x/2, settings::y_window *4/13);
+        setTexture.setPosition(settings::getXw() /2 - setTexture.getSize().x/2, settings::getYw() *4/13);
 
 
         Chess::Button optionBut("./images/WinSize.png");
         optionBut.setSize(452, 53);
-        optionBut.setPosition(settings::x_window / 2 - optionBut.getSize().x/2, settings::y_window *6/13);
+        optionBut.setPosition(settings::getXw() / 2 - optionBut.getSize().x/2, settings::getYw() *6/13);
 
 
         Chess::Button exitBut("./images/exit.png");
         exitBut.setSize(149, 53);
-        exitBut.setPosition(settings::x_window / 2 - exitBut.getSize().x/2, settings::y_window *8/13);
+        exitBut.setPosition(settings::getXw() / 2 - exitBut.getSize().x/2, settings::getYw() *8/13);
 
 
 
@@ -131,7 +131,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(settings::x_window / 1333, settings::y_window  / 751);
+        menuBg.setScale(settings::getXw() / 1333, settings::getYw()  / 751);
         menuBg.setPosition(0, 0);
 
         bool isMenu = 1;
@@ -222,7 +222,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(settings::x_window / 1333, settings::y_window / 751);
+        menuBg.setScale(settings::getXw() / 1333, settings::getYw() / 751);
         menuBg.setPosition(0, 0);
 
         //
@@ -235,20 +235,20 @@ namespace Chess {
 
         Chess::Button setNewTextBut("./images/butOp1.png");
         setNewTextBut.setSize(565, 53);
-        setNewTextBut.setPosition(settings::x_window/2 - setNewTextBut.getSize().x/2, settings::y_window*3/13);
+        setNewTextBut.setPosition(settings::getXw()/2 - setNewTextBut.getSize().x/2, settings::getYw()*3/13);
 
 
         Chess::Button setPrevTextBut("./images/butOp2.png");
         setPrevTextBut.setSize(558, 53);
-        setPrevTextBut.setPosition(settings::x_window/2 - setPrevTextBut.getSize().x/2, settings::y_window*7/13);
+        setPrevTextBut.setPosition(settings::getXw()/2 - setPrevTextBut.getSize().x/2, settings::getYw()*7/13);
 
         Chess::Button saveBut("./images/save.png");
         saveBut.setSize(223, 53);
-        saveBut.setPosition(settings::x_window/2 - saveBut.getSize().x/2, settings::y_window*9/13);
+        saveBut.setPosition(settings::getXw()/2 - saveBut.getSize().x/2, settings::getYw()*9/13);
 
         Chess::Button backBut("./images/backk.png");
         backBut.setSize(141, 53);
-        backBut.setPosition(settings::x_window/2 - backBut.getSize().x/2, settings::y_window*11/13);
+        backBut.setPosition(settings::getXw()/2 - backBut.getSize().x/2, settings::getYw()*11/13);
 
         sf::Clock clock;
 
@@ -257,7 +257,7 @@ namespace Chess {
 
         sf::Font font;
         font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
-        size_t font_size = 30 * settings::scale_factor / 0.2;
+        size_t font_size = 30 * settings::getSf() / 0.2;
         sf::Text curTexture("", font, font_size);
 
         wchar_t* cur_texture = L"текущая текстура: ";
@@ -370,7 +370,7 @@ namespace Chess {
 
             }
             curTexture.setString(currentTexture + pathfile);
-            curTexture.setPosition(settings::x_window  / 2 - (wcslen(cur_texture) * font_size / 4 + pathfile.length() * font_size / 4), settings::y_window * 5/13);
+            curTexture.setPosition(settings::getXw()  / 2 - (wcslen(cur_texture) * font_size / 4 + pathfile.length() * font_size / 4), settings::getYw() * 5/13);
 
 
             window.draw(menuBg);
@@ -391,7 +391,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(settings::x_window  / 1333, settings::y_window / 751);
+        menuBg.setScale(settings::getXw()  / 1333, settings::getYw() / 751);
         menuBg.setPosition(0, 0);
 
         //
@@ -404,16 +404,16 @@ namespace Chess {
 
         Chess::Button singlePlayBut("./images/singlePlay.png");
         singlePlayBut.setSize(561, 53);
-        singlePlayBut.setPosition(settings::x_window /2 - singlePlayBut.getSize().x/2, settings::y_window*4/13);
+        singlePlayBut.setPosition(settings::getXw() /2 - singlePlayBut.getSize().x/2, settings::getYw()*4/13);
 
 
         Chess::Button onlineGameBut("./images/online_game.png");
         onlineGameBut.setSize(270, 53);
-        onlineGameBut.setPosition(settings::x_window /2 - onlineGameBut.getSize().x/2, settings::y_window*6/13);
+        onlineGameBut.setPosition(settings::getXw() /2 - onlineGameBut.getSize().x/2, settings::getYw()*6/13);
 
         Chess::Button backBut("./images/backk.png");
         backBut.setSize(141, 53);
-        backBut.setPosition(settings::x_window /2 - backBut.getSize().x/2, settings::y_window*8/13);
+        backBut.setPosition(settings::getXw() /2 - backBut.getSize().x/2, settings::getYw()*8/13);
 
         sf::Clock clock;
 
@@ -496,7 +496,7 @@ namespace Chess {
             sf::Texture menuBackground;
             menuBackground.loadFromFile("./images/menu.png");
             sf::Sprite menuBg(menuBackground);
-            menuBg.setScale(settings::x_window  / 1333, settings::y_window / 751);
+            menuBg.setScale(settings::getXw()  / 1333, settings::getYw() / 751);
             menuBg.setPosition(0, 0);
 
             //
@@ -508,16 +508,16 @@ namespace Chess {
 
             Chess::Button createBut("./images/createGame.png");
             createBut.setSize(268, 53);
-            createBut.setPosition(settings::x_window /2 - createBut.getSize().x / 2, settings::y_window*4/13);
+            createBut.setPosition(settings::getXw() /2 - createBut.getSize().x / 2, settings::getYw()*4/13);
 
 
             Chess::Button joinBut("./images/joinGame.png");
             joinBut.setSize(467, 53);
-            joinBut.setPosition(settings::x_window /2 - joinBut.getSize().x / 2, settings::y_window*6/13);
+            joinBut.setPosition(settings::getXw() /2 - joinBut.getSize().x / 2, settings::getYw()*6/13);
 
             Chess::Button backBut("./images/backk.png");
             backBut.setSize(141, 53);
-            backBut.setPosition(settings::x_window /2 - backBut.getSize().x / 2, settings::y_window*8/13);
+            backBut.setPosition(settings::getXw() /2 - backBut.getSize().x / 2, settings::getYw()*8/13);
 
             sf::Clock clock;
 
@@ -599,7 +599,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(settings::x_window  / 1333, settings::y_window / 751);
+        menuBg.setScale(settings::getXw()  / 1333, settings::getYw() / 751);
         menuBg.setPosition(0, 0);
 
         //
@@ -620,18 +620,18 @@ namespace Chess {
         ipTxt.setOutlineColor(sf::Color::Black);
         ipTxt.setOutlineThickness(2);
         ipTxt.setString("Your IP address: " + sf::IpAddress::getLocalAddress().toString());
-        ipTxt.setPosition(settings::x_window /4, settings::y_window*6/13);
+        ipTxt.setPosition(settings::getXw() /4, settings::getYw()*6/13);
 
         sf::Text inviteTxt("Report your IP to friend", font, 40);
         inviteTxt.setStyle(sf::Text::Bold);
         inviteTxt.setFillColor(sf::Color::White);
         inviteTxt.setOutlineColor(sf::Color::Black);
         inviteTxt.setOutlineThickness(2);
-        inviteTxt.setPosition(settings::x_window /4, settings::y_window*4/13);
+        inviteTxt.setPosition(settings::getXw() /4, settings::getYw()*4/13);
 
 		Chess::Button backBut("./images/backk.png");
     	backBut.setSize(141, 53);
-    	backBut.setPosition(settings::x_window /2 - backBut.getSize().x / 2, settings::y_window*8/13);
+    	backBut.setPosition(settings::getXw() /2 - backBut.getSize().x / 2, settings::getYw()*8/13);
 
         // Chess::TextField inputText(15);
 
@@ -700,7 +700,7 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(settings::x_window  / 1333, settings::y_window / 751);
+        menuBg.setScale(settings::getXw()  / 1333, settings::getYw() / 751);
         menuBg.setPosition(0, 0);
 
         //
@@ -710,7 +710,7 @@ namespace Chess {
 
 		Chess::Button backBut("./images/backk.png");
     	backBut.setSize(141, 53);
-    	backBut.setPosition(settings::x_window /2 - backBut.getSize().x / 2, settings::y_window*8/13);
+    	backBut.setPosition(settings::getXw() /2 - backBut.getSize().x / 2, settings::getYw()*8/13);
 
 		sf::Clock clock;
 
@@ -722,12 +722,12 @@ namespace Chess {
         font.loadFromFile("./Fonts/Montserrat.TTF");
         std::string playerInput;
         sf::Text playerText("", font, 40);
-        playerText.setPosition(settings::x_window /4, settings::y_window*6/13);
+        playerText.setPosition(settings::getXw() /4, settings::getYw()*6/13);
         playerText.setColor(sf::Color::White);
         playerText.setOutlineThickness(2);
 
         sf::Text joinTxt("Enter friend's IP here:", font, 40);
-        joinTxt.setPosition(settings::x_window /4, settings::y_window*4/13);
+        joinTxt.setPosition(settings::getXw() /4, settings::getYw()*4/13);
         joinTxt.setColor(sf::Color::White);
         joinTxt.setOutlineThickness(2);
 
@@ -837,29 +837,29 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/endgameBg.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(settings::scale_factor * 0.5 / 0.2, settings::scale_factor * 0.5 / 0.2);
+        menuBg.setScale(settings::getSf() * 0.5 / 0.2, settings::getSf() * 0.5 / 0.2);
         menuBg.setPosition(0, 0);
 
         // button exit through class Button
         Chess::Button exitBut("./images/exit.png");
         exitBut.setSize(X_EXIT, Y_EXIT);
-        exitBut.setPosition(settings::x_window  - 200, settings::y_window - 100 * settings::scale_factor / 0.2);
+        exitBut.setPosition(settings::getXw()  - 200, settings::getYw() - 100 * settings::getSf() / 0.2);
 
 
         // кнопка назад
         Chess::Button backBut("./images/back.png");
         backBut.setSize(X_BACK, Y_BACK);
-        backBut.setPosition(100, settings::y_window - 100 * settings::scale_factor / 0.2);
+        backBut.setPosition(100, settings::getYw() - 100 * settings::getSf() / 0.2);
 
         // add board and figure
-        float scale = settings::scale_factor;
+        float scale = settings::getSf();
         Chess::BoardTexture board_texture("./images/boardTru.jpg");
         Chess::FigureTexture figures_testure;
-        board_texture.setBoardScale(settings::scale_factor);
+        board_texture.setBoardScale(settings::getSf());
 
         sf::Vector2i playSpace;
-        playSpace.x = settings::x_playspace;
-        playSpace.y = settings::y_playspace;
+        playSpace.x = settings::getPsX();
+        playSpace.y = settings::getPsY();
         board_texture.setPlaySpace(playSpace);
 
         while (isGame) {
@@ -936,19 +936,19 @@ namespace Chess {
 
         } // while(isGame)
 
-        backBut.setPosition(settings::x_window  / 2 - backBut.getSize().x / 2, 285 * settings::scale_factor / 0.2);
-        exitBut.setPosition(settings::x_window  / 2 - exitBut.getSize().x / 2, 388 * settings::scale_factor / 0.2);
+        backBut.setPosition(settings::getXw()  / 2 - backBut.getSize().x / 2, 285 * settings::getSf() / 0.2);
+        exitBut.setPosition(settings::getXw()  / 2 - exitBut.getSize().x / 2, 388 * settings::getSf() / 0.2);
         setlocale(LC_ALL,"Rus");
 
         sf::Font font;
         font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
-        size_t font_size = 50 * settings::scale_factor / 0.2;
+        size_t font_size = 50 * settings::getSf() / 0.2;
         sf::Text winnerText("", font, font_size);
 
         wchar_t* whites = L"Победитель – белые";
         wchar_t* blacks = L"Победитель – черные";
 
-        winnerText.setPosition(settings::x_window  / 2 - wcslen(whites) * font_size / 4, 200 * settings::scale_factor / 0.2);
+        winnerText.setPosition(settings::getXw()  / 2 - wcslen(whites) * font_size / 4, 200 * settings::getSf() / 0.2);
         winnerText.setColor(sf::Color::White);
         winnerText.setOutlineThickness(2);
 

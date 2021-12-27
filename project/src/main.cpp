@@ -9,7 +9,7 @@ int main() {
         in >> scale;
     settings::scale_factor = scale;
 
-    Window window(sf::VideoMode(settings::x_window * settings::scale_factor, settings::y_window * settings::scale_factor), "ChessMate!");
+    Window window(sf::VideoMode(settings::getXw(), settings::getYw()), "ChessMate!");
 
     // sf::Clock clock;
     // int menuNum = 0;

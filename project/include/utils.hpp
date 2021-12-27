@@ -12,7 +12,7 @@
 #define CELL_SIZE (264 * SCALE_FACTOR)
 
 // scale
-#define SCALE_FACTOR 0.6
+#define SCALE_FACTOR 0.2
 
 // board parameters
 #define X_BOARD_SIZE 2400
@@ -50,6 +50,18 @@ typedef struct settings{
     static float x_window;
     static float y_window;
     static float tsprite_size;
+
+    static float getSf() {return scale_factor;};
+    static float getSs() {return 264;};
+    static float getCs() {return scale_factor * 264;};
+    static float getXbs() {return 2400;};
+    static float getYbs() {return 2400;};
+    static float getXw() {x_window = x_board_size * x_scale_w * scale_factor; return x_window;};
+    static float getYw() {y_window = y_board_size * y_scale_w * scale_factor; return y_window;};
+    static float getTSs() { return 264 * scale_factor;};
+
+    static float getPsX() {return scale_factor * 144;};
+    static float getPsY() {return scale_factor * 144;};
 
 } settings;
 
