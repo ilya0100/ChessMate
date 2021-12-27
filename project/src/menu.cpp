@@ -72,6 +72,8 @@ namespace Chess {
                             pressed = false;
                         }
                         if (menuNum == 2) {
+                            options(window);
+                            event.type = temp;
                             pressed = false;
                         }
                         if (menuNum == 3) {
@@ -100,17 +102,130 @@ namespace Chess {
             if (optionBut.isTouch(window)) {optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             if (exitBut.isTouch(window)) {exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
 
-            //if (sf::IntRect(playBut.getPosition().x * window.getRatio().x, playBut.getPosition().y * window.getRatio().y, playBut.getSize().x * window.getRatio().x, playBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-            //if (sf::IntRect(optionBut.getPosition().x * window.getRatio().x, optionBut.getPosition().y * window.getRatio().y, optionBut.getSize().x * window.getRatio().x, optionBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
-            //if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
-
-
             window.draw(menuBg);
             window.draw(playBut.getSprite());
             window.draw(optionBut.getSprite());
             window.draw(exitBut.getSprite());
             window.display();
         }
+    }
+
+    void options(Window& window) {
+           //  Загружаем фон
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+        menuBg.setPosition(0, 0);
+
+        //
+        bool isMenu = 1;  // пока меню открыто
+        int menuNum = 0;  // для номеров кнопок
+
+        bool pressed = 0;
+
+        //  кнопки
+
+        Chess::Button setNewTextBut("./images/butOp1.png");
+        setNewTextBut.setSize(565, 53);
+        setNewTextBut.setPosition(X_WINDOW/2 - setNewTextBut.getSize().x/2, Y_WINDOW*4/13);
+
+
+        Chess::Button setPrevTextBut("./images/butOp2.png");
+        setPrevTextBut.setSize(558, 53);
+        setPrevTextBut.setPosition(X_WINDOW/2 - setPrevTextBut.getSize().x/2, Y_WINDOW*6/13);
+
+        Chess::Button saveBut("./images/save.png");
+        saveBut.setSize(223, 53);
+        saveBut.setPosition(X_WINDOW/2 - saveBut.getSize().x/2, Y_WINDOW*8/13);
+
+        Chess::Button backBut("./images/backk.png");
+        backBut.setSize(141, 53);
+        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, Y_WINDOW*10/13);
+
+        sf::Clock clock;
+
+        while (isMenu) {
+            sf::Event event;
+            sf::Event::EventType temp;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    std::exit(0);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                    std::exit(0);
+                }
+                if (event.type == sf::Event::Resized) {
+                    window.getSizeNew();
+                 }
+            }
+
+            float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+            clock.restart(); //перезагружает время
+            time = time / 8000; //скорость игры
+            setNewTextBut.getSprite().setColor(sf::Color::White);
+            setPrevTextBut.getSprite().setColor(sf::Color::White);
+            saveBut.getSprite().setColor(sf::Color::White);
+            backBut.getSprite().setColor(sf::Color::White);
+            menuNum = 0;
+
+
+            if (setNewTextBut.isTouch(window)) {setNewTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (setPrevTextBut.isTouch(window)) {setPrevTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (saveBut.isTouch(window)) {saveBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+            if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
+
+            if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    pressed = true;
+            } else if (menuNum == 0)
+                    {pressed = false;}
+
+            if (pressed) {
+                if (event.type == sf::Event::MouseButtonReleased) {
+                    if (menuNum == 1) {
+                        // isMenu = false;
+
+                        FigureTexture::setMain_sprite("./images/wooden_pieces.png");
+                        event.type = temp;
+                        pressed = false;
+                    }
+                    if (menuNum == 2) {
+                        // isMenu = false;
+
+                        FigureTexture::setMain_sprite("./images/piecesTru.png");
+                        event.type = temp;
+                        pressed = false;
+                    }
+                    if (menuNum == 3) {
+                        // isMenu = false;
+
+                        FigureTexture::saveMain_sprite();
+                        event.type = temp;
+                        pressed = false;
+                    }
+
+
+                    if (menuNum == 4) {
+                        isMenu = false;
+                        event.type = temp;
+                        pressed = false;
+                        // startMenu(window);
+                        // startMenu(window);
+                    }
+                }
+
+            }
+
+            window.draw(menuBg);
+            window.draw(setNewTextBut.getSprite());
+            window.draw(setPrevTextBut.getSprite());
+            window.draw(saveBut.getSprite());
+            window.draw(backBut.getSprite());
+            window.display();
+
+        }
+
     }
 
     void selectMode(Window& window) {

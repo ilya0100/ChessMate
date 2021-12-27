@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils.hpp"
+#include <fstream>
 
 namespace Chess {
 
@@ -57,10 +58,13 @@ namespace Chess {
 
         protected:
             static sf::Sprite main_sprite;
+            static bool isDefined;
+            static std::string pathfile;
 
         public:
             FigureTexture();
-            void setMain_sprite(const std::string filename);
+            static void setMain_sprite(const std::string filename);
+            static void saveMain_sprite();
             void setFigureScale(float scale);
     };
  

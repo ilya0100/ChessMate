@@ -17,6 +17,7 @@ namespace Chess {
 
     void selectMode(Window& window);
     void selectH(Window& window);
+    void options(Window& window);
 
     // create and join menu's
     void createGameMenu(Window & window, Gameplay& gameplay);
