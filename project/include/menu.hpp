@@ -9,7 +9,6 @@
 
 
 
-// static float size = SPRITE_SIZE * SCALE_FACTOR;
 
 namespace Chess {
 
@@ -17,6 +16,7 @@ namespace Chess {
 
     void selectMode(Window& window);
     void selectH(Window& window);
+    void optionsTexture(Window& window);
     void options(Window& window);
 
     // create and join menu's

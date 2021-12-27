@@ -148,7 +148,7 @@ namespace Chess {
         case B_PAWN:
             sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
             break;
-            
+
         case W_ROOK:
             sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
             break;

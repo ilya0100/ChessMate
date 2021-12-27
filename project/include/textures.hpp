@@ -19,6 +19,8 @@ namespace Chess {
             sf::Sprite getSprite();
     };
 
+
+
     class Button {
             sf::Texture texture;
             sf::Sprite sprite;

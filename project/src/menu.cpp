@@ -111,6 +111,113 @@ namespace Chess {
     }
 
     void options(Window& window) {
+        Chess::Button setTexture("./images/TextureOptions.png");
+        setTexture.setSize(360, 53);
+        setTexture.setPosition(X_WINDOW/2 - setTexture.getSize().x/2, Y_WINDOW*4/13);
+
+
+        Chess::Button optionBut("./images/WinSize.png");
+        optionBut.setSize(452, 53);
+        optionBut.setPosition(X_WINDOW/2 - optionBut.getSize().x/2, Y_WINDOW*6/13);
+
+
+        Chess::Button exitBut("./images/exit.png");
+        exitBut.setSize(149, 53);
+        exitBut.setPosition(X_WINDOW/2 - exitBut.getSize().x/2, Y_WINDOW*8/13);
+
+
+
+
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+        menuBg.setPosition(0, 0);
+
+        bool isMenu = 1;
+        int menuNum = 0;
+
+        bool pressed = 0;
+
+
+
+        sf::Clock clock;
+        //////////////////////////////МЕНЮ///////////////////
+        while (isMenu) {
+            sf::Event event;
+            sf::Event::EventType temp;
+             while (window.pollEvent(event)) {
+                 if (event.type == sf::Event::Closed) {
+                     std::exit(0);
+                     }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                        std::exit(0);
+                }
+                //на будущее
+                /*if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+                    rectS.move(0, -1);
+                    rectPos = rectS.getPosition();
+                    */
+                if (event.type == sf::Event::Resized) {
+                    window.getSizeNew();
+                 }
+
+                if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
+                    if (event.mouseButton.button == sf::Mouse::Left)
+                        pressed = true;
+                } else if (menuNum == 0)
+                    {pressed = false;}
+
+
+                if (pressed) {
+                    if (event.type == sf::Event::MouseButtonReleased) {
+                        if (menuNum == 1) {
+                            //isMenu = false;
+
+                            optionsTexture(window);
+                            event.type = temp;
+                            pressed = false;
+                        }
+                        if (menuNum == 2) {
+                            options(window);
+                            event.type = temp;
+                            pressed = false;
+                        }
+                        if (menuNum == 3) {
+                            pressed = false;
+                            std::exit(0);
+                        }  //
+                    }
+                }
+
+             }
+
+
+            float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+            clock.restart(); //перезагружает время
+            time = time / 8000; //скорость игры
+
+            //красим кнопка обратно в белый цвет в цикле, если мышь не касается кнопки.
+            setTexture.getSprite().setColor(sf::Color::White);
+            optionBut.getSprite().setColor(sf::Color::White);
+            exitBut.getSprite().setColor(sf::Color::White);
+
+            // приравниваем индикатор касания кнопки нулю
+            menuNum = 0;
+
+            if (setTexture.isTouch(window)) {setTexture.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (optionBut.isTouch(window)) {optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (exitBut.isTouch(window)) {exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+
+            window.draw(menuBg);
+            window.draw(setTexture.getSprite());
+            window.draw(optionBut.getSprite());
+            window.draw(exitBut.getSprite());
+            window.display();
+        }
+
+    }
+    void optionsTexture(Window& window) {
            //  Загружаем фон
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/menu.png");
@@ -128,20 +235,20 @@ namespace Chess {
 
         Chess::Button setNewTextBut("./images/butOp1.png");
         setNewTextBut.setSize(565, 53);
-        setNewTextBut.setPosition(X_WINDOW/2 - setNewTextBut.getSize().x/2, Y_WINDOW*4/13);
+        setNewTextBut.setPosition(X_WINDOW/2 - setNewTextBut.getSize().x/2, Y_WINDOW*3/13);
 
 
         Chess::Button setPrevTextBut("./images/butOp2.png");
         setPrevTextBut.setSize(558, 53);
-        setPrevTextBut.setPosition(X_WINDOW/2 - setPrevTextBut.getSize().x/2, Y_WINDOW*6/13);
+        setPrevTextBut.setPosition(X_WINDOW/2 - setPrevTextBut.getSize().x/2, Y_WINDOW*7/13);
 
         Chess::Button saveBut("./images/save.png");
         saveBut.setSize(223, 53);
-        saveBut.setPosition(X_WINDOW/2 - saveBut.getSize().x/2, Y_WINDOW*8/13);
+        saveBut.setPosition(X_WINDOW/2 - saveBut.getSize().x/2, Y_WINDOW*9/13);
 
         Chess::Button backBut("./images/backk.png");
         backBut.setSize(141, 53);
-        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, Y_WINDOW*10/13);
+        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, Y_WINDOW*11/13);
 
         sf::Clock clock;
 
@@ -150,7 +257,7 @@ namespace Chess {
 
         sf::Font font;
         font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
-        size_t font_size = 20 * SCALE_FACTOR / 0.2;
+        size_t font_size = 30 * SCALE_FACTOR / 0.2;
         sf::Text curTexture("", font, font_size);
 
         wchar_t* cur_texture = L"текущая текстура: ";
@@ -263,7 +370,7 @@ namespace Chess {
 
             }
             curTexture.setString(currentTexture + pathfile);
-            curTexture.setPosition(X_WINDOW / 2 - (wcslen(cur_texture) * font_size / 4 + pathfile.length() * font_size / 4), Y_WINDOW * 4.75/13);
+            curTexture.setPosition(X_WINDOW / 2 - (wcslen(cur_texture) * font_size / 4 + pathfile.length() * font_size / 4), Y_WINDOW * 5/13);
 
 
             window.draw(menuBg);

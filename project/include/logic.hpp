@@ -2,7 +2,6 @@
 
 #include "utils.hpp"
 #include "iomanip"
-
 namespace Chess {
 
     class BoardLogic {
