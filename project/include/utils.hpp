@@ -37,6 +37,22 @@
 
 #define TSPRITE_SIZE (SPRITE_SIZE * SCALE_FACTOR)
 
+typedef struct settings{
+    static float scale_factor;
+    static float cell_size;
+    static float sprite_size;
+    static float x_board_size;
+    static float y_board_size;
+    static float x_playspace;
+    static float y_playspace;
+    static float x_scale_w;
+    static float y_scale_w;
+    static float x_window;
+    static float y_window;
+    static float tsprite_size;
+
+} settings;
+
 typedef struct {
     int x;
     int y;
