@@ -412,7 +412,11 @@ namespace Chess {
 
         Chess::Button saveBut("./images/save.png");
         saveBut.setSize(223, 53);
-        saveBut.setPosition(settings::getXw()/2 - saveBut.getSize().x/2, settings::getYw()*9/13);
+        saveBut.setPosition(settings::getXw()/2.5 - saveBut.getSize().x/2, settings::getYw()*9/13);
+
+        Chess::Button ApplyBut("./images/ApplyBut.png");
+        ApplyBut.setSize(241, 53);
+        ApplyBut.setPosition(settings::getXw()/1.5 - ApplyBut.getSize().x/2, settings::getYw()*9/13);
 
         Chess::Button backBut("./images/backk.png");
         backBut.setSize(141, 53);
@@ -434,10 +438,14 @@ namespace Chess {
         curTexture.setOutlineThickness(2);
 
         sf::String currentTexture = sf::String(cur_texture);
-        int case_num = 1;
+        int case_num = 2;
+        float case_numb = settings::getSffromFile();
         bool isSaved;
         FigureTexture::defineMain_sprite();
-        std::string pathfile = "960x624";
+        float Xw = case_numb*4800;
+        float Yw = case_numb*3120;
+
+        std::string pathfile = std::to_string((int)Xw) + "x" + std::to_string((int)Yw);
         while (isMenu) {
             sf::Event event;
             sf::Event::EventType temp;
@@ -459,6 +467,7 @@ namespace Chess {
             setNewSizeBut.getSprite().setColor(sf::Color::White);
             setPrevSizetBut.getSprite().setColor(sf::Color::White);
             saveBut.getSprite().setColor(sf::Color::White);
+            ApplyBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             menuNum = 0;
 
@@ -466,7 +475,8 @@ namespace Chess {
             if (setNewSizeBut.isTouch(window)) {setNewSizeBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
             if (setPrevSizetBut.isTouch(window)) {setPrevSizetBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             if (saveBut.isTouch(window)) {saveBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
-            if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
+            if (ApplyBut.isTouch(window)) {ApplyBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
+            if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 5;}
 
             if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
                 if (event.mouseButton.button == sf::Mouse::Left)
@@ -479,11 +489,6 @@ namespace Chess {
                     if (menuNum == 1) {
                         // isMenu = false;
                         switch (case_num) {
-                        case 1:
-                            settings::setSF(case_num * 0.1);
-                            pathfile = "480x312";
-                            case_num++;
-                            break;
                         case 2:
                             settings::setSF(case_num * 0.1);
                             pathfile = "960x624";
@@ -527,10 +532,10 @@ namespace Chess {
                         case 10:
                             settings::setSF(case_num * 0.1);
                             pathfile = "4800x3120";
-                            case_num = 1;
+                            case_num = 2;
                             break;
                         default:
-                            case_num = 1;
+                            case_num = 2;
                             break;
                         }
 
@@ -553,8 +558,18 @@ namespace Chess {
                         pressed = false;
                     }
 
-
                     if (menuNum == 4) {
+                        // isMenu = false;
+
+
+                        isSaved = true;
+                        event.type = temp;
+                        pressed = false;
+                        execl("./ChessMate.out", "./ChessMate.out");
+                    }
+
+
+                    if (menuNum == 5) {
                         if (!isSaved) {
                             settings::setSF(0.2);
                             case_num = 2;
@@ -576,7 +591,9 @@ namespace Chess {
             window.draw(setNewSizeBut.getSprite());
             window.draw(setPrevSizetBut.getSprite());
             window.draw(saveBut.getSprite());
+            window.draw(ApplyBut.getSprite());
             window.draw(backBut.getSprite());
+
             window.draw(curTexture);
             window.display();
 

@@ -11,6 +11,14 @@ void settings::setSF(float sf) {
 
     }
 
+float settings::getSffromFile() {
+    float buf;
+    std::ifstream in("./settings/screenSize.dat");
+    if (in.is_open())
+        in >> buf;
+    return buf;
+}
+
 namespace Chess {
 
     // объявляем статические переменные

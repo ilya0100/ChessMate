@@ -64,6 +64,7 @@ typedef struct settings{
     static float getPsX() {return scale_factor * 144;};
     static float getPsY() {return scale_factor * 144;};
     static void setSF(float sf);
+    static float getSffromFile();
 
 } settings;
 
