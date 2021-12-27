@@ -105,6 +105,17 @@ namespace Chess {
         out.close();
     }
 
+    void FigureTexture::defineMain_sprite() {
+        if (!isDefined) {
+            std::ifstream in("./settings/default_pieces.dat");
+            if (in.is_open())
+                getline(in, pathfile);
+            in.close();
+            FigureTexture::texture.loadFromFile(pathfile);
+            main_sprite.setTexture(texture);
+        }
+    }
+
     void FigureTexture::setFigureScale(float scale) {
         main_sprite.setScale(scale, scale);
     }

@@ -145,6 +145,23 @@ namespace Chess {
 
         sf::Clock clock;
 
+
+        setlocale(LC_ALL,"Rus");
+
+        sf::Font font;
+        font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
+        size_t font_size = 20 * SCALE_FACTOR / 0.2;
+        sf::Text curTexture("", font, font_size);
+
+        wchar_t* cur_texture = L"текущая текстура: ";
+
+        curTexture.setColor(sf::Color::White);
+        curTexture.setOutlineThickness(2);
+
+        sf::String currentTexture = sf::String(cur_texture);
+        int case_num = 0;
+        FigureTexture::defineMain_sprite();
+        std::string pathfile = FigureTexture::getPath();
         while (isMenu) {
             sf::Event event;
             sf::Event::EventType temp;
@@ -185,15 +202,44 @@ namespace Chess {
                 if (event.type == sf::Event::MouseButtonReleased) {
                     if (menuNum == 1) {
                         // isMenu = false;
+                        switch (case_num) {
+                        case 0:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/wooden_pieces.png");
+                            case_num++;
+                            break;
+                        case 1:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/metallic_p.png");
+                            case_num++;
+                            break;
+                        case 2:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/pieces_classic.png");
+                            case_num++;
+                            break;
+                        case 3:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/Pieces_colored.png");
+                            case_num++;
+                            break;
+                        case 4:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/rofl_pieces.png");
+                            case_num++;
+                            break;
+                        case 5:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/east_and_west.png");
+                            case_num = 0;
+                            break;
+                        default:
+                            case_num = 0;
+                            break;
+                        }
 
-                        FigureTexture::setMain_sprite("./images/wooden_pieces.png");
                         event.type = temp;
                         pressed = false;
                     }
                     if (menuNum == 2) {
                         // isMenu = false;
 
-                        FigureTexture::setMain_sprite("./images/piecesTru.png");
+                        FigureTexture::setMain_sprite(pathfile = "./images/pieces/piecesTru.png");
+                        case_num = 0;
                         event.type = temp;
                         pressed = false;
                     }
@@ -216,12 +262,16 @@ namespace Chess {
                 }
 
             }
+            curTexture.setString(currentTexture + pathfile);
+            curTexture.setPosition(X_WINDOW / 2 - (wcslen(cur_texture) * font_size / 4 + pathfile.length() * font_size / 4), Y_WINDOW * 4.75/13);
+
 
             window.draw(menuBg);
             window.draw(setNewTextBut.getSprite());
             window.draw(setPrevTextBut.getSprite());
             window.draw(saveBut.getSprite());
             window.draw(backBut.getSprite());
+            window.draw(curTexture);
             window.display();
 
         }

@@ -65,6 +65,8 @@ namespace Chess {
             FigureTexture();
             static void setMain_sprite(const std::string filename);
             static void saveMain_sprite();
+            static std::string getPath() {return pathfile;}
+            static void defineMain_sprite();
             void setFigureScale(float scale);
     };
  
