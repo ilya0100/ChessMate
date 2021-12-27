@@ -22,8 +22,6 @@ namespace Chess {
     void createGameMenu(Window & window, Gameplay& gameplay);
     std::string joinGameMenu(Window& window);
 
-    void Test(Window & window);
-    void startMenuN(Window & window);
 
     void startGame(Window& window, GameMode mode);
 

@@ -60,7 +60,7 @@ namespace Chess {
 
         public:
             FigureTexture();
-            
+            void setMain_sprite(const std::string filename);
             void setFigureScale(float scale);
     };
  

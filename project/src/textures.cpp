@@ -80,6 +80,12 @@ namespace Chess {
         main_sprite.setTexture(texture);
     }
 
+    void FigureTexture::setMain_sprite(std::string filename) {
+        sf::Texture texture;
+        if (texture.loadFromFile(filename))
+            main_sprite.setTexture(texture);
+    }
+
     void FigureTexture::setFigureScale(float scale) {
         main_sprite.setScale(scale, scale);
     }
