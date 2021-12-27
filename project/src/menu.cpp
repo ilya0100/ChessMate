@@ -412,11 +412,11 @@ namespace Chess {
 
         Chess::Button saveBut("./images/save.png");
         saveBut.setSize(223, 53);
-        saveBut.setPosition(settings::getXw()/2.5 - saveBut.getSize().x/2, settings::getYw()*9/13);
+        saveBut.setPosition(settings::getXw()/2 - saveBut.getSize().x/2, settings::getYw()*9/13);
 
-        Chess::Button ApplyBut("./images/ApplyBut.png");
+        /*Chess::Button ApplyBut("./images/ApplyBut.png");
         ApplyBut.setSize(241, 53);
-        ApplyBut.setPosition(settings::getXw()/1.5 - ApplyBut.getSize().x/2, settings::getYw()*9/13);
+        ApplyBut.setPosition(settings::getXw()/1.5 - ApplyBut.getSize().x/2, settings::getYw()*9/13);*/
 
         Chess::Button backBut("./images/backk.png");
         backBut.setSize(141, 53);
@@ -467,7 +467,7 @@ namespace Chess {
             setNewSizeBut.getSprite().setColor(sf::Color::White);
             setPrevSizetBut.getSprite().setColor(sf::Color::White);
             saveBut.getSprite().setColor(sf::Color::White);
-            ApplyBut.getSprite().setColor(sf::Color::White);
+            //ApplyBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             menuNum = 0;
 
@@ -475,7 +475,7 @@ namespace Chess {
             if (setNewSizeBut.isTouch(window)) {setNewSizeBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
             if (setPrevSizetBut.isTouch(window)) {setPrevSizetBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             if (saveBut.isTouch(window)) {saveBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
-            if (ApplyBut.isTouch(window)) {ApplyBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
+            //if (ApplyBut.isTouch(window)) {ApplyBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
             if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 5;}
 
             if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
@@ -488,54 +488,35 @@ namespace Chess {
                 if (event.type == sf::Event::MouseButtonReleased) {
                     if (menuNum == 1) {
                         // isMenu = false;
+                        case_num++;
                         switch (case_num) {
                         case 2:
                             settings::setSF(case_num * 0.1);
                             pathfile = "960x624";
-                            case_num++;
                             break;
                         case 3:
                             settings::setSF(case_num * 0.1);
                             pathfile = "1440x936";
-                            case_num++;
                             break;
                         case 4:
                             settings::setSF(case_num * 0.1);
                             pathfile = "1920x1248";
-                            case_num++;
                             break;
                         case 5:
                             settings::setSF(case_num * 0.1);
                             pathfile = "1920x1248";
-                            case_num++;
                             break;
                         case 6:
                             settings::setSF(case_num * 0.1);
                             pathfile = "2400x1560";
-                            case_num++;
                             break;
                         case 7:
                             settings::setSF(case_num * 0.1);
                             pathfile = "3360x2184";
-                            case_num++;
-                            break;
-                        case 8:
-                            settings::setSF(case_num * 0.1);
-                            pathfile = "3840x2496";
-                            case_num++;
-                            break;
-                        case 9:
-                            settings::setSF(case_num * 0.1);
-                            pathfile = "4320x2808";
-                            case_num++;
-                            break;
-                        case 10:
-                            settings::setSF(case_num * 0.1);
-                            pathfile = "4800x3120";
-                            case_num = 2;
+                            case_num = 1;
                             break;
                         default:
-                            case_num = 2;
+                            case_num = 1;
                             break;
                         }
 
@@ -546,6 +527,7 @@ namespace Chess {
                         // isMenu = false;
 
                         settings::setSF(0.2);
+                        pathfile = "960x624";
                         case_num = 2;
                         event.type = temp;
                         pressed = false;
@@ -558,7 +540,7 @@ namespace Chess {
                         pressed = false;
                     }
 
-                    if (menuNum == 4) {
+                    /*if (menuNum == 4) {
                         // isMenu = false;
 
 
@@ -566,7 +548,7 @@ namespace Chess {
                         event.type = temp;
                         pressed = false;
                         execl("./ChessMate.out", NULL, case_num);
-                    }
+                    }*/
 
 
                     if (menuNum == 5) {
@@ -591,7 +573,7 @@ namespace Chess {
             window.draw(setNewSizeBut.getSprite());
             window.draw(setPrevSizetBut.getSprite());
             window.draw(saveBut.getSprite());
-            window.draw(ApplyBut.getSprite());
+            //window.draw(ApplyBut.getSprite());
             window.draw(backBut.getSprite());
 
             window.draw(curTexture);
