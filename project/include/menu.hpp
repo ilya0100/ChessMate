@@ -1,6 +1,8 @@
 #pragma once
 
 #include "gameplay.hpp"
+#include <cstring>
+#include <iostream>
 
 // figures
 // #define SPRITE_SIZE 264
@@ -15,13 +17,12 @@ namespace Chess {
 
     void selectMode(Window& window);
     void selectH(Window& window);
+    void options(Window& window);
 
     // create and join menu's
     void createGameMenu(Window & window, Gameplay& gameplay);
     std::string joinGameMenu(Window& window);
 
-    void Test(Window & window);
-    void startMenuN(Window & window);
 
     void startGame(Window& window, GameMode mode);
 

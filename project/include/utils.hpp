@@ -12,7 +12,7 @@
 #define CELL_SIZE (264 * SCALE_FACTOR)
 
 // scale
-#define SCALE_FACTOR 0.2
+#define SCALE_FACTOR 0.6
 
 // board parameters
 #define X_BOARD_SIZE 2400

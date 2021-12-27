@@ -6,6 +6,8 @@ namespace Chess {
     // объявляем статические переменные
     sf::Texture FigureTexture::texture;
     sf::Sprite FigureTexture::main_sprite;
+    std::string FigureTexture::pathfile;
+    bool FigureTexture::isDefined = false;
 
     ///////////////////Board//////////////////////////////////////////////
     BoardTexture::BoardTexture(const std::string filename) {
@@ -76,8 +78,42 @@ namespace Chess {
 
     ///////////////////////FigureTexture///////////////////////////////////////////
     FigureTexture::FigureTexture() {
-        FigureTexture::texture.loadFromFile("./images/piecesTru.png");
-        main_sprite.setTexture(texture);
+        if (!isDefined) {
+            std::ifstream in("./settings/default_pieces.dat");
+            if (in.is_open())
+                getline(in, pathfile);
+            in.close();
+            FigureTexture::texture.loadFromFile(pathfile);
+            main_sprite.setTexture(texture);
+        }
+    }
+
+    void FigureTexture::setMain_sprite(std::string filename) {
+        isDefined = true;
+        pathfile = filename;
+        if (FigureTexture::texture.loadFromFile(filename))
+            main_sprite.setTexture(texture);
+        else
+            isDefined = false;
+    }
+
+    void FigureTexture::saveMain_sprite() {
+        std::ofstream out("./settings/default_pieces.dat");
+        if (out.is_open()) {
+            out << pathfile << std::endl;
+        }
+        out.close();
+    }
+
+    void FigureTexture::defineMain_sprite() {
+        if (!isDefined) {
+            std::ifstream in("./settings/default_pieces.dat");
+            if (in.is_open())
+                getline(in, pathfile);
+            in.close();
+            FigureTexture::texture.loadFromFile(pathfile);
+            main_sprite.setTexture(texture);
+        }
     }
 
     void FigureTexture::setFigureScale(float scale) {

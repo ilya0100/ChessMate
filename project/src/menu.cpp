@@ -72,6 +72,8 @@ namespace Chess {
                             pressed = false;
                         }
                         if (menuNum == 2) {
+                            options(window);
+                            event.type = temp;
                             pressed = false;
                         }
                         if (menuNum == 3) {
@@ -100,17 +102,180 @@ namespace Chess {
             if (optionBut.isTouch(window)) {optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             if (exitBut.isTouch(window)) {exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
 
-            //if (sf::IntRect(playBut.getPosition().x * window.getRatio().x, playBut.getPosition().y * window.getRatio().y, playBut.getSize().x * window.getRatio().x, playBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { playBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-            //if (sf::IntRect(optionBut.getPosition().x * window.getRatio().x, optionBut.getPosition().y * window.getRatio().y, optionBut.getSize().x * window.getRatio().x, optionBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
-            //if (sf::IntRect(exitBut.getPosition().x * window.getRatio().x, exitBut.getPosition().y * window.getRatio().y, exitBut.getSize().x * window.getRatio().x, exitBut.getSize().y * window.getRatio().y).contains(sf::Mouse::getPosition(window))) { exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
-
-
             window.draw(menuBg);
             window.draw(playBut.getSprite());
             window.draw(optionBut.getSprite());
             window.draw(exitBut.getSprite());
             window.display();
         }
+    }
+
+    void options(Window& window) {
+           //  Загружаем фон
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(X_WINDOW / 1333, Y_WINDOW / 751);
+        menuBg.setPosition(0, 0);
+
+        //
+        bool isMenu = 1;  // пока меню открыто
+        int menuNum = 0;  // для номеров кнопок
+
+        bool pressed = 0;
+
+        //  кнопки
+
+        Chess::Button setNewTextBut("./images/butOp1.png");
+        setNewTextBut.setSize(565, 53);
+        setNewTextBut.setPosition(X_WINDOW/2 - setNewTextBut.getSize().x/2, Y_WINDOW*4/13);
+
+
+        Chess::Button setPrevTextBut("./images/butOp2.png");
+        setPrevTextBut.setSize(558, 53);
+        setPrevTextBut.setPosition(X_WINDOW/2 - setPrevTextBut.getSize().x/2, Y_WINDOW*6/13);
+
+        Chess::Button saveBut("./images/save.png");
+        saveBut.setSize(223, 53);
+        saveBut.setPosition(X_WINDOW/2 - saveBut.getSize().x/2, Y_WINDOW*8/13);
+
+        Chess::Button backBut("./images/backk.png");
+        backBut.setSize(141, 53);
+        backBut.setPosition(X_WINDOW/2 - backBut.getSize().x/2, Y_WINDOW*10/13);
+
+        sf::Clock clock;
+
+
+        setlocale(LC_ALL,"Rus");
+
+        sf::Font font;
+        font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
+        size_t font_size = 20 * SCALE_FACTOR / 0.2;
+        sf::Text curTexture("", font, font_size);
+
+        wchar_t* cur_texture = L"текущая текстура: ";
+
+        curTexture.setColor(sf::Color::White);
+        curTexture.setOutlineThickness(2);
+
+        sf::String currentTexture = sf::String(cur_texture);
+        int case_num = 0;
+        FigureTexture::defineMain_sprite();
+        std::string pathfile = FigureTexture::getPath();
+        while (isMenu) {
+            sf::Event event;
+            sf::Event::EventType temp;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    std::exit(0);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                    std::exit(0);
+                }
+                if (event.type == sf::Event::Resized) {
+                    window.getSizeNew();
+                 }
+            }
+
+            float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+            clock.restart(); //перезагружает время
+            time = time / 8000; //скорость игры
+            setNewTextBut.getSprite().setColor(sf::Color::White);
+            setPrevTextBut.getSprite().setColor(sf::Color::White);
+            saveBut.getSprite().setColor(sf::Color::White);
+            backBut.getSprite().setColor(sf::Color::White);
+            menuNum = 0;
+
+
+            if (setNewTextBut.isTouch(window)) {setNewTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (setPrevTextBut.isTouch(window)) {setPrevTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (saveBut.isTouch(window)) {saveBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+            if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
+
+            if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    pressed = true;
+            } else if (menuNum == 0)
+                    {pressed = false;}
+
+            if (pressed) {
+                if (event.type == sf::Event::MouseButtonReleased) {
+                    if (menuNum == 1) {
+                        // isMenu = false;
+                        switch (case_num) {
+                        case 0:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/wooden_pieces.png");
+                            case_num++;
+                            break;
+                        case 1:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/metallic_p.png");
+                            case_num++;
+                            break;
+                        case 2:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/pieces_classic.png");
+                            case_num++;
+                            break;
+                        case 3:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/Pieces_colored.png");
+                            case_num++;
+                            break;
+                        case 4:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/rofl_pieces.png");
+                            case_num++;
+                            break;
+                        case 5:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/east_and_west.png");
+                            case_num = 0;
+                            break;
+                        default:
+                            case_num = 0;
+                            break;
+                        }
+
+                        event.type = temp;
+                        pressed = false;
+                    }
+                    if (menuNum == 2) {
+                        // isMenu = false;
+
+                        FigureTexture::setMain_sprite(pathfile = "./images/pieces/piecesTru.png");
+                        case_num = 0;
+                        event.type = temp;
+                        pressed = false;
+                    }
+                    if (menuNum == 3) {
+                        // isMenu = false;
+
+                        FigureTexture::saveMain_sprite();
+                        event.type = temp;
+                        pressed = false;
+                    }
+
+
+                    if (menuNum == 4) {
+                        isMenu = false;
+                        event.type = temp;
+                        pressed = false;
+                        // startMenu(window);
+                        // startMenu(window);
+                    }
+                }
+
+            }
+            curTexture.setString(currentTexture + pathfile);
+            curTexture.setPosition(X_WINDOW / 2 - (wcslen(cur_texture) * font_size / 4 + pathfile.length() * font_size / 4), Y_WINDOW * 4.75/13);
+
+
+            window.draw(menuBg);
+            window.draw(setNewTextBut.getSprite());
+            window.draw(setPrevTextBut.getSprite());
+            window.draw(saveBut.getSprite());
+            window.draw(backBut.getSprite());
+            window.draw(curTexture);
+            window.display();
+
+        }
+
     }
 
     void selectMode(Window& window) {
@@ -565,20 +730,19 @@ namespace Chess {
         sf::Texture menuBackground;
         menuBackground.loadFromFile("./images/endgameBg.png");
         sf::Sprite menuBg(menuBackground);
-        menuBg.setScale(0.5, 0.5);
+        menuBg.setScale(SCALE_FACTOR * 0.5 / 0.2, SCALE_FACTOR * 0.5 / 0.2);
         menuBg.setPosition(0, 0);
-
 
         // button exit through class Button
         Chess::Button exitBut("./images/exit.png");
         exitBut.setSize(X_EXIT, Y_EXIT);
-        exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100);
+        exitBut.setPosition(X_WINDOW - 200, Y_WINDOW - 100 * SCALE_FACTOR / 0.2);
         // exitBut.getSprite().setPosition(X_WINDOW - 200, Y_WINDOW - 100);
 
         // кнопка назад
         Chess::Button backBut("./images/back.png");
         backBut.setSize(X_BACK, Y_BACK);
-        backBut.setPosition(100, Y_WINDOW - 100);
+        backBut.setPosition(100, Y_WINDOW - 100 * SCALE_FACTOR / 0.2);
 
         // add board and figure
         float scale = SCALE_FACTOR;
@@ -665,18 +829,19 @@ namespace Chess {
 
         } // while(isGame)
 
-        backBut.setPosition(X_WINDOW / 2 - backBut.getSize().x / 2, 285);
-        exitBut.setPosition(X_WINDOW / 2 - exitBut.getSize().x / 2, 388);
+        backBut.setPosition(X_WINDOW / 2 - backBut.getSize().x / 2, 285 * SCALE_FACTOR / 0.2);
+        exitBut.setPosition(X_WINDOW / 2 - exitBut.getSize().x / 2, 388 * SCALE_FACTOR / 0.2);
         setlocale(LC_ALL,"Rus");
 
         sf::Font font;
         font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
-        sf::Text winnerText("", font, 40);
+        size_t font_size = 50 * SCALE_FACTOR / 0.2;
+        sf::Text winnerText("", font, font_size);
 
         wchar_t* whites = L"Победитель – белые";
         wchar_t* blacks = L"Победитель – черные";
 
-        winnerText.setPosition(X_WINDOW / 2 - backBut.getSize().x, 200);
+        winnerText.setPosition(X_WINDOW / 2 - wcslen(whites) * font_size / 4, 200 * SCALE_FACTOR / 0.2);
         winnerText.setColor(sf::Color::White);
         winnerText.setOutlineThickness(2);
 
