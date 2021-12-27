@@ -1,6 +1,16 @@
 #include "utils.hpp"
 #include "textures.hpp"
 
+
+void settings::setSF(float sf) {
+	std::ofstream out("./settings/screenSize.dat");
+        if (out.is_open()) {
+			out << sf << std::endl;
+        }
+        out.close();
+
+    }
+
 namespace Chess {
 
     // объявляем статические переменные
@@ -104,6 +114,8 @@ namespace Chess {
         }
         out.close();
     }
+
+
 
     void FigureTexture::defineMain_sprite() {
         if (!isDefined) {

@@ -428,15 +428,16 @@ namespace Chess {
         size_t font_size = 30 * settings::getSf() / 0.2;
         sf::Text curTexture("", font, font_size);
 
-        wchar_t* cur_texture = L"текущая текстура: ";
+        wchar_t* cur_texture = L"Текущее разрешние: ";
 
         curTexture.setColor(sf::Color::White);
         curTexture.setOutlineThickness(2);
 
         sf::String currentTexture = sf::String(cur_texture);
-        int case_num = 0;
+        int case_num = 1;
+        bool isSaved;
         FigureTexture::defineMain_sprite();
-        std::string pathfile = FigureTexture::getPath();
+        std::string pathfile = "960x624";
         while (isMenu) {
             sf::Event event;
             sf::Event::EventType temp;
@@ -478,32 +479,53 @@ namespace Chess {
                     if (menuNum == 1) {
                         // isMenu = false;
                         switch (case_num) {
-                        case 0:
-                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/wooden_pieces.png");
-                            case_num++;
-                            break;
                         case 1:
-                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/metallic_p.png");
+                            settings::setSF(case_num * 0.1);
                             case_num++;
+                            std::cout << case_num <<std::endl;
                             break;
                         case 2:
-                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/pieces_classic.png");
+                            settings::setSF(case_num * 0.1);
                             case_num++;
+                            std::cout << case_num <<std::endl;
                             break;
                         case 3:
-                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/Pieces_colored.png");
+                            settings::setSF(case_num * 0.1);
                             case_num++;
+                            std::cout << case_num <<std::endl;
                             break;
                         case 4:
-                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/rofl_pieces.png");
+                            settings::setSF(case_num * 0.1);
                             case_num++;
+                            std::cout << case_num <<std::endl;
                             break;
                         case 5:
-                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/east_and_west.png");
-                            case_num = 0;
+                            settings::setSF(case_num * 0.1);
+                            case_num++;
+                            std::cout << case_num <<std::endl;
+                            break;
+                        case 6:
+                            settings::setSF(case_num * 0.1);
+                            case_num++;
+                            break;
+                        case 7:
+                            settings::setSF(case_num * 0.1);
+                            case_num++;
+                            break;
+                        case 8:
+                            settings::setSF(case_num * 0.1);
+                            case_num++;
+                            break;
+                        case 9:
+                            settings::setSF(case_num * 0.1);
+                            case_num++;
+                            break;
+                        case 10:
+                            settings::setSF(case_num * 0.1);
+                            case_num = 1;
                             break;
                         default:
-                            case_num = 0;
+                            case_num = 1;
                             break;
                         }
 
@@ -513,21 +535,25 @@ namespace Chess {
                     if (menuNum == 2) {
                         // isMenu = false;
 
-                        FigureTexture::setMain_sprite(pathfile = "./images/pieces/piecesTru.png");
-                        case_num = 0;
+                        settings::setSF(0.2);
+                        case_num = 2;
                         event.type = temp;
                         pressed = false;
                     }
                     if (menuNum == 3) {
                         // isMenu = false;
 
-                        FigureTexture::saveMain_sprite();
+                        isSaved = true;
                         event.type = temp;
                         pressed = false;
                     }
 
 
                     if (menuNum == 4) {
+                        if (!isSaved) {
+                            settings::setSF(0.2);
+                            case_num = 2;
+                        }
                         isMenu = false;
                         event.type = temp;
                         pressed = false;
