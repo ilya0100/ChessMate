@@ -6,6 +6,7 @@
 #include <iostream>
 #include <sys/socket.h>
 #include <stdlib.h>
+#include <unistd.h>
 
 // figures
 #define SPRITE_SIZE 264

@@ -481,47 +481,52 @@ namespace Chess {
                         switch (case_num) {
                         case 1:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "480x312";
                             case_num++;
-                            std::cout << case_num <<std::endl;
                             break;
                         case 2:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "960x624";
                             case_num++;
-                            std::cout << case_num <<std::endl;
                             break;
                         case 3:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "1440x936";
                             case_num++;
-                            std::cout << case_num <<std::endl;
                             break;
                         case 4:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "1920x1248";
                             case_num++;
-                            std::cout << case_num <<std::endl;
                             break;
                         case 5:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "1920x1248";
                             case_num++;
-                            std::cout << case_num <<std::endl;
                             break;
                         case 6:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "2400x1560";
                             case_num++;
                             break;
                         case 7:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "3360x2184";
                             case_num++;
                             break;
                         case 8:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "3840x2496";
                             case_num++;
                             break;
                         case 9:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "4320x2808";
                             case_num++;
                             break;
                         case 10:
                             settings::setSF(case_num * 0.1);
+                            pathfile = "4800x3120";
                             case_num = 1;
                             break;
                         default:
