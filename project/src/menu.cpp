@@ -858,8 +858,8 @@ namespace Chess {
         board_texture.setBoardScale(settings::scale_factor);
 
         sf::Vector2i playSpace;
-        playSpace.x = X_PLAYSPACE;
-        playSpace.y = Y_PLAYSPACE;
+        playSpace.x = settings::x_playspace;
+        playSpace.y = settings::y_playspace;
         board_texture.setPlaySpace(playSpace);
 
         while (isGame) {

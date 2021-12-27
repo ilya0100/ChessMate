@@ -10,8 +10,8 @@
 	float settings::x_scale_w = 2;
 	float settings::y_scale_w = 1.3;
 	float settings::x_window = settings::x_board_size * settings::scale_factor * settings::x_scale_w;
-	float settings::y_window = settings::y_board_size * settings::scale_factor * settings::x_scale_w;
-	float settings::tsprite_size = 1;
+	float settings::y_window = settings::y_board_size * settings::scale_factor * settings::y_scale_w;
+	float settings::tsprite_size = settings::sprite_size * settings::scale_factor;
 
 
 

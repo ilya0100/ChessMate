@@ -97,7 +97,7 @@ namespace Chess {
                     if (isMoveFigure(curr_cage.x, curr_cage.y) && !isCheck()) {
                         // for (size_t i = 0; i < fig_count - eaten_count; i++) {
                         //     if (figures_arr[i].getFigurePos() == curr_cage) {
-                        //         // figures_arr[i].setSpritePos(600 + 2 * 3 * TSPRITE_SIZE * (eaten_count % 8), 100 * (eaten_count / 8));
+
                         //         eaten_count++;
                         //         break;
                         //     }
@@ -119,7 +119,7 @@ namespace Chess {
     void Gameplay::drawFigures(Window& window, sf::Vector2i pos) {
         for (size_t i = 0; i < fig_count - eaten_count; i++) {
             if (isMove && i == fig_num) {
-                figures_arr[i].moveFigure(pos.x - TSPRITE_SIZE / 2, pos.y - TSPRITE_SIZE / 2);
+                figures_arr[i].moveFigure(pos.x - settings::tsprite_size / 2, pos.y - settings::tsprite_size / 2);
             }
             if (figures_arr[i].getName() != EMPTY_CELL) {
                 window.draw(figures_arr[i].getFigureSprite());

@@ -142,64 +142,64 @@ namespace Chess {
 
         switch (name) {
         case W_PAWN:
-            sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(5 * settings::sprite_size, 0, settings::sprite_size, settings::sprite_size));
             break;
 
         case B_PAWN:
-            sprite.setTextureRect(sf::IntRect(5 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(5 * settings::sprite_size, 1 * settings::sprite_size, settings::sprite_size, settings::sprite_size));
             break;
 
         case W_ROOK:
-            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(4 * settings::sprite_size, 0, settings::sprite_size, settings::sprite_size));
             break;
 
         case B_ROOK:
-            sprite.setTextureRect(sf::IntRect(4 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(4 * settings::sprite_size, 1 * settings::sprite_size, settings::sprite_size, settings::sprite_size));
             break;
 
         case W_KNIGHT:
-            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE , 0, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(3 * settings::sprite_size , 0, settings::sprite_size, settings::sprite_size));
             break;
 
         case B_KNIGHT:
-            sprite.setTextureRect(sf::IntRect(3 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(3 * settings::sprite_size, 1 * settings::sprite_size, settings::sprite_size, settings::sprite_size));
             break;
 
         case W_BISHOP:
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(2 * settings::sprite_size, 0, settings::sprite_size, settings::sprite_size));
             break;
 
         case B_BISHOP:
-            sprite.setTextureRect(sf::IntRect(2 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(2 * settings::sprite_size, 1 * settings::sprite_size, settings::sprite_size, settings::sprite_size));
             break;
 
         case W_QUEEN:
-            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 0, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(1 * settings::sprite_size, 0, settings::sprite_size, settings::sprite_size));
             break;
 
         case B_QUEEN:
-            sprite.setTextureRect(sf::IntRect(1 * SPRITE_SIZE, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(1 * settings::sprite_size, 1 * settings::sprite_size, settings::sprite_size, settings::sprite_size));
             break;
 
         case W_KING:
-            sprite.setTextureRect(sf::IntRect(0, 0, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(0, 0, settings::sprite_size, settings::sprite_size));
             break;
 
         case B_KING:
-            sprite.setTextureRect(sf::IntRect(0, 1 * SPRITE_SIZE, SPRITE_SIZE, SPRITE_SIZE));
+            sprite.setTextureRect(sf::IntRect(0, 1 * settings::sprite_size, settings::sprite_size, settings::sprite_size));
             break;
 
         default:
             break;
         }
-        sprite.setScale(SCALE_FACTOR, SCALE_FACTOR);
+        sprite.setScale(settings::scale_factor , settings::scale_factor );
     }
 
     void Figures::setFigurePos(int i, int j) {
-        spritePos.x = X_PLAYSPACE + SCALE_FACTOR * SPRITE_SIZE * i;
-        spritePos.y = Y_PLAYSPACE + SCALE_FACTOR * SPRITE_SIZE * j;
-        // spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * i);
-        // spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * j);
+        spritePos.x = settings::x_playspace + settings::scale_factor  * settings::sprite_size * i;
+        spritePos.y = settings::y_playspace + settings::scale_factor  * settings::sprite_size * j;
+        // spritePos.x = settings::scale_factor  * (X_PLAYSPACE + settings::sprite_size * i);
+        // spritePos.y = settings::scale_factor  * (Y_PLAYSPACE + settings::sprite_size * j);
         sprite.setPosition(spritePos.x, spritePos.y);
 
         figurePos.x = i;
@@ -216,8 +216,8 @@ namespace Chess {
     void Figures::setFigurePos(Letter_Position lp, Digit_Position dp) {
         letterPos = lp;
         digitPos = dp;
-        spritePos.x = SCALE_FACTOR * (X_PLAYSPACE + SPRITE_SIZE * (float)lp);
-        spritePos.y = SCALE_FACTOR * (Y_PLAYSPACE + SPRITE_SIZE * (float)dp);
+        spritePos.x = settings::scale_factor  * (X_PLAYSPACE + settings::sprite_size * (float)lp);
+        spritePos.y = settings::scale_factor  * (Y_PLAYSPACE + settings::sprite_size * (float)dp);
         sprite.setPosition(spritePos.x, spritePos.y);
     }
     */
