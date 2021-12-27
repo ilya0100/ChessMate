@@ -401,14 +401,14 @@ namespace Chess {
 
         //  кнопки
 
-        Chess::Button setNewTextBut("./images/butOp1.png");
-        setNewTextBut.setSize(565, 53);
-        setNewTextBut.setPosition(settings::getXw()/2 - setNewTextBut.getSize().x/2, settings::getYw()*3/13);
+        Chess::Button setNewSizeBut("./images/WinSize.png");
+        setNewSizeBut.setSize(452, 53);
+        setNewSizeBut.setPosition(settings::getXw()/2 - setNewSizeBut.getSize().x/2, settings::getYw()*3/13);
 
 
-        Chess::Button setPrevTextBut("./images/butOp2.png");
-        setPrevTextBut.setSize(558, 53);
-        setPrevTextBut.setPosition(settings::getXw()/2 - setPrevTextBut.getSize().x/2, settings::getYw()*7/13);
+        Chess::Button setPrevSizetBut("./images/BackSize.png");
+        setPrevSizetBut.setSize(669, 53);
+        setPrevSizetBut.setPosition(settings::getXw()/2 - setPrevSizetBut.getSize().x/2, settings::getYw()*7/13);
 
         Chess::Button saveBut("./images/save.png");
         saveBut.setSize(223, 53);
@@ -455,15 +455,15 @@ namespace Chess {
             float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
             clock.restart(); //перезагружает время
             time = time / 8000; //скорость игры
-            setNewTextBut.getSprite().setColor(sf::Color::White);
-            setPrevTextBut.getSprite().setColor(sf::Color::White);
+            setNewSizeBut.getSprite().setColor(sf::Color::White);
+            setPrevSizetBut.getSprite().setColor(sf::Color::White);
             saveBut.getSprite().setColor(sf::Color::White);
             backBut.getSprite().setColor(sf::Color::White);
             menuNum = 0;
 
 
-            if (setNewTextBut.isTouch(window)) {setNewTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
-            if (setPrevTextBut.isTouch(window)) {setPrevTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (setNewSizeBut.isTouch(window)) {setNewSizeBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (setPrevSizetBut.isTouch(window)) {setPrevSizetBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
             if (saveBut.isTouch(window)) {saveBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
             if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
 
@@ -542,8 +542,8 @@ namespace Chess {
 
 
             window.draw(menuBg);
-            window.draw(setNewTextBut.getSprite());
-            window.draw(setPrevTextBut.getSprite());
+            window.draw(setNewSizeBut.getSprite());
+            window.draw(setPrevSizetBut.getSprite());
             window.draw(saveBut.getSprite());
             window.draw(backBut.getSprite());
             window.draw(curTexture);
