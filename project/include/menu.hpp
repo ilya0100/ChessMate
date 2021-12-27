@@ -12,12 +12,24 @@
 
 namespace Chess {
 
+    //начальное меню
     void startMenu(Window & window);
-
+    //^
+    //выбор режима игры
     void selectMode(Window& window);
+    // ^
     void selectH(Window& window);
-    void optionsTexture(Window& window);
+    // ^
+    // create and join menu's
+    void createGameMenu(Window & window, Gameplay& gameplay);
+    std::string joinGameMenu(Window& window);
+
+    // настройки
     void options(Window& window);
+    // ^
+    void optionsTexture(Window& window);
+    void setNewScreen(Window& window);
+
 
     // create and join menu's
     void createGameMenu(Window & window, Gameplay& gameplay);

@@ -179,7 +179,7 @@ namespace Chess {
                             pressed = false;
                         }
                         if (menuNum == 2) {
-                            options(window);
+                            setNewScreen(window);
                             event.type = temp;
                             pressed = false;
                         }
@@ -385,6 +385,9 @@ namespace Chess {
 
     }
 
+    void setNewScreen(Window& window) {
+
+    }
     void selectMode(Window& window) {
 
         //  Загружаем фон
