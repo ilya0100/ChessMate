@@ -22,8 +22,8 @@
 // detect number of current cage
 sf::Vector2u getCurrCage(sf::Vector2i pos /*sf::Vector2i playSpace*/) {
     sf::Vector2u cage;
-    cage.x = (pos.x - X_PLAYSPACE) / (CELL_SIZE);
-    cage.y = (pos.y - Y_PLAYSPACE) / (CELL_SIZE);
+    cage.x = (pos.x - settings::x_playspace ) / (settings::cell_size);
+    cage.y = (pos.y - settings::y_playspace ) / (settings::cell_size);
     return cage;
 }
 
