@@ -121,9 +121,9 @@ namespace Chess {
         optionBut.setPosition(settings::getXw() / 2 - optionBut.getSize().x/2, settings::getYw() *6/13);
 
 
-        Chess::Button exitBut("./images/exit.png");
-        exitBut.setSize(149, 53);
-        exitBut.setPosition(settings::getXw() / 2 - exitBut.getSize().x/2, settings::getYw() *8/13);
+        Chess::Button backBut("./images/backk.png");
+        backBut.setSize(149, 53);
+        backBut.setPosition(settings::getXw() / 2 - backBut.getSize().x/2, settings::getYw() *8/13);
 
 
 
@@ -185,7 +185,7 @@ namespace Chess {
                         }
                         if (menuNum == 3) {
                             pressed = false;
-                            std::exit(0);
+                            isMenu = false;
                         }  //
                     }
                 }
@@ -200,19 +200,19 @@ namespace Chess {
             //красим кнопка обратно в белый цвет в цикле, если мышь не касается кнопки.
             setTexture.getSprite().setColor(sf::Color::White);
             optionBut.getSprite().setColor(sf::Color::White);
-            exitBut.getSprite().setColor(sf::Color::White);
+            backBut.getSprite().setColor(sf::Color::White);
 
             // приравниваем индикатор касания кнопки нулю
             menuNum = 0;
 
             if (setTexture.isTouch(window)) {setTexture.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
             if (optionBut.isTouch(window)) {optionBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
-            if (exitBut.isTouch(window)) {exitBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+            if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
 
             window.draw(menuBg);
             window.draw(setTexture.getSprite());
             window.draw(optionBut.getSprite());
-            window.draw(exitBut.getSprite());
+            window.draw(backBut.getSprite());
             window.display();
         }
 
@@ -386,6 +386,170 @@ namespace Chess {
     }
 
     void setNewScreen(Window& window) {
+           //  Загружаем фон
+        sf::Texture menuBackground;
+        menuBackground.loadFromFile("./images/menu.png");
+        sf::Sprite menuBg(menuBackground);
+        menuBg.setScale(settings::getXw() / 1333, settings::getYw() / 751);
+        menuBg.setPosition(0, 0);
+
+        //
+        bool isMenu = 1;  // пока меню открыто
+        int menuNum = 0;  // для номеров кнопок
+
+        bool pressed = 0;
+
+        //  кнопки
+
+        Chess::Button setNewTextBut("./images/butOp1.png");
+        setNewTextBut.setSize(565, 53);
+        setNewTextBut.setPosition(settings::getXw()/2 - setNewTextBut.getSize().x/2, settings::getYw()*3/13);
+
+
+        Chess::Button setPrevTextBut("./images/butOp2.png");
+        setPrevTextBut.setSize(558, 53);
+        setPrevTextBut.setPosition(settings::getXw()/2 - setPrevTextBut.getSize().x/2, settings::getYw()*7/13);
+
+        Chess::Button saveBut("./images/save.png");
+        saveBut.setSize(223, 53);
+        saveBut.setPosition(settings::getXw()/2 - saveBut.getSize().x/2, settings::getYw()*9/13);
+
+        Chess::Button backBut("./images/backk.png");
+        backBut.setSize(141, 53);
+        backBut.setPosition(settings::getXw()/2 - backBut.getSize().x/2, settings::getYw()*11/13);
+
+        sf::Clock clock;
+
+
+        setlocale(LC_ALL,"Rus");
+
+        sf::Font font;
+        font.loadFromFile("./Fonts/Montserrat-Regular.ttf");
+        size_t font_size = 30 * settings::getSf() / 0.2;
+        sf::Text curTexture("", font, font_size);
+
+        wchar_t* cur_texture = L"текущая текстура: ";
+
+        curTexture.setColor(sf::Color::White);
+        curTexture.setOutlineThickness(2);
+
+        sf::String currentTexture = sf::String(cur_texture);
+        int case_num = 0;
+        FigureTexture::defineMain_sprite();
+        std::string pathfile = FigureTexture::getPath();
+        while (isMenu) {
+            sf::Event event;
+            sf::Event::EventType temp;
+            while (window.pollEvent(event)) {
+                if (event.type == sf::Event::Closed) {
+                    std::exit(0);
+                }
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::X) || sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)) {
+                    std::exit(0);
+                }
+                if (event.type == sf::Event::Resized) {
+                    window.getSizeNew();
+                 }
+            }
+
+            float time = clock.getElapsedTime().asMicroseconds(); //дать прошедшее время в микросекундах
+            clock.restart(); //перезагружает время
+            time = time / 8000; //скорость игры
+            setNewTextBut.getSprite().setColor(sf::Color::White);
+            setPrevTextBut.getSprite().setColor(sf::Color::White);
+            saveBut.getSprite().setColor(sf::Color::White);
+            backBut.getSprite().setColor(sf::Color::White);
+            menuNum = 0;
+
+
+            if (setNewTextBut.isTouch(window)) {setNewTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 1;}
+            if (setPrevTextBut.isTouch(window)) {setPrevTextBut.getSprite().setColor(sf::Color::Blue);menuNum = 2;}
+            if (saveBut.isTouch(window)) {saveBut.getSprite().setColor(sf::Color::Blue);menuNum = 3;}
+            if (backBut.isTouch(window)) {backBut.getSprite().setColor(sf::Color::Blue);menuNum = 4;}
+
+            if (event.type == sf::Event::MouseButtonPressed && menuNum != 0) {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                    pressed = true;
+            } else if (menuNum == 0)
+                    {pressed = false;}
+
+            if (pressed) {
+                if (event.type == sf::Event::MouseButtonReleased) {
+                    if (menuNum == 1) {
+                        // isMenu = false;
+                        switch (case_num) {
+                        case 0:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/wooden_pieces.png");
+                            case_num++;
+                            break;
+                        case 1:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/metallic_p.png");
+                            case_num++;
+                            break;
+                        case 2:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/pieces_classic.png");
+                            case_num++;
+                            break;
+                        case 3:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/Pieces_colored.png");
+                            case_num++;
+                            break;
+                        case 4:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/rofl_pieces.png");
+                            case_num++;
+                            break;
+                        case 5:
+                            FigureTexture::setMain_sprite(pathfile = "./images/pieces/east_and_west.png");
+                            case_num = 0;
+                            break;
+                        default:
+                            case_num = 0;
+                            break;
+                        }
+
+                        event.type = temp;
+                        pressed = false;
+                    }
+                    if (menuNum == 2) {
+                        // isMenu = false;
+
+                        FigureTexture::setMain_sprite(pathfile = "./images/pieces/piecesTru.png");
+                        case_num = 0;
+                        event.type = temp;
+                        pressed = false;
+                    }
+                    if (menuNum == 3) {
+                        // isMenu = false;
+
+                        FigureTexture::saveMain_sprite();
+                        event.type = temp;
+                        pressed = false;
+                    }
+
+
+                    if (menuNum == 4) {
+                        isMenu = false;
+                        event.type = temp;
+                        pressed = false;
+                        // startMenu(window);
+                        // startMenu(window);
+                    }
+                }
+
+            }
+            curTexture.setString(currentTexture + pathfile);
+            curTexture.setPosition(settings::getXw()  / 2 - (wcslen(cur_texture) * font_size / 4 + pathfile.length() * font_size / 4), settings::getYw() * 5/13);
+
+
+            window.draw(menuBg);
+            window.draw(setNewTextBut.getSprite());
+            window.draw(setPrevTextBut.getSprite());
+            window.draw(saveBut.getSprite());
+            window.draw(backBut.getSprite());
+            window.draw(curTexture);
+            window.display();
+
+        }
 
     }
     void selectMode(Window& window) {
