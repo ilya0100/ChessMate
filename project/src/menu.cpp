@@ -565,7 +565,7 @@ namespace Chess {
                         isSaved = true;
                         event.type = temp;
                         pressed = false;
-                        execl("./ChessMate.out", "./ChessMate.out");
+                        execl("./ChessMate.out", NULL, case_num);
                     }
 
 
